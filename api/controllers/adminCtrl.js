@@ -41,7 +41,7 @@ var mongoose = require('mongoose'),
               });
             }else{
               res.send({
-                data: doc
+                data: doc,
                 status: 1,
                 error: 'Admin registered successfully!'
               });
