@@ -161,42 +161,21 @@ exports.otp_verification = function(req, res) {
   });
 };
 
-//******************** User list ************************
 exports.userlist = function(req, res) {
-  var d = new Date();
-  var month =d.getMonth()+1;
-  var day=  d.getDate();
-  if(day <=9){
-  day='0'+day;
-  }
-  var now = d.getFullYear()+'-'+ month+'-'+day;
-  console.log(now);
   users.find({ },function(err, users) {
-      onlinecourses.count({ },function(err, coursecount) {
-      stores.count({ },function(err, storecount) {
-      onlinecourses.count({date:now},function(err, todaycourse) {
-      console.log(coursecount)
-      if (users == null){
-          res.send({
-            error: err,
-            status: 0,
-            data: null
-          });
-      }else{
-          res.json({
-            error: null,
-            status: 1,
-            data: users,
-            onlinecourse_count:coursecount,
-            store_count:storecount,
-            todaycourse_count:todaycourse,
-          });
-      }
-              })
-          })
-      
-      })
-   
+    if(users == null){
+      res.send({
+        error: err,
+        status: 0,
+        data: null
+      });
+    }else{
+      res.json({
+        error: null,
+        status: 1,
+        data: users
+      });
+    }
   });
 };
 
