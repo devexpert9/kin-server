@@ -61,8 +61,10 @@ var mongoose = require('mongoose'),
 
 //**************** Admin_login_function ******************
 exports.login_admin = function(req, res) {
-  admin.findOne({email:req.body.email, password:req.body.password}, function(err, user) {
-   if(user == null){
+
+  admin.findOne({}, function(err, user) { //email:req.body.email, password:req.body.password
+    console.log(user)
+    if(user == null){
       res.send({
         data: null,
         status: 0,
