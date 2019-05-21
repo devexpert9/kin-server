@@ -31,11 +31,7 @@ exports.signup = function(req, res) {
         lastname: req.body.lastname,
         email: req.body.email,
         password: req.body.password,
-        contact: req.body.contact,
-        gender:req.body.gender,
-        created_on: new Date(),
-        registrationId: req.body.registrationId,
-        image:req.body.image
+        image: null
       });
 
       new_user.save(function(err, users) {
