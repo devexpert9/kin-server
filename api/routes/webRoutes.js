@@ -20,7 +20,7 @@ var deleteuserfromlist = require('../controllers/userCtrl');
 
 var edituserfromlist = require('../controllers/userCtrl');
    app.route('/edituser/:id')
-     .post(edituserfromlist.edit_user);
+     .post(edituserfromlist.update_user);
 
 var edituserimage = require('../controllers/userCtrl');
    app.route('/edituserimage/:id')
