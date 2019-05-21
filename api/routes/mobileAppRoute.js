@@ -13,7 +13,11 @@ var userlogin = require('../controllers/userCtrl');
 var forgotPassword = require('../controllers/userCtrl');
     app.route('/forgotpassword')
     .post(forgotPassword.forgot_password);
-    
+
+var updateuser = require('../controllers/userCtrl');
+   app.route('/updateinfo')
+     .post(updateuser.update_user);
+
 var otpVerfication = require('../controllers/userCtrl');
     app.route('/verifyotp')
     .post(otpVerfication.otp_verification);

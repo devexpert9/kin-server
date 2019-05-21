@@ -210,55 +210,23 @@ exports.deleteuser = function(req, res) {
 
 };
 
-
-//******************** Edit user function ************************
-exports.edit_user = function(req, res) {
-  console.log(req.body,req.params.id)
-      // if(!req.body.image){
-      //   req.body.image=null
-      // }
-        users.update({_id:req.params.id},
-        { $set: 
-          { firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            // username: req.body.username,
-            email:req.body.email,
-            gender:req.body.gender,
-            contact:req.body.contact,
-            image:req.body.image,
-             gpa:req.body.gpa,
-            sat:req.body.sat,
-            act:req.body.act,
-            athletics:req.body.athletics,
-            bench_press:req.body.bench_press,
-            pro_agility:req.body.pro_agility,
-            school:req.body.school,
-            awards:req.body.awards,
-            father_phone:req.body.father_phone,
-            father_email:req.body.father_email,
-            father_occupation:req.body.father_occupation,
-            mother_phone:req.body.mother_phone,
-            mother_email:req.body.mother_email,
-            mother_occupation:req.body.mother_occupation,
-            graduating:req.body.graduating,
-          }}, {new: true}, function(err, user) {
-            console.log(user, 'user')
-      if(user == null){
-        res.send({
-          error: err,
-          status: 0,
-          msg:"Try Again"
-        });
-      }else{
-        res.json({
-          error: null,
-          status: 1,
-          data:user,
-          msg:"User updated successfully!"
-        });
-      }
-    });
-
+exports.update_user = function(req, res) {
+  users.update({_id: req.body._id},{$set:{ 'firstname': req.body.firstname, 'lastname': req.body.lastname, 'email':req.body.email, 'contact':req.body.contact, 'image':req.body.image, 'password': req.body.password } }, {new: true}, function(err, user) {
+    if(user == null){
+      res.send({
+        error: err,
+        status: 0,
+        msg:"Try Again"
+      });
+    }else{
+      res.json({
+        error: null,
+        status: 1,
+        data:user,
+        msg:"User updated successfully!"
+      });
+    }
+  });
 };
 
 //******************** Update user image function ************************
