@@ -18,7 +18,7 @@ var express = require('express'),
   multer  = require('multer');
  
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/riob'); 
+mongoose.connect('mongodb://localhost/hats'); 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -31,7 +31,7 @@ app.use(function (req, res, next) {
 
 var path = __dirname;
 
-path = path.split('/strategyAthlete');
+path = path.split('/server');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
