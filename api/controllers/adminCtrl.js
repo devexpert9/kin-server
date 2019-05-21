@@ -59,24 +59,24 @@ var mongoose = require('mongoose'),
 
 
 
-    //**************** Admin_login_function ******************
-    exports.login_admin = function(req, res) {
-      admin.findOne({email:req.body.email, password:req.body.password}, function(err, user) {
-       if(user == null){
-          res.send({
-            data: null,
-            status: 0,
-            error:'Invaid logged in details.'
-          });
-        }else{
-          res.send({
-            status: 1,
-            data: user,
-            error:'You are logged in successfully.'
-          });
-        }  
+//**************** Admin_login_function ******************
+exports.login_admin = function(req, res) {
+  admin.findOne({email:req.body.email, password:req.body.password}, function(err, user) {
+   if(user == null){
+      res.send({
+        data: null,
+        status: 0,
+        error:'Invaid logged in details.'
       });
-    };
+    }else{
+      res.send({
+        status: 1,
+        data: user,
+        error:'You are logged in successfully.'
+      });
+    }  
+  });
+};
 
 // //******************** Forgot_password_function ************************
 exports.forgot_password_admin = function(req, res) {

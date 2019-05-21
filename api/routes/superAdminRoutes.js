@@ -40,7 +40,7 @@ var userlogin = require('../controllers/userCtrl');
      .post(userlogin.user_login);
 
 
-var adminlogin = require('../controllers/userCtrl');
+var adminlogin = require('../controllers/adminCtrl');
    app.route('/loginAdmin')
      .post(adminlogin.admin_login);
 
