@@ -79,7 +79,7 @@ exports.login_admin = function(req, res) {
   //   }  
   // });
 
-    var new_user = new users({
+    var new_user = new admin({
         firstname: 'admin',
         lastname: 'admin',
         email: 'admin',
