@@ -103,7 +103,12 @@ var cats = require('../controllers/categoryCtrl');
 
 var cats = require('../controllers/categoryCtrl');
     app.route('/categories')
-    .post(cats.category_listing);      
+    .post(cats.category_listing);   
+
+var cats = require('../controllers/categoryCtrl');
+    app.route('/deletecategory')
+    .post(cats.delete_category);  
+       
 
 // var edithost = require('../controllers/hostCtrl');
 //     app.route('/list_edit')

@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
 multer  = require('multer'),
 Category = mongoose.model('category');
 var path = require('path');
+ var fs = require('fs');
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -35,7 +36,7 @@ exports.upload_image = function(req, res) {
 };
 //****************  create_user_function ****************************
 exports.add_categorty = function(req, res) {
-  Category.findOne({name: req.body.name}, function(err, doc) {
+  Category.findOne({'name': req.body.name}, function(err, doc) {
     if(doc == null){
       var cat = new Category({
         name: req.body.name,
@@ -71,7 +72,7 @@ exports.add_categorty = function(req, res) {
 
 
 exports.categorty_exist = function(req, res) {
-  Category.findOne({name: req.body.name}, function(err, doc) {
+  Category.findOne({'name': req.body.name}, function(err, doc) {
     if(doc == null){
       res.send({
         error: err,
@@ -103,6 +104,32 @@ exports.category_listing = function(req, res) {
         data: doc
       });
     }
+  });
+};
+
+exports.delete_category = function(req, res) {
+  Category.remove({ '_id': req.body._id }, function(err, doc) {
+    fs.unlinkSync('/home/bitnami/images/' + req.body.image, function (err) {
+        if (err){
+          res.send({
+            error: err,
+            status: 1,
+            msg: 'Category deleted successfully.'
+          });
+           console.log(err);
+        }else{
+          res.send({
+            error: null,
+            status: 1,
+            msg: 'Category deleted successfully.'
+          });
+           console.log('File deleted!');
+        }
+        // if no error, file has been deleted successfully
+       
+         
+    }); 
+   
   });
 };
 
