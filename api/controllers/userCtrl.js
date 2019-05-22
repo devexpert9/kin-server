@@ -223,7 +223,7 @@ exports.update_user = function(req, res) {
         error: null,
         status: 1,
         data:user,
-        msg:"User updated successfully!"
+        msg:"Profile updated successfully!"
       });
     }
   });

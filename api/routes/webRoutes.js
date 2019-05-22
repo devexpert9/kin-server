@@ -89,25 +89,25 @@ var get_news_list = require('../controllers/newsfeedCtrl');
     app.route('/newsfeeds_admin')
     .post(get_news_list.getnews_admin); 
 
-var new_host = require('../controllers/hostCtrl');
-    app.route('/addhost')
-    .post(new_host.add_host);    
+var cat = require('../controllers/categortyCtrl');
+    app.route('/addcategorty')
+    .post(cat.add_categorty);    
 
-var listhosts = require('../controllers/hostCtrl');
-    app.route('/list_host')
-    .post(listhosts.host_listing);  
+var cats = require('../controllers/categortyCtrl');
+    app.route('/uploadImage')
+    .post(cats.upload_image);  
 
-var edithost = require('../controllers/hostCtrl');
-    app.route('/list_edit')
-    .post(edithost.host_edit);     
+// var edithost = require('../controllers/hostCtrl');
+//     app.route('/list_edit')
+//     .post(edithost.host_edit);     
 
-var edithost_status = require('../controllers/hostCtrl');
-    app.route('/change_status')
-    .post(edithost_status.edit_status);     
+// var edithost_status = require('../controllers/hostCtrl');
+//     app.route('/change_status')
+//     .post(edithost_status.edit_status);     
     
-var listhost_status = require('../controllers/hostCtrl');
-    app.route('/list_host_status')
-    .post(listhost_status.host_listing_course);     
+// var listhost_status = require('../controllers/hostCtrl');
+//     app.route('/list_host_status')
+//     .post(listhost_status.host_listing_course);     
     
 var admin_scheuled = require('../controllers/onlinecourseCtrl');
    app.route('/scheduled_admin_courselist')

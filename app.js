@@ -12,7 +12,7 @@ var express = require('express'),
   newsfeed = require('./api/models/newsfeedModel'),
   onlinecourse = require('./api/models/onlinecourseModel'), 
   bodyParser = require('body-parser'),
-  hosts = require('./api/models/hostModel'), 
+  Category = require('./api/models/categoryModel'), 
   group = require('./api/models/groupModel'), 
   chat = require('./api/models/chatModel'), 
   multer  = require('multer');
@@ -39,10 +39,10 @@ app.set('port', port);
 
 
 var routes = require('./api/routes/mobileAppRoute');
-routes(app);
+  routes(app);
 var webroutes = require('./api/routes/webRoutes');
-webroutes(app);
+  webroutes(app);
 app.use('/images', express.static(path[0] + '/images'));
 app.listen(port);
- module.exports = app;
+module.exports = app;
 console.log('todo list RESTful API server started on: ' + port);

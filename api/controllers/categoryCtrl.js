@@ -2,56 +2,73 @@
 
 var mongoose = require('mongoose'),
 multer  = require('multer'),
-hosts = mongoose.model('hosts');
+Category = mongoose.model('category');
 var path = require('path');
 
+var storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, '../images/')
+  },
+  filename: function(req, file, cb) {
+    var fileExtn = file.originalname.split('.').pop(-1);
+    cb(null, new Date().getTime() + '.' + fileExtn)
+  }
+});
 
-// const bcrypt = require('bcrypt');
-//****************  create_user_function ****************************
-exports.add_host = function(req, res) {
-  hosts.findOne({email: req.body.email}, function(err, user) {
-    console.log(user,"+++");
-    if(user == null){
-      console.log("iff");
-            var new_user = new hosts({
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            email: req.body.email,
-            contact: req.body.contact,
-            address:req.body.address,
-            created_on: new Date(),
-            status:1
-            });
-            new_user.save(function(err, users) {
-            if(users == null){
-              res.send({
-                error: err,
-                status: 0,
-                 msg: 'Try again'
-              });
-            }else{
-                res.send({
-                 data:users,
-                 status: 1,
-                 msg: 'Host registered successfully!'
-            });
-
-       
-            }
-          });
-      
+exports.upload_image = function(req, res) {
+  upload(req, res, function(err){
+    if(err){
+      res.json({
+        status: 0,
+        err_desc: err,
+        data: null
+      });
+      return;
     }else{
-      console.log("else");
+      res.json({
+        status: 1,
+        err_desc: null,
+        data: req.file.filename
+      });
+    }
+  });
+};
+//****************  create_user_function ****************************
+exports.add_categorty = function(req, res) {
+  Category.findOne({name: req.body.name}, function(err, doc) {
+    if(doc == null){
+      var cat = new Category({
+        name: req.body.name,
+        image: req.body.image,
+        created_on: new Date(),
+        status:1
+      });
+
+      cat.save(function(err, doc) {
+        if(doc == null){
+          res.send({
+            error: err,
+            status: 0,
+            msg: 'Something went wrong.Plesae try later.'
+          });
+        }else{
+          res.send({
+            data:users,
+            status: 1,
+            msg: 'Category added successfully!'
+          });
+        }
+      });
+    }else{
       res.send({
         error: 'err',
         status: 0,
-        msg: 'Email alraedy exist!'
+        msg: 'Category alraedy exist.'
       });
     }
-
-  })
-
+  });
 };
+
 exports.host_listing = function(req, res) {
     hosts.find({}, null, {sort: {'created_on': -1}}).exec(function(err, user) {
         if(user.length==0){
