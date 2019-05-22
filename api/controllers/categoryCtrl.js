@@ -54,7 +54,7 @@ exports.add_categorty = function(req, res) {
           });
         }else{
           res.send({
-            data:users,
+            data: doc,
             status: 1,
             msg: 'Category added successfully!'
           });
