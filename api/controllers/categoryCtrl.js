@@ -80,7 +80,7 @@ exports.categorty_exist = function(req, res) {
       });
     }else{
       res.send({
-        data:users,
+        data: doc,
         status: 0,
         msg: 'Category already exist!'
       });
@@ -98,8 +98,9 @@ exports.category_listing = function(req, res) {
       });
     }else{
       res.send({
+        error: null,
         status: 1,
-        data:user
+        data: doc
       });
     }
   });
