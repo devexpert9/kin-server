@@ -89,11 +89,11 @@ var get_news_list = require('../controllers/newsfeedCtrl');
     app.route('/newsfeeds_admin')
     .post(get_news_list.getnews_admin); 
 
-var cat = require('../controllers/categortyCtrl');
+var cat = require('../controllers/categoryCtrl');
     app.route('/addcategorty')
     .post(cat.add_categorty);    
 
-var cats = require('../controllers/categortyCtrl');
+var cats = require('../controllers/categoryCtrl');
     app.route('/uploadImage')
     .post(cats.upload_image);  
 
