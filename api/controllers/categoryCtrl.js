@@ -108,31 +108,17 @@ exports.category_listing = function(req, res) {
 };
 
 exports.delete_category = function(req, res) {
-  var image =  req.body.image;
-  console.log(image)
-  // Category.remove({ '_id': req.body._id }, function(err, doc) {
-    fs.unlinkSync('/home/bitnami/images/' + image, function (err) {
-        if (err){
-          res.send({
-            error: err,
-            status: 1,
-            msg: 'Category deleted successfully.'
-          });
-           console.log(err);
-        }else{
-          res.send({
-            error: null,
-            status: 1,
-            msg: 'Category deleted successfully.'
-          });
-           console.log('File deleted!');
-        }
-        // if no error, file has been deleted successfully
-       
-         
+  Category.remove({ '_id': req.body._id }, function(err, doc) {
+    fs.unlinkSync('/home/bitnami/images/' + req.body.image, function (err) {
     }); 
-   
-  // });
+
+    res.send({
+      error: null,
+      status: 1,
+      msg: 'Category deleted successfully.'
+    });
+      
+  });
 };
 
 exports.host_edit = function(req, res) {
