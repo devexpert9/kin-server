@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
 multer  = require('multer'),
 points = mongoose.model('point'),
-hosts = mongoose.model('hosts'),
+// hosts = mongoose.model('hosts'),
 users = mongoose.model('users'),
 onlinecourses = mongoose.model('onlinecourse');
 var path = require('path');
