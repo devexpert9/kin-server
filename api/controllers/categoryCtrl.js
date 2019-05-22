@@ -129,6 +129,7 @@ exports.update_category = function(req, res) {
         msg:'Category already exist.'
       });
     }else{
+      console.log(req.body)
       Category.update({ '_id': req.body._id }, { $set: { 'name': req.body.name, 'status': req.body.status, 'image': req.body.image} }, {new: true}, function(err, doc) {
         if(doc == null){
           res.send({
