@@ -139,15 +139,16 @@ exports.update_category = function(req, res) {
           });
 
         }else{
-          if(req.body.oldImage != false){
-            fs.unlinkSync('/home/bitnami/images/' + req.body.oldImage, function (err) {
-            }); 
-          }
           res.json({
              status: 1,
              data: doc,
              msg:'Category updated successfully.'
           });
+          if(req.body.oldImage != false){
+            fs.unlinkSync('/home/bitnami/images/' + req.body.oldImage, function (err) {
+            }); 
+          }
+          
         }
       });
     }
