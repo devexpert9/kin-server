@@ -117,44 +117,39 @@ exports.delete_category = function(req, res) {
       status: 1,
       msg: 'Category deleted successfully.'
     });
-      
   });
 };
 
-exports.host_edit = function(req, res) {
-  hosts.findOne({_id:req.body._id}, function(err, user) {
-    console.log(user);
-   if(user == null){
+exports.update_category = function(req, res) {
+  Category.findOne({ name: req.body.name}, function(err, doc) {
+   if(doc != null){
       res.send({
         error: err,
         status: 0,
-        msg:'Inavlid Host!'
-        });
+        msg:'Category already exist.'
+      });
     }else{
-         hosts.update({_id: user._id }, { $set: {firstname: req.body.firstname,
-          firstname: req.body.firstname,
-          lastname: req.body.lastname,
-          email: req.body.email,
-          contact: req.body.contact,
-          address:req.body.address,
+      Category.update({ '_id': req.body._id }, { $set: { 'name': req.body.name, 'status': req.body.status, 'image': req.body.image} }, {new: true}, function(err, doc) {
+        if(doc == null){
+          res.send({
+            status: 0,
+            data: null,
+            msg:'Something went wrong.Plesae try later.'
+          });
 
-      }}, {new: true}, function(err, save) {
-              if(save == null){
-                res.send({
-                  status: 1,
-                  data: user,
-                  msg:'Try again'
-                });
-
-              }else{
-                res.json({
-                   status: 1,
-                   data: user,
-                   msg:'Host updated successfully'
-                });
-              }
-            });
+        }else{
+          if(req.body.oldImage != false){
+            fs.unlinkSync('/home/bitnami/images/' + req.body.oldImage, function (err) {
+            }); 
+          }
+          res.json({
+             status: 1,
+             data: doc,
+             msg:'Category updated successfully.'
+          });
         }
+      });
+    }
   });
 };
 exports.edit_status = function(req, res) {

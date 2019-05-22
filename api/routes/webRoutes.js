@@ -109,6 +109,9 @@ var cats = require('../controllers/categoryCtrl');
     app.route('/deletecategory')
     .post(cats.delete_category);  
        
+var cats = require('../controllers/categoryCtrl');
+    app.route('/updatecategory')
+    .post(cats.update_category);
 
 // var edithost = require('../controllers/hostCtrl');
 //     app.route('/list_edit')
