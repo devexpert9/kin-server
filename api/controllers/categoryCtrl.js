@@ -72,7 +72,7 @@ exports.add_categorty = function(req, res) {
 
 
 exports.categorty_exist = function(req, res) {
-  Category.findOne({'name': req.body.name}, function(err, doc) {
+  Category.findOne({'name': req.body.name, '_id' :{ $ne: req.body._id }}, function(err, doc) {
     if(doc == null){
       res.send({
         error: err,
