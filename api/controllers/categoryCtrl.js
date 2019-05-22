@@ -121,7 +121,7 @@ exports.delete_category = function(req, res) {
 };
 
 exports.update_category = function(req, res) {
-  Category.findOne({ name: req.body.name}, function(err, doc) {
+  Category.findOne({ name: req.body.name , '_id' :{ $ne: req.body._id } }, function(err, doc) {
    if(doc != null){
       res.send({
         error: err,
