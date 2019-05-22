@@ -108,8 +108,10 @@ exports.category_listing = function(req, res) {
 };
 
 exports.delete_category = function(req, res) {
-  Category.remove({ '_id': req.body._id }, function(err, doc) {
-    fs.unlinkSync('/home/bitnami/images/' + req.body.image, function (err) {
+  var image =  req.body.image;
+  console.log(image)
+  // Category.remove({ '_id': req.body._id }, function(err, doc) {
+    fs.unlinkSync('/home/bitnami/images/' + image, function (err) {
         if (err){
           res.send({
             error: err,
@@ -130,7 +132,7 @@ exports.delete_category = function(req, res) {
          
     }); 
    
-  });
+  // });
 };
 
 exports.host_edit = function(req, res) {
