@@ -97,6 +97,14 @@ var cats = require('../controllers/categoryCtrl');
     app.route('/uploadImage')
     .post(cats.upload_image);  
 
+var cats = require('../controllers/categoryCtrl');
+    app.route('/categortyexist')
+    .post(cats.categorty_exist);  
+
+var cats = require('../controllers/categoryCtrl');
+    app.route('/categories')
+    .post(cats.category_listing);      
+
 // var edithost = require('../controllers/hostCtrl');
 //     app.route('/list_edit')
 //     .post(edithost.host_edit);     

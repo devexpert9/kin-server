@@ -69,23 +69,42 @@ exports.add_categorty = function(req, res) {
   });
 };
 
-exports.host_listing = function(req, res) {
-    hosts.find({}, null, {sort: {'created_on': -1}}).exec(function(err, user) {
-        if(user.length==0){
-          res.send({
-            error: err,
-            status: 0,
-            data: []
-          });
-        }else{
-            res.send({
-            status: 1,
-            data:user
-            });
-        }
-        })
-  
+
+exports.categorty_exist = function(req, res) {
+  Category.findOne({name: req.body.name}, function(err, doc) {
+    if(doc == null){
+      res.send({
+        error: err,
+        status: 1,
+        msg: 'Something went wrong.Plesae try later.'
+      });
+    }else{
+      res.send({
+        data:users,
+        status: 0,
+        msg: 'Category already exist!'
+      });
+    }
+  });
 };
+
+exports.category_listing = function(req, res) {
+  Category.find({}, null, {sort: {'created_on': -1}}).exec(function(err, doc) {
+    if(doc.length==0){
+      res.send({
+        error: err,
+        status: 0,
+        data: []
+      });
+    }else{
+      res.send({
+        status: 1,
+        data:user
+      });
+    }
+  });
+};
+
 exports.host_edit = function(req, res) {
   hosts.findOne({_id:req.body._id}, function(err, user) {
     console.log(user);
