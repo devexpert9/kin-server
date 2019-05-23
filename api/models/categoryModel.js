@@ -15,6 +15,9 @@ var schema = new Schema({
     },
     created_on: {
       type: Date
+    }, 
+    viewedCount: {
+      type: Number
     }
 });
 

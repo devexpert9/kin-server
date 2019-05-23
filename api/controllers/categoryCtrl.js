@@ -42,7 +42,8 @@ exports.add_categorty = function(req, res) {
         name: req.body.name,
         image: req.body.image,
         created_on: new Date(),
-        status:1
+        status: 1,
+        viewedCount: 0
       });
 
       cat.save(function(err, doc) {
@@ -110,19 +111,23 @@ exports.category_listing = function(req, res) {
 exports.category_list = function(req, res) {
   //{sort: {'created_on': -1}}
   Category.find({'status': 1}).exec(function(err, doc) {
-    if(doc.length==0){
-      res.send({
-        error: err,
-        status: 0,
-        data: []
-      });
-    }else{
+    Category.find({'status': 1} {sort: {'viewedCount': -1}}).limit(3).exec(function(err, doc1) {
       res.send({
         error: null,
         status: 1,
-        data: doc
+        data: {'cats': doc, 'popular': doc1 }
       });
-    }
+    });
+  });
+};
+
+exports.update_view_count = function(req, res){
+  Category.find({'viewedCount': req.body.viewedCount}).exec(function(err, doc) {
+    res.send({
+      error: null,
+      status: 1,
+      data: doc
+    });
   });
 };
 
@@ -148,7 +153,7 @@ exports.update_category = function(req, res) {
         msg:'Category already exist.'
       });
     }else{
-      Category.update({ '_id': req.body._id }, { $set: { 'name': req.body.name, 'status': req.body.status, 'image': req.body.image} }, {new: true}, function(err, doc) {
+      Category.update({ '_id': req.body._id }, { $set: { 'name': req.body.name, 'status': req.body.status, 'image': req.body.image, 'viewedCount': req.body.viewedCount} }, {new: true}, function(err, doc) {
         if(doc == null){
           res.send({
             status: 0,

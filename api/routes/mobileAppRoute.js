@@ -38,6 +38,10 @@ var category = require('../controllers/categoryCtrl');
     app.route('/categorylist')
     .post(category.category_list);
 
+var category = require('../controllers/categoryCtrl');
+    app.route('/updateViewCount')
+    .post(category.update_view_count);    
+
 var course_list_schedule = require('../controllers/onlinecourseCtrl');
     app.route('/schedule_course_listing')
     .post(course_list_schedule.courselist_schedule);    
