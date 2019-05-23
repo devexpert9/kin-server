@@ -34,9 +34,9 @@ var change_pass = require('../controllers/userCtrl');
     app.route('/change_password')
     .post(change_pass.update_user_password);
     
-var course_list_now = require('../controllers/onlinecourseCtrl');
-    app.route('/course_listing')
-    .post(course_list_now.courselist_now);
+var category = require('../controllers/categoryCtrl');
+    app.route('/categorylist')
+    .post(category.category_list);
 
 var course_list_schedule = require('../controllers/onlinecourseCtrl');
     app.route('/schedule_course_listing')

@@ -107,6 +107,25 @@ exports.category_listing = function(req, res) {
   });
 };
 
+exports.category_list = function(req, res) {
+  //{sort: {'created_on': -1}}
+  Category.find({'status': 1}).exec(function(err, doc) {
+    if(doc.length==0){
+      res.send({
+        error: err,
+        status: 0,
+        data: []
+      });
+    }else{
+      res.send({
+        error: null,
+        status: 1,
+        data: doc
+      });
+    }
+  });
+};
+
 exports.delete_category = function(req, res) {
   Category.remove({ '_id': req.body._id }, function(err, doc) {
     fs.unlinkSync('/home/bitnami/images/' + req.body.image, function (err) {
@@ -129,7 +148,6 @@ exports.update_category = function(req, res) {
         msg:'Category already exist.'
       });
     }else{
-      console.log(req.body)
       Category.update({ '_id': req.body._id }, { $set: { 'name': req.body.name, 'status': req.body.status, 'image': req.body.image} }, {new: true}, function(err, doc) {
         if(doc == null){
           res.send({
