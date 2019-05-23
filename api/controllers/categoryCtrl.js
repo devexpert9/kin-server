@@ -123,7 +123,7 @@ exports.category_list = function(req, res) {
 };
 
 exports.update_view_count = function(req, res){
-  Category.find({'viewedCount': req.body.viewedCount}).exec(function(err, doc) {
+  Category.update({_id: req.body._id, {$set: {'viewedCount': req.body.viewedCount} }).exec(function(err, doc) {
     res.send({
       error: null,
       status: 1,
