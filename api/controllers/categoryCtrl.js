@@ -111,7 +111,8 @@ exports.category_listing = function(req, res) {
 exports.category_list = function(req, res) {
   //{sort: {'created_on': -1}}
   Category.find({'status': 1}).exec(function(err, doc) {
-    Category.find({'status': 1},{sort: {'viewedCount': -1}}).limit(3).exec(function(err, doc1) {
+    Category.find({'status': 1}, {'limit': 3}, {sort: {'viewedCount': -1}}).exec(function(err, doc1) {
+      console.log(doc1)
       res.send({
         error: null,
         status: 1,
