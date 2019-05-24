@@ -29,66 +29,6 @@ var edituserimage = require('../controllers/userCtrl');
      app.route('/uploadImage')
      .post(edituserimage.upload_image);
 
-var addcmspages = require('../controllers/cmspageCtrl');
-   app.route('/addcms')
-     .post(addcmspages.add);
-
-var viewcmspages = require('../controllers/cmspageCtrl');
-   app.route('/viewcms')
-     .post(viewcmspages.view);
-
-var add_course = require('../controllers/onlinecourseCtrl');
-   app.route('/onlinecourse')
-     .post(add_course.addcourse);
-
-var list = require('../controllers/onlinecourseCtrl');
-   app.route('/listcourse')
-     .post(list.courselist);
-
-var delete_course = require('../controllers/onlinecourseCtrl');
-   app.route('/course_delete')
-     .post(delete_course.deletecourse);
-
-var today_course = require('../controllers/onlinecourseCtrl');
-   app.route('/today_course_listing')
-     .post(today_course.today_courselist_now);
-
-var add_store = require('../controllers/storeCtrl');
-   app.route('/store')
-     .post(add_store.addstore);
-
-var list = require('../controllers/storeCtrl');
-   app.route('/liststores')
-     .post(list.storelist);
-
-var delete_store = require('../controllers/storeCtrl');
-   app.route('/store_delete')
-     .post(delete_store.deletestore);
-
-var edit_art_vedio = require('../controllers/cmspageCtrl');
-   app.route('/edit_articles_vedios')
-     .post(edit_art_vedio.editarticles_vedios);
-     
-var delete_art_vedio = require('../controllers/cmspageCtrl');
-   app.route('/delete_articles_vedios')
-     .post(delete_art_vedio.deletearticles_vedios);
-
-var updateadmin_profile = require('../controllers/adminCtrl');     
-app.route('/updateprofile')
-     .post(updateadmin_profile.update_admin_profile);
-
-var uploadadmin_profile = require('../controllers/adminCtrl');     
-app.route('/upload_admin_image')
-     .post(uploadadmin_profile.upload_admin_image);
-
-var changepass_admin = require('../controllers/adminCtrl');     
-app.route('/change_password_admin')
-     .post(changepass_admin.update_admin_password);
-
-var get_news_list = require('../controllers/newsfeedCtrl');
-    app.route('/newsfeeds_admin')
-    .post(get_news_list.getnews_admin); 
-
 var cat = require('../controllers/categoryCtrl');
     app.route('/addcategorty')
     .post(cat.add_categorty);    
