@@ -2,7 +2,6 @@
 
 var mongoose = require('mongoose'),
 multer  = require('multer'),
-onlinecourses = mongoose.model('onlinecourse'),
 users = mongoose.model('users'),
 stores = mongoose.model('store'),
 points = mongoose.model('point');
