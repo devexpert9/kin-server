@@ -3,256 +3,138 @@
 var mongoose = require('mongoose'),
 multer  = require('multer'),
 points = mongoose.model('point'),
-// hosts = mongoose.model('hosts'),
-users = mongoose.model('users'),
-onlinecourses = mongoose.model('onlinecourse');
+Category = mongoose.model('category'),
+Product = mongoose.model('products');
 var path = require('path');
 var Schema = mongoose.Schema;
 
-// var storage = multer.diskStorage({
-//    destination: function(req, file, cb) {
-//        cb(null, '../images/')
-//    },
-//    filename: function(req, file, cb) {
-//        var fileName = file.originalname.split('.');
-//        cb(null, fileName[0] + '-' + Date.now() + '.jpg')
-//    }
-// });
 
-var storage = multer.diskStorage({
-   destination: function(req, file, cb) {
-       cb(null, '../images/')
-   },
-   filename: function(req, file, cb) {
-       ////console.log('file.originalname')
-       var fileExtn = file.originalname.split('.').pop(-1);
-       cb(null, new Date().getTime() + '.' + fileExtn)
-       // var fileName = file.originalname.split('.');
-       // cb(null, fileName[0] + '-' + Date.now() + '.jpg')
-       // ////console.log('filename', fileName)
-   }
-});
-var upload = multer({ storage: storage }).single('image');
+exports.add_product = function(req, res) {
+  var product = new Product({
+    title: req.body.title,
+    tags: req.body.tags,
+    link: req.body.link,
+    description: req.body.description,
+    sizes: req.body.sizes,
+    buy: [],
+    created_on: new Date(),
+    image: req.body.image,
+    total_items: req.body.total_items
+    catId: req.body.categortId,
+    viewCount: 0,
+    status: 1
+  });
 
-// const bcrypt = require('bcrypt');
-//****************  create_user_function ****************************
-exports.addcourse = function(req, res) {
-  if(req.body.courseid!=''){
-            onlinecourses.update({_id:req.body.courseid}, { $set: 
-                    { title: req.body.title,
-                      hosted_by: req.body.hosted_by,
-                      points: req.body.points,
-                      date:req.body.date,
-                      duration:req.body.duration,
-                      time:req.body.time,
-                      description:req.body.description,
-                      image:req.body.image,
-                      type:req.body.type,
-                      // created_at: new Date(),
-                      // created_on: new Date(),
-                    }}, {new: true}, function(err, updated) {
-                   if(updated == null){
-                  res.send({
-                    error: err,
-                    status: 0,
-                    msg:"Try Again"
-                  });
-                }else{
-                  res.json({
-                    error: null,
-                    status: 1,
-                    data:updated,
-                    msg:"Online course has been updated successfully!"
-                  });
-                }
-              });
-  }else{
-           var new_user = new onlinecourses({
-            title: req.body.title,
-            hosted_by: req.body.hosted_by,
-            points:req.body.points,
-            duration:req.body.duration,
-            time:req.body.time,
-            date:req.body.date,
-            type:req.body.type,
-            created_at: new Date(),
-            created_on: new Date(),
-            description: req.body.description,
-            image:req.body.image
-            });
-            new_user.save(function(err, users) {
-            if(users == null){
-              res.send({
-                error: err,
-                status: 0
-              });
-            }else{
-                res.send({
-                 status: 1,
-                 msg: 'Online course has been added successfully!'
-            });
-
-       
-            }
-          });
-  }
-};
-//******************** Online course list ************************
-exports.courselist = function(req, res) {
-   var data=[];
-  var counter = 0,
-  dict = {};
-  onlinecourses.find({}, null, {sort: {'created_on': -1}}).exec(function(err, course) {
-    if(course.length==0){
-     res.send({
+  product.save(function(err, doc) {
+    if(doc == null){
+      res.send({
         error: err,
         status: 0,
-        data: []
+        data: null,
+        msg: 'Something went wrong.Please try later.'
       });
     }else{
-          function getdetail(){
-           dict = course[counter];
-           console.log(dict.hosted_by);
-           hosts.findOne({_id:dict.hosted_by},function(err, host) {
-           if(host==null){
-            dict.hosted_name = '';
-            data.push(dict);
-            }else{
-              dict.hosted_name = host.firstname+' '+ host.lastname;
-            data.push(dict);
-           }  
-           // data.push(item);
-          //  console.log(data, "------------");
-         
-         if(counter < course.length - 1){
-                 counter = counter + 1;
-                 getdetail();
-        }else{
-            res.send({
-              status: 1,
-              data: data
-            });
-        }
-        })
-    }
-    getdetail();
-     
-      // res.json({
-      //   error: null,
-      //   status: 1,
-      //   data: course
-      // });
+      res.send({
+        status: 1,
+        err: null,
+        data: doc,
+        msg: 'Product has been added successfully.'
+      });
     }
   });
 };
 
-//******************** Delete course_function ************************
-exports.deletecourse = function(req, res) {
-  var d = new Date();
-  var month =d.getMonth()+1;
-  var day=  d.getDate();
-  if(day <=9){
-  day='0'+day;
-  }
-  var now = d.getFullYear()+'-'+ month+'-'+day;
-  onlinecourses.findOne({_id:req.body.courseid},function(err, course) {
-    if(course==null){
+exports.is_product_exist = function(req, res) {
+  Product.find({'name': req.body.name, 'catId': req.body.categortId }, function(err, doc) {
+    if(doc.length == 0){
       res.send({
-          error: err,
-          status: 0,
-          msg:"Course not found",
-        });
-    }else{
-    // if(course.date>now){
-      onlinecourses.remove({_id:req.body.courseid}, function(err, course) {
-      if(course == null){
-        res.send({
-          error: err,
-          status: 0,
-          msg:"Try Again"
-        });
-      }else{
-        res.json({
-          error: null,
-          status: 1,
-          msg:"Course deleted Successfully"
-        });
-      }
-    });
-    // }else{
-    //     res.send({
-    //       error: err,
-    //       status: 0,
-    //       msg:"Sorry, You cannot delete this course!"
-    //     });
-    // }
-    }
-
-  })
-};
-///////// show course list (acc to today date )app /////////////////////
-// date:now
-//******************** Online course list  for app************************
-exports.courselist_now = function(req, res) {
-  var data=[];
-  var counter = 0,
-  dict = {};
-  var d = new Date();
-  var month =d.getMonth()+1;
-  var day=  d.getDate();
-  if(day <=9){
-  day='0'+day;
-  }
-  var now = d.getFullYear()+'-'+ month+'-'+day;
-  console.log(now);
-    onlinecourses.find({date: {$gte: now }}, null, {sort: {'created_on': -1}}).exec(function(err, course) {
-  // onlinecourses.find({ date: {$gte: now }}, {$sort: {'created_on': -1}}).exec(function(err, course) {
-    console.log(err);
-    console.log(course);
-  if(course.length==0){
-     res.send({
-        error: err,
+        error: 'Product under this category already exist with this name.Please try another product name or category.',
         status: 0,
-        datas: []
+        data: null
       });
     }else{
-       function getCoursedetail(){
-       dict = course[counter];
-       console.log(course.length,'length');
-       // course.forEach(function(item,key){ 
-     hosts.findOne({_id:dict.hosted_by},function(err, host) {
-           if(host==null){
-            dict.hosted_name = '';
-            }else{
-              dict.hosted_name = host.firstname+' '+ host.lastname;
-            }  
-       points.findOne({course_id:dict._id,user_id:req.body.user_id},function(err, point) {
-          console.log(point);
-           if(point==null){
-            dict.joinstatus = 0;
-            data.push(dict);
-            }else{
-            dict.joinstatus = 1;
-            data.push(dict);
-           }  
-           // data.push(item);
-          //  console.log(data, "------------");
-         
-         if(counter < course.length - 1){
-                 counter = counter + 1;
-                 getCoursedetail();
-        }else{
-            res.send({
-              status: 1,
-              data: data
-            });
-        }
-        })
-     })
-    }
-    getCoursedetail();
-     
-  }
+      res.send({
+        error: null,
+        status: 1,
+        data: null
+      });
+    }  
+  });
+};
+
+exports.product_listing = function(req, res) {
+  Product.find({ }, null, {sort: {'created_on': -1}}).exec( function(err, doc) {
+    var couter = 0,
+    dict = {},
+    data = [];
+    function getCategoryName(){
+      if(counter < doc.length){
+        Category.findOne({'_id': doc[counter].catId}, function(err, doc1){
+          dict = {
+            _id: doc[counter]._id,
+            description: doc[counter].description,
+            sizes: doc[counter].sizes,
+            tags: doc[counter].tags,
+            link: doc[counter].link,
+            title: doc[counter].title,
+            buy: doc[counter].buy,
+            viewCount: doc[counter].viewCount,
+            catId: doc[counter].catId,
+            image: doc[counter].image,
+            total_items: doc[counter].total_items,
+            status: doc[counter].status,
+            category_name: doc.name
+          };
+          data.push(dict);
+          counter += 1;
+          getCategoryName();
+        });
+      }else{
+        res.send({
+          error: null,
+          status: 1,
+          data: data
+        });
+      }
+    };
+  });
+};
+
+exports.product_listing_for_buy = function(req, res) {
+  Product.find({ 'status': 1, 'catId': req.body.categoryId }, null, {sort: {'created_on': -1}}).exec(function(err, doc) {
+    var couter = 0,
+    dict = {},
+    data = [];
+    function getCategoryName(){
+      if(counter < doc.length){
+        Category.findOne({'_id': doc[counter].catId}, function(err, doc1){
+          dict = {
+            _id: doc[counter]._id,
+            description: doc[counter].description,
+            sizes: doc[counter].sizes,
+            tags: doc[counter].tags,
+            link: doc[counter].link,
+            title: doc[counter].title,
+            buy: doc[counter].buy,
+            viewCount: doc[counter].viewCount,
+            catId: doc[counter].catId,
+            image: doc[counter].image,
+            total_items: doc[counter].total_items,
+            status: doc[counter].status,
+            category_name: doc.name
+          };
+          data.push(dict);
+          counter += 1;
+          getCategoryName();
+        });
+      }else{
+        res.send({
+          error: null,
+          status: 1,
+          data: data
+        });
+      }
+    };
   });
 };
 

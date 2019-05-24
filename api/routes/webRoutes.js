@@ -112,78 +112,18 @@ var cats = require('../controllers/categoryCtrl');
 var cats = require('../controllers/categoryCtrl');
     app.route('/updatecategory')
     .post(cats.update_category);
+  
+var product = require('../controllers/productCtrl');
+    app.route('/addproduct')
+     .post(product.add_product);
 
-// var edithost = require('../controllers/hostCtrl');
-//     app.route('/list_edit')
-//     .post(edithost.host_edit);     
+var product = require('../controllers/productCtrl');
+    app.route('/productslist')
+     .post(product.product_listing);
 
-// var edithost_status = require('../controllers/hostCtrl');
-//     app.route('/change_status')
-//     .post(edithost_status.edit_status);     
+var product = require('../controllers/productCtrl');
+    app.route('/isproductexist')
+     .post(product.is_product_exist);
     
-// var listhost_status = require('../controllers/hostCtrl');
-//     app.route('/list_host_status')
-//     .post(listhost_status.host_listing_course);     
-    
-var admin_scheuled = require('../controllers/onlinecourseCtrl');
-   app.route('/scheduled_admin_courselist')
-     .post(admin_scheuled.courselist_schedule_admin);
-
-var delete_scheuled = require('../controllers/onlinecourseCtrl');
-   app.route('/delete_scheduledcouse')
-     .post(delete_scheuled.deletescheduled);
-
-var userby_scheuled = require('../controllers/onlinecourseCtrl');
-   app.route('/user_scheduled')
-     .post(userby_scheuled.scheduledbyuser);
-
-var delete_user_from_scheduled = require('../controllers/onlinecourseCtrl');
-   app.route('/delete_user_scheduled_course')
-     .post(delete_user_from_scheduled.delete_user_scheduled);
-
-var admin_joined = require('../controllers/onlinecourseCtrl');
-   app.route('/joined_admin_courselist')
-     .post(admin_joined.courselist_joined_admin);
-
-var admin_delete_joined = require('../controllers/onlinecourseCtrl');
-   app.route('/delete_joined')
-     .post(admin_delete_joined.deletejoined);
-
-var userby_joined = require('../controllers/onlinecourseCtrl');
-   app.route('/user_joined')
-     .post(userby_joined.joinedbyuser);
-
-var delete_user_from_joined = require('../controllers/onlinecourseCtrl');
-   app.route('/delete_user_joined_course')
-     .post(delete_user_from_joined.delete_user_joined);
-
-var get_points_all = require('../controllers/pointCtrl');
-   app.route('/getall_points')
-     .post(get_points_all.getallpoints);
-
-var getpoints_all = require('../controllers/pointCtrl');
-   app.route('/get_all_points')
-     .post(getpoints_all.get_earned_spent_points);
-
-var forgotPassword = require('../controllers/adminCtrl');
-    app.route('/admin_forgotpassword')
-    .post(forgotPassword.forgot_password_admin);
-
-var editstatuscmspages = require('../controllers/cmspageCtrl');
-   app.route('/edit_cmsstatus')
-     .post(editstatuscmspages.edit_status);
-
-var view_cms_app = require('../controllers/cmspageCtrl');
-   app.route('/view_cms_pages')
-     .post(view_cms_app.viewcmspages);
-
-var listing_group = require('../controllers/groupCtrl');
-   app.route('/listinggroup_for_admin')
-     .post(listing_group.listgroup_admin);
-
-var delete_groupmethod = require('../controllers/groupCtrl');
-   app.route('/deletegroup')
-     .post(delete_groupmethod.delete_group);
-     
 };
 
