@@ -19,7 +19,7 @@ exports.add_product = function(req, res) {
     buy: [],
     created_on: new Date(),
     image: req.body.image,
-    total_items: req.body.total_items
+    total_items: req.body.total_items,
     catId: req.body.categortId,
     viewCount: 0,
     status: 1
