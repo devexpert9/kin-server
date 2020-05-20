@@ -4,20 +4,18 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var cmspageSchema = new Schema({
-   
-    type : {
+    page : {
       type: String
     },
-    aboutus: {
-      type: Schema.Types.Mixed
+    data: {
+      type: Object
     },
-    articles: {
-      type: Schema.Types.Mixed 
+    user_id:{
+      type: String
     },
-    vedios: {
-      type: Schema.Types.Mixed
-    },
-
+    created_at:{
+      type: Date
+    }
 });
 
 module.exports = mongoose.model('cmspages', cmspageSchema);

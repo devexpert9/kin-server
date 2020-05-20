@@ -22,12 +22,12 @@ var upload = multer({ storage: storage }).single('image');
 
 // const bcrypt = require('bcrypt');
 //****************  create_user_function ****************************
-exports.signup = function(req, res) {
+exports.addUser = function(req, res) {
   users.findOne({email: req.body.email}, function(err, user) {
     if(user == null){
       var new_user = new users({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
+        username: req.body.username,
+        name: req.body.name,
         email: req.body.email,
         password: req.body.password,
         image: null
@@ -68,6 +68,25 @@ exports.login = function(req, res) {
            data: user,
            error:'Logged In successfully!'
         });
+      });
+    }
+  });
+};
+
+//**************** User_login_function ******************
+exports.getUserDomain = function(req, res) {
+  users.findOne({username:req.body.username}, function(err, user) {
+    if(user == null){
+      res.send({
+        status: 0,
+        data: null,
+        error:'Invalid username.'
+      });
+    }else{
+      res.json({
+         status: 1,
+         data: user,
+         error:'User fetched successfully!'
       });
     }
   });

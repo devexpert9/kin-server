@@ -5,62 +5,61 @@ var mongoose = require('mongoose'),
     admin = mongoose.model('admin'),
     path = require('path');
 
-    var storage = multer.diskStorage({
-      destination: function(req, file, cb) {
-        cb(null, '../images/')
-      },filename: function(req, file, cb) {
-        var fileExtn = file.originalname.split('.').pop(-1);
-        cb(null, new Date().getTime() + '.' + fileExtn)
-      }
-    });
+  var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+      cb(null, '../images/')
+    },filename: function(req, file, cb) {
+      var fileExtn = file.originalname.split('.').pop(-1);
+      cb(null, new Date().getTime() + '.' + fileExtn)
+    }
+  });
 
 
-    var upload = multer({ storage: storage }).single('image');
-    //****************  create_user_function ****************************
-    exports.create_user_admin = function(req, res) {
-      admin.findOne({email: req.body.email}, function(err, adminuser) {
-        if(adminuser == null){
-          var new_admin = new admin({
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            username:req.body.username,
-            email: req.body.email,
-            password: req.body.password,
-            contact: req.body.contact,
-            gender:req.body.gender,
-            created_on: new Date(),
-            registrationId: req.body.registrationId,
-            image:req.body.image
-          });
-          new_admin.save(function(err, doc) {
-            if(doc == null){
-              res.send({
-                data: null,
-                error: 'Something went wrong.Please try later.',
-                status: 0
-              });
-            }else{
-              res.send({
-                data: doc,
-                status: 1,
-                error: 'Admin registered successfully!'
-              });
-            }
+var upload = multer({ storage: storage }).single('image');
+//****************  create_user_function ****************************
+exports.create_user_admin = function(req, res) {
+  admin.findOne({email: req.body.email}, function(err, adminuser) {
+    if(adminuser == null){
+      var new_admin = new admin({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        username:req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        contact: req.body.contact,
+        gender:req.body.gender,
+        created_on: new Date(),
+        image:req.body.image
+      });
+      new_admin.save(function(err, doc) {
+        if(doc == null){
+          res.send({
+            data: null,
+            error: 'Something went wrong.Please try later.',
+            status: 0
           });
         }else{
           res.send({
-            data: null,
-            status: 0,
-            error: 'Email already exist in our system!'
+            data: doc,
+            status: 1,
+            error: 'Admin registered successfully!'
           });
         }
       });
-    };
+    }else{
+      res.send({
+        data: null,
+        status: 0,
+        error: 'Email already exist in our system!'
+      });
+    }
+  });
+};
 
 
 
 exports.login_admin = function(req, res) {
-  admin.findOne({email:req.body.email, password:req.body.password}, function(err, user) { 
+  admin.findOne({username: req.body.email, password: req.body.password}, function(err, user) { 
     console.log(user)
     if(user == null){
       res.send({
@@ -80,9 +79,7 @@ exports.login_admin = function(req, res) {
 
 // //******************** Forgot_password_function ************************
 exports.forgot_password_admin = function(req, res) {
-  console.log(req.body.email);
     admin.findOne({email: req.body.email}, function(err, user) {
-    console.log('+++++'+user+'++++++');
       if(user){
          var numsms = Math.floor(Math.random() * 90000) + 10000;
           admin.update({_id: user._id }, { $set: { otp: numsms}}, {new: true}, function(err, task) {
@@ -155,7 +152,7 @@ exports.forgot_password_admin = function(req, res) {
 
 //******************** Otp_verification_function ************************
 exports.otp_verification = function(req, res) {
-  admin.findOne({_id:req.body._id, otp: req.body.otp }, function(err, otp) {
+  admin.findOne({_id: req.body._id, otp: req.body.otp }, function(err, otp) {
     if (otp == null){
       res.send({
         error: err,
@@ -182,7 +179,6 @@ exports.update_admin_profile = function(req, res) {
             contact:req.body.contact,
             image:req.body.image,
           }}, {new: true}, function(err, user) {
-            console.log(user, 'user')
           if(user.nModified != 1){
             res.send({
               error: err,
