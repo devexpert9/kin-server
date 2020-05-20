@@ -2,8 +2,8 @@
 
 var mongoose = require('mongoose'),
 multer  = require('multer'),
-stores = mongoose.model('store'),
-newsfeed = mongoose.model('newsfeed'),
+// stores = mongoose.model('store'),
+// newsfeed = mongoose.model('newsfeed'),
 users = mongoose.model('users');
 var path = require('path');
 var storage = multer.diskStorage({
