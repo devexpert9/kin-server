@@ -5,7 +5,9 @@ var express = require('express'),
   users     = require('./api/models/userModel'), 
   admin     = require('./api/models/adminModel'), 
   cmspage   = require('./api/models/cmspageModel'),
-  multer    = require('multer');
+  multer    = require('multer'),
+  bodyParser = require('body-parser');
+
  
 mongoose.Promise = global.Promise;
 
