@@ -26,6 +26,10 @@ var cms = require('../controllers/cmspageCtrl');
    app.route('/add_cmspage')
      .post(cms.add_cmspage);
 
+var cmsData = require('../controllers/cmspageCtrl');
+   app.route('/getPageData')
+     .post(cms.getPageData);
+
 var imageupload = require('../controllers/userCtrl');
    app.route('/upload_image')
      .post(imageupload.upload_image);
