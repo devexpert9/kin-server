@@ -11,7 +11,7 @@ var express = require('express'),
  
 mongoose.Promise = global.Promise;
 
-var connectionUrl = 'mongodb://root:DRtaEAo457zb@localhost:27017/apex?authSource=admin';
+var connectionUrl = 'mongodb://root:DRtaEAo457zb@localhost:27017/hats?authSource=admin';
 mongoose.connect(connectionUrl); 
 
 app.use(function (req, res, next) {

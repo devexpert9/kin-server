@@ -56,7 +56,9 @@ exports.add_cmspage = function(req, res) {
       
 };
 
-exports.getPageData = function(req, res) {
+exports.getPageData = function(req, res) 
+{
+  console.log(req);
   cmspages.findOne({page:req.body.page, user_id:req.body.user_id}, function(err, user) {
     if(user == null){
       res.send({
