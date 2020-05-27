@@ -225,7 +225,6 @@ exports.deleteuser = function(req, res) {
     
       }
     });
-
 };
 
 exports.update_user = function(req, res) {

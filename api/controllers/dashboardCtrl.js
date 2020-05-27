@@ -108,3 +108,23 @@ exports.update_dash_section_item = function(req, res){
     }
   });
 }
+
+exports.delete_dash_section_item = function(req, res){
+  dashboard.remove({_id:req.body._id}, function(err, feed) {
+    if(feed == null){
+      res.send({
+        error: err,
+        status: 0,
+        msg:"Try Again"
+      });
+    }
+    else
+    {
+      res.json({
+        error: null,
+        status: 1,
+        msg:"Deleted Successfully"
+      });
+    }
+  });
+}
