@@ -59,20 +59,31 @@ exports.add_dash_section = function(req, res) {
 
 exports.getPageData = function(req, res) 
 {
-  console.log(req);
-  dashboard.findOne({user_id:req.body.user_id}, function(err, user) {
-    if(user == null){
-      res.send({
-        status: 0,
-        data: null,
-        error:'Error.'
+  // console.log(req);
+  dashboard.find({user_id:req.body.user_id, section: 'quoteEngines'}, function(err, doc) {
+    dashboard.find({user_id:req.body.user_id, section: 'frontPage'}, function(err, doc1) {
+      dashboard.find({user_id:req.body.user_id, section: 'marketingSystem'}, function(err, doc2) {
+        dashboard.find({user_id:req.body.user_id, section: 'virtualSalePlatform'}, function(err, doc3) {
+          dashboard.find({user_id:req.body.user_id, section: 'preferredCarriers'}, function(err, doc4) {
+            dashboard.find({user_id:req.body.user_id, section: 'AddOn'}, function(err, doc5) {
+
+              res.send({
+                status: 1,
+                data: {
+                  'quoteEngines': doc,
+                  'frontPage': doc1,
+                  'marketingSystem': doc2,
+                  'virtualSalePlatform': doc3,
+                  'preferredCarriers': doc4,
+                  'add': doc5
+                },
+                error: null
+              });
+
+            });
+          });
+        });
       });
-    }else{
-      res.json({
-        status: 1,
-        data: user,
-        error:'Dashboard sections data fetched successfully!'
-      });
-    }
+    });
   });
 };
