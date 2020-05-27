@@ -42,6 +42,10 @@ var dashboard = require('../controllers/dashboardCtrl');
    app.route('/get_dash_sections')
      .post(dashboard.getPageData);
 
+var dashboard = require('../controllers/dashboardCtrl');
+   app.route('/update_dash_sections')
+     .post(dashboard.update_dash_section_item);
+
     
 };
 

@@ -9,8 +9,8 @@ var path = require('path');
 // const bcrypt = require('bcrypt');
 //****************  create and edit_cmspages_function ****************************
 exports.add_dash_section = function(req, res) {
-  dashboard.findOne({section: req.body.section, user_id: req.body.user_id }, function(err, doc) {
-    if(doc == null){
+  // dashboard.findOne({section: req.body.section, user_id: req.body.user_id }, function(err, doc) {
+  //   if(doc == null){
       var newadd = new dashboard({
             section: req.body.section,
             data: req.body.data,
@@ -34,26 +34,26 @@ exports.add_dash_section = function(req, res) {
             });
           }
       });
-    }else{
-      dashboard.update({section: req.body.section, user_id: req.body.user_id}, { $set: { section: req.body.section, data: req.body.data}}, {new: true}, function(err, save) {
-              if(save == null){
-                res.send({
-                  status: 0,
-                  data: save,
-                  msg:'Try Again'
-                });
+  //   }else{
+  //     dashboard.update({section: req.body.section, user_id: req.body.user_id}, { $set: { section: req.body.section, data: req.body.data}}, {new: true}, function(err, save) {
+  //             if(save == null){
+  //               res.send({
+  //                 status: 0,
+  //                 data: save,
+  //                 msg:'Try Again'
+  //               });
 
-              }else{
-                res.json({
-                   status: 1,
-                   add:0,
-                   data: save,
-                   msg:'Updated successfully!'
-                });
-              }
-            });
-        }
-  });
+  //             }else{
+  //               res.json({
+  //                  status: 1,
+  //                  add:0,
+  //                  data: save,
+  //                  msg:'Updated successfully!'
+  //               });
+  //             }
+  //           });
+  //       }
+  // });
       
 };
 
@@ -87,3 +87,24 @@ exports.getPageData = function(req, res)
     });
   });
 };
+
+
+exports.update_dash_section_item = function(req, res){
+  dashboard.update({_id: req.body._id}, { $set: { data: req.body.data}}, {new: true}, function(err, save) {
+    if(save == null){
+      res.send({
+        status: 0,
+        data: save,
+        msg:'Try Again'
+      });
+
+    }else{
+      res.json({
+         status: 1,
+         add:0,
+         data: save,
+         msg:'Updated successfully!'
+      });
+    }
+  });
+}
