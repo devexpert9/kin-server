@@ -34,6 +34,14 @@ var imageupload = require('../controllers/userCtrl');
    app.route('/upload_image')
      .post(imageupload.upload_image);
 
+var dashboard = require('../controllers/dashboardCtrl');
+   app.route('/add_dash_section')
+     .post(dashboard.add_dash_section);
+
+var dashboard = require('../controllers/dashboardCtrl');
+   app.route('/get_dash_sections')
+     .post(dashboard.getPageData);
+
     
 };
 
