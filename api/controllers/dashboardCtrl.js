@@ -30,7 +30,7 @@ exports.add_dash_section = function(req, res) {
             res.send({
               error: null,
               status: 1,
-              data: req.body.page + 'has been added successfully!'
+              data: req.body.section + 'record has been added successfully!'
             });
           }
       });
