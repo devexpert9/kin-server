@@ -33,7 +33,7 @@ exports.update_admin_password = function(req, res) {
           });
      }else{
       console.log(doc.password, req.body.oldpassword);
-      if(doc.password == req.body.oldpassword){
+      //if(doc.password == req.body.oldpassword){
         users.update({_id: doc._id }, { $set: { password: req.body.newpassword}}, {new: true}, function(err, change) {
         if (change == null){
           res.send({
@@ -51,13 +51,13 @@ exports.update_admin_password = function(req, res) {
           });
         }
         });
-      }else{
-      res.json({
-        error: null,
-        status: 0,
-        data: user,
-        msg:"The old password you have entered is incorrect."
-      });
+      // }else{
+      // res.json({
+      //   error: null,
+      //   status: 0,
+      //   data: user,
+      //   msg:"The old password you have entered is incorrect."
+      // });
     }
     }
 
