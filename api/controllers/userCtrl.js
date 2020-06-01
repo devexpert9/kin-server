@@ -22,7 +22,7 @@ var upload = multer({ storage: storage }).single('image');
 
 exports.update_admin_password = function(req, res) {
   console.log(req.body);
-   user.findOne({email: req.body.email}, function(err, doc) {
+   users.findOne({email: req.body.email}, function(err, doc) {
     console.log(doc)
     if (doc == null){
           res.send({
@@ -34,7 +34,7 @@ exports.update_admin_password = function(req, res) {
      }else{
       console.log(doc.password, req.body.oldpassword);
       if(doc.password == req.body.oldpassword){
-        user.update({_id: doc._id }, { $set: { password: req.body.newpassword}}, {new: true}, function(err, change) {
+        users.update({_id: doc._id }, { $set: { password: req.body.newpassword}}, {new: true}, function(err, change) {
         if (change == null){
           res.send({
             error: err,
