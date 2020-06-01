@@ -209,9 +209,9 @@ exports.upload_admin_image = function(req, res) {
 // //**************** Update_admin_password_function ******************
 exports.update_admin_password = function(req, res) {
   console.log(req.body);
-   admin.findOne({_id:req.body._id}, function(err, user) {
-    console.log(user)
-    if (user == null){
+   admin.findOne({email: req.body.email}, function(err, doc) {
+    console.log(doc)
+    if (doc == null){
           res.send({
             error: err,
             status: 0,
@@ -219,9 +219,9 @@ exports.update_admin_password = function(req, res) {
             msg: "Invalid user!"
           });
      }else{
-      console.log(user.password, req.body.oldpassword);
-      if(user.password == req.body.oldpassword){
-          admin.update({_id: req.body._id }, { $set: { password: req.body.newpassword}}, {new: true}, function(err, change) {
+      console.log(doc.password, req.body.oldpassword);
+      if(doc.password == req.body.oldpassword){
+        admin.update({_id: doc._id }, { $set: { password: req.body.newpassword}}, {new: true}, function(err, change) {
         if (change == null){
           res.send({
             error: err,
