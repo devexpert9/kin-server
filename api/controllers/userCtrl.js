@@ -20,6 +20,50 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage }).single('image');
 
+exports.update_admin_password = function(req, res) {
+  console.log(req.body);
+   user.findOne({email: req.body.email}, function(err, doc) {
+    console.log(doc)
+    if (doc == null){
+          res.send({
+            error: err,
+            status: 0,
+            data: null,
+            msg: "Invalid user!"
+          });
+     }else{
+      console.log(doc.password, req.body.oldpassword);
+      if(doc.password == req.body.oldpassword){
+        user.update({_id: doc._id }, { $set: { password: req.body.newpassword}}, {new: true}, function(err, change) {
+        if (change == null){
+          res.send({
+            error: err,
+            status: 0,
+            data: null,
+            msg:'Try again !!'
+          });
+        }else{
+          res.json({
+            error: null,
+            status: 1,
+            data: change,
+            msg:'Password updated successfully!'
+          });
+        }
+        });
+      }else{
+      res.json({
+        error: null,
+        status: 0,
+        data: user,
+        msg:"The old password you have entered is incorrect."
+      });
+    }
+    }
+
+   })
+
+};
 // const bcrypt = require('bcrypt');
 //****************  create_user_function ****************************
 exports.addUser = function(req, res) {

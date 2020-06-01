@@ -10,7 +10,7 @@ var adduser = require('../controllers/userCtrl');
    app.route('/addUser')
      .post(adduser.addUser);
 
-var adminPwd = require('../controllers/adminCtrl');
+var adminPwd = require('../controllers/userCtrl');
    app.route('/update_admin_password')
      .post(adminPwd.update_admin_password);
 
