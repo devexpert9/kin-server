@@ -59,7 +59,6 @@ exports.update_admin_password = function(req, res) {
       //   msg:"The old password you have entered is incorrect."
       // });
     }
-    }
 
    })
 
