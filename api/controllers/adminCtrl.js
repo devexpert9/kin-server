@@ -209,7 +209,7 @@ exports.upload_admin_image = function(req, res) {
 // //**************** Update_admin_password_function ******************
 exports.update_admin_password = function(req, res) {
   console.log(req.body);
-   admin.findOne({email: req.body.email}, function(err, doc) {
+   admin.findOne({username: req.body.email}, function(err, doc) {
     console.log(doc)
     if (doc == null){
           res.send({
