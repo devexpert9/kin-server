@@ -10,6 +10,10 @@ var adduser = require('../controllers/userCtrl');
    app.route('/addUser')
      .post(adduser.addUser);
 
+var adminPwd = require('../controllers/adminCtrl');
+   app.route('/update_admin_password')
+     .post(adminPwd.update_admin_password);
+
 var loginuser = require('../controllers/userCtrl');
    app.route('/login')
      .post(loginuser.login);
