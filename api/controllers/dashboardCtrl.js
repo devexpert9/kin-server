@@ -128,3 +128,26 @@ exports.delete_dash_section_item = function(req, res){
     }
   });
 }
+
+exports.updateDropList = function(req, res){
+  
+  var data = req.body.data;
+  var section_name = req.body.section;
+  var counter = 0;
+
+  function updateDashEntry(){
+    if(counter < data.length){
+      dashboard.update({_id: data[counter]._id},{ $set: { section: section_name, index: counter} }, {new: true}, function(err, doc) {
+        counter = counter + 1;
+        updateDashEntry();
+      });
+    }else{
+      res.json({
+        error: null,
+        status: 1,
+        msg:"updated Successfully"
+      });
+    }
+  };
+  updateDashEntry();
+}

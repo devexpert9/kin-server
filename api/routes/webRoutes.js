@@ -54,6 +54,10 @@ var dashboard = require('../controllers/dashboardCtrl');
    app.route('/delete_dash_entry')
      .post(dashboard.delete_dash_section_item);
 
+var dashboard = require('../controllers/dashboardCtrl');
+   app.route('/updateDropList')
+     .post(dashboard.updateDropList);
+
     
 };
 
