@@ -9,63 +9,67 @@ var path = require('path');
 // const bcrypt = require('bcrypt');
 //****************  create and edit_cmspages_function ****************************
 exports.add_dash_section = function(req, res) {
-  // dashboard.findOne({section: req.body.section, user_id: req.body.user_id }, function(err, doc) {
-  //   if(doc == null){
-      var newadd = new dashboard({
-            section: req.body.section,
-            data: req.body.data,
-            user_id: req.body.user_id,
-            created_on: new Date(),
-            index: req.body.index,
-          });
+  dashboard.findOne({section: req.body.section, user_id: req.body.user_id },{ sort:{ 'index': 1 } }, function(err, allRecords) 
+  {
+    var newadd = new dashboard({
+      section: req.body.section,
+      data: req.body.data,
+      user_id: req.body.user_id,
+      created_on: new Date(),
+      index: req.body.index,
+    });
 
-          newadd.save(function(err, save) {
-          if(save == null){
-            res.send({
-              error: err,
-              status: 0,
-              data: null
-            });
-          }else{
-            res.send({
-              error: null,
-              status: 1,
-              data: req.body.section + 'record has been added successfully!'
-            });
-          }
-      });
-  //   }else{
-  //     dashboard.update({section: req.body.section, user_id: req.body.user_id}, { $set: { section: req.body.section, data: req.body.data}}, {new: true}, function(err, save) {
-  //             if(save == null){
-  //               res.send({
-  //                 status: 0,
-  //                 data: save,
-  //                 msg:'Try Again'
-  //               });
+    //-- Save New Entry On Index 0 ------------ 
+    newadd.save(function(err, save) {
+      if(save == null){
+        res.send({
+          error: err,
+          status: 0,
+          data: null
+        });
+      }else{
+        updateDashEntry();
+        // res.send({
+        //   error: null,
+        //   status: 1,
+        //   data: req.body.section + 'record has been added successfully!'
+        // });
+      }
+    });
 
-  //             }else{
-  //               res.json({
-  //                  status: 1,
-  //                  add:0,
-  //                  data: save,
-  //                  msg:'Updated successfully!'
-  //               });
-  //             }
-  //           });
-  //       }
-  // });
-      
+    var data = allRecords;
+    var counter = 0;
+
+    function updateDashEntry(){
+      if(counter < data.length){
+        var new_index = counter + 1;
+        dashboard.update({_id: data[counter]._id},{ $set: { index: new_index} }, {new: true}, function(err, doc) {
+          counter = counter + 1;
+          updateDashEntry();
+        });
+      }else{
+        res.json({
+          error: null,
+          status: 1,
+          msg:"updated Successfully"
+        });
+      }
+    };
+    
+
+    //-- Update Index of other entries -------- 
+  });
 };
 
 exports.getPageData = function(req, res) 
 {
   // console.log(req);
-  dashboard.find({user_id:req.body.user_id, section: 'quoteEngines'}, function(err, doc) {
-    dashboard.find({user_id:req.body.user_id, section: 'frontPage'}, function(err, doc1) {
-      dashboard.find({user_id:req.body.user_id, section: 'marketingSystem'}, function(err, doc2) {
-        dashboard.find({user_id:req.body.user_id, section: 'virtualSalePlatform'}, function(err, doc3) {
-          dashboard.find({user_id:req.body.user_id, section: 'preferredCarriers'}, function(err, doc4) {
-            dashboard.find({user_id:req.body.user_id, section: 'AddOn'}, function(err, doc5) {
+  dashboard.find({user_id:req.body.user_id, section: 'quoteEngines'},{ sort:{ 'index': 1 } },function(err, doc) {
+    dashboard.find({user_id:req.body.user_id, section: 'frontPage'},{ sort:{ 'index': 1 } }, function(err, doc1) {
+      dashboard.find({user_id:req.body.user_id, section: 'marketingSystem'},{ sort:{ 'index': 1 } }, function(err, doc2) {
+        dashboard.find({user_id:req.body.user_id, section: 'virtualSalePlatform'},{ sort:{ 'index': 1 } }, function(err, doc3) {
+          dashboard.find({user_id:req.body.user_id, section: 'preferredCarriers'},{ sort:{ 'index': 1 } }, function(err, doc4) {
+            dashboard.find({user_id:req.body.user_id, section: 'AddOn'},{ sort:{ 'index': 1 } }, function(err, doc5) {
 
               res.send({
                 status: 1,
