@@ -9,7 +9,7 @@ var path = require('path');
 // const bcrypt = require('bcrypt');
 //****************  create and edit_cmspages_function ****************************
 exports.add_dash_section = function(req, res) {
-  dashboard.findOne({section: req.body.section, user_id: req.body.user_id }, null, { sort:{ 'index': 1 } }).exec(function(err, allRecords) 
+  dashboard.find({section: req.body.section, user_id: req.body.user_id }, null, { sort:{ 'index': 1 } }).exec(function(err, allRecords) 
   {
 
     var data = allRecords;
