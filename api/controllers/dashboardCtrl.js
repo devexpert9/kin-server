@@ -9,7 +9,7 @@ var path = require('path');
 // const bcrypt = require('bcrypt');
 //****************  create and edit_cmspages_function ****************************
 exports.add_dash_section = function(req, res) {
-  dashboard.findOne({section: req.body.section, user_id: req.body.user_id },{ sort:{ 'index': 1 } }, function(err, allRecords) 
+  dashboard.findOne({section: req.body.section, user_id: req.body.user_id }, null, { sort:{ 'index': 1 } }, function(err, allRecords) 
   {
     var newadd = new dashboard({
       section: req.body.section,
@@ -64,12 +64,12 @@ exports.add_dash_section = function(req, res) {
 exports.getPageData = function(req, res) 
 {
   // console.log(req);
-  dashboard.find({user_id:req.body.user_id, section: 'quoteEngines'},{ sort:{ 'index': 1 } },function(err, doc) {
-    dashboard.find({user_id:req.body.user_id, section: 'frontPage'},{ sort:{ 'index': 1 } }, function(err, doc1) {
-      dashboard.find({user_id:req.body.user_id, section: 'marketingSystem'},{ sort:{ 'index': 1 } }, function(err, doc2) {
-        dashboard.find({user_id:req.body.user_id, section: 'virtualSalePlatform'},{ sort:{ 'index': 1 } }, function(err, doc3) {
-          dashboard.find({user_id:req.body.user_id, section: 'preferredCarriers'},{ sort:{ 'index': 1 } }, function(err, doc4) {
-            dashboard.find({user_id:req.body.user_id, section: 'AddOn'},{ sort:{ 'index': 1 } }, function(err, doc5) {
+  dashboard.find({user_id:req.body.user_id, section: 'quoteEngines'}, null, { sort:{ 'index': 1 } },function(err, doc) {
+    dashboard.find({user_id:req.body.user_id, section: 'frontPage'}, null,{ sort:{ 'index': 1 } }, function(err, doc1) {
+      dashboard.find({user_id:req.body.user_id, section: 'marketingSystem'}, null,{ sort:{ 'index': 1 } }, function(err, doc2) {
+        dashboard.find({user_id:req.body.user_id, section: 'virtualSalePlatform'}, null,{ sort:{ 'index': 1 } }, function(err, doc3) {
+          dashboard.find({user_id:req.body.user_id, section: 'preferredCarriers'}, null,{ sort:{ 'index': 1 } }, function(err, doc4) {
+            dashboard.find({user_id:req.body.user_id, section: 'AddOn'}, null,{ sort:{ 'index': 1 } }, function(err, doc5) {
 
               res.send({
                 status: 1,
