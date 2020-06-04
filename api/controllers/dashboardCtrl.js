@@ -11,6 +11,10 @@ var path = require('path');
 exports.add_dash_section = function(req, res) {
   dashboard.findOne({section: req.body.section, user_id: req.body.user_id }, null, { sort:{ 'index': 1 } }, function(err, allRecords) 
   {
+
+    var data = allRecords;
+    var counter = 0;
+    
     var newadd = new dashboard({
       section: req.body.section,
       data: req.body.data,
@@ -36,9 +40,6 @@ exports.add_dash_section = function(req, res) {
         // });
       }
     });
-
-    var data = allRecords;
-    var counter = 0;
 
     function updateDashEntry(){
       if(counter < data.length){
