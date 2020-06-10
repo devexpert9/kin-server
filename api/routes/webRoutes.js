@@ -58,6 +58,18 @@ var dashboard = require('../controllers/dashboardCtrl');
    app.route('/updateDropList')
      .post(dashboard.updateDropList);
 
+
+//--- SUPER ADMIN STUFF BELOW -------------------------------------
+
+var superAdmin = require('../controllers/superadminCtrl');
+   app.route('/addUser')
+     .post(superAdmin.addAdminUser);
+
+
+var superAdmin = require('../controllers/superadminCtrl');
+   app.route('/super_admin_login')
+     .post(superAdmin.login_superadmin);
+
     
 };
 
