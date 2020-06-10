@@ -63,7 +63,7 @@ var dashboard = require('../controllers/dashboardCtrl');
 
 var superAdmin = require('../controllers/superadminCtrl');
    app.route('/register_super_user')
-     .post(superAdmin.addAdminUser);
+    .post(superAdmin.create_user_admin);
 
 
 var superAdmin = require('../controllers/superadminCtrl');
