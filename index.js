@@ -1,19 +1,19 @@
-var express = require('express'),
-  app       = express(),
-  port      = process.env.PORT || 3000,
-  mongoose  = require('mongoose'),
-  users     = require('./api/models/userModel'), 
-  admin     = require('./api/models/adminModel'), 
-  superadmin = require('./api/models/superadminModel'), 
-  cmspage   = require('./api/models/cmspageModel'),
-  dashboard = require('./api/models/dashboardModel'),
-  multer    = require('multer'),
-  bodyParser = require('body-parser');
+var express   = require('express'),
+  app         = express(),
+  port        = process.env.PORT || 3000,
+  mongoose    = require('mongoose'),
+  users       = require('./api/models/userModel'), 
+  admin       = require('./api/models/adminModel'), 
+  superadmin  = require('./api/models/superadminModel'), 
+  cmspage     = require('./api/models/cmspageModel'),
+  dashboard   = require('./api/models/dashboardModel'),
+  multer      = require('multer'),
+  bodyParser  = require('body-parser');
 
  
 mongoose.Promise = global.Promise;
 
-var connectionUrl = 'mongodb://root:DRtaEAo457zb@localhost:27017/hats?authSource=admin';
+var connectionUrl = 'mongodb://root:BaWwsZIeDXl3@localhost:27017/kin?authSource=admin';
 mongoose.connect(connectionUrl); 
 
 app.use(function (req, res, next) {
