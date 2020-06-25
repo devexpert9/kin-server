@@ -2,18 +2,14 @@ var express   = require('express'),
   app         = express(),
   port        = process.env.PORT || 3000,
   mongoose    = require('mongoose'),
-  users       = require('./api/models/userModel'), 
-  admin       = require('./api/models/adminModel'), 
-  superadmin  = require('./api/models/superadminModel'), 
-  cmspage     = require('./api/models/cmspageModel'),
-  dashboard   = require('./api/models/dashboardModel'),
+  users       = require('./api/models/userModel'),
   multer      = require('multer'),
   bodyParser  = require('body-parser');
 
  
 mongoose.Promise = global.Promise;
 
-var connectionUrl = 'mongodb://root:BaWwsZIeDXl3@localhost:27017/kin?authSource=admin';
+var connectionUrl = 'mongodb://root:atw9z9KD2Jql@localhost:27017/kin?authSource=admin';
 mongoose.connect(connectionUrl); 
 
 app.use(function (req, res, next) {
