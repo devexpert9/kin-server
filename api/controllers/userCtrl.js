@@ -64,15 +64,17 @@ exports.update_admin_password = function(req, res) {
 
 };
 // const bcrypt = require('bcrypt');
+
 //****************  create_user_function ****************************
-exports.addUser = function(req, res) {
+exports.registerUser = function(req, res) {
   users.findOne({email: req.body.email}, function(err, user) {
     if(user == null){
       var new_user = new users({
-        username: req.body.username,
-        name: req.body.name,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
         email: req.body.email,
         password: req.body.password,
+        gender: req.body.gender,
         image: null
       });
 

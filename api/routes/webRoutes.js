@@ -3,7 +3,7 @@
 module.exports = function(app) {
 
 var adduser = require('../controllers/userCtrl');
-   app.route('/addUser')
-     .post(adduser.addUser);
+   app.route('/registerUser')
+     .post(adduser.registerUser);
 
 };

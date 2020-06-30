@@ -5,10 +5,10 @@ var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
    
-    name : {
+    firstname : {
       type: String
     },
-    username : {
+    lastname : {
       type: String
     },
     email: {
@@ -19,6 +19,12 @@ var userSchema = new Schema({
     },
     created_on: {
       type: Date
+    },
+    gender: {
+      type: String
+    },
+    provider: {
+      type: String
     },
     image: {
       type: String
