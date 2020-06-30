@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose'),
 multer    = require('multer'),
-users     = mongoose.model('users');
+users     = mongoose.model('users'),
 profiles  = mongoose.model('profiles');
 var path  = require('path');
 var storage = multer.diskStorage({
