@@ -6,6 +6,10 @@ var adduser = require('../controllers/userCtrl');
    app.route('/registerUser')
      .post(adduser.registerUser);
 
+var adduser = require('../controllers/userCtrl');
+   app.route('/login')
+     .post(adduser.login);
+
 //----- Profile Page Callings-------------------------------
 var profiles = require('../controllers/profilesCtrl');
    app.route('/addProfile')
