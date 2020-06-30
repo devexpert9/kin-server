@@ -3,6 +3,7 @@ var express   = require('express'),
   port        = process.env.PORT || 3000,
   mongoose    = require('mongoose'),
   users       = require('./api/models/userModel'),
+  profiles    = require('./api/models/profilesModel'),
   multer      = require('multer'),
   bodyParser  = require('body-parser');
 
