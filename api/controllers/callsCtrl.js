@@ -70,7 +70,12 @@ exports.getCalls = function(req, res)
           });
         }
       };
-      getUserDetails();
+      // getUserDetails();
+       res.json({
+             status: 1,
+             data: all_calls,
+             error:null
+          });
     });
 };
 
