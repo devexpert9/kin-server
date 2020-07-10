@@ -41,7 +41,7 @@ exports.addContact = function(req, res)
       res.send({
         status: 0, 
         data: null, 
-        error: 'Contact name already exist in your profiles list'
+        error: 'Contact name already exist in your list'
       });
     }
   });
@@ -72,17 +72,17 @@ exports.addContact = function(req, res)
 //   });
 // };
 
-// exports.getProfiles = function(req, res)
-// {
-//     profiles.find({userId: req.body.userId }, function(err, docs)
-//     {
-//       res.json({
-//          status: 1,
-//          data: docs,
-//          error:null
-//       });
-//     });
-// };
+exports.getContacts = function(req, res)
+{
+    contacts.find({userId: req.body.userId }, function(err, contacts)
+    {
+      res.json({
+         status: 1,
+         data: contacts,
+         error:null
+      });
+    });
+};
 
 // exports.deleteProfile = function(req, res)
 // {

@@ -36,6 +36,19 @@ exports.addCall = function(req, res)
   });
 };
 
+
+exports.getCalls = function(req, res)
+{
+    calls.find({userId: req.body.userId }, function(err, all_calls)
+    {
+      res.json({
+         status: 1,
+         data: all_calls,
+         error:null
+      });
+    });
+};
+
 // exports.updateProfile = function(req, res)
 // {
 //   profiles.findOne({name: req.body.name}, function(err, user) {
