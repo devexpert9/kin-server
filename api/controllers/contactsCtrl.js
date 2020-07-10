@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
 multer    = require('multer'),
 users     = mongoose.model('users'),
-profiles  = mongoose.model('profiles');
+profiles  = mongoose.model('profiles'),
 contacts  = mongoose.model('contacts');
 var path  = require('path');
 var storage = multer.diskStorage({
