@@ -22,13 +22,13 @@ exports.addContact = function(req, res)
   contacts.findOne({name: req.body.name}, function(err, user) {
     if(user == null)
     {
-      var contacts = new contacts({
+      var new_contact = new contacts({
         name: req.body.name,
         userId: req.body.userId,
         created_on: new Date()
       });
 
-      contacts.save(function(err, contact) {
+      new_contact.save(function(err, contact) {
         res.send({
           data: contact,
           status: 1,
