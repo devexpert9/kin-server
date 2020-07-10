@@ -21,7 +21,9 @@ var upload = multer({ storage: storage }).single('image');
 exports.addCall = function(req, res)
 {
   var new_call = new calls({
-    name: req.body.name,
+    contactId: req.body.contact,
+    callDate: req.body.date,
+    callTime: req.body.time,
     userId: req.body.userId,
     created_on: new Date()
   });
