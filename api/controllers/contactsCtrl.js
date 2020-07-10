@@ -27,20 +27,20 @@ exports.addContact = function(req, res)
         userId: req.body.userId,
         created_on: new Date()
       });
-
+     
       new_contact.save(function(err, contact) {
         res.send({
           data: contact,
           status: 1,
-          error: 'New contact added successfully!'
+          error: 'New contact added successfully!' 
         });
       });
     }
     else
     {
       res.send({
-        status: 0,
-        data: null,
+        status: 0, 
+        data: null, 
         error: 'Contact name already exist in your profiles list'
       });
     }
