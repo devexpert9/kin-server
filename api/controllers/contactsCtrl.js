@@ -19,7 +19,7 @@ var upload = multer({ storage: storage }).single('image');
 
 exports.addContact = function(req, res)
 {
-  contacts.findOne({name: req.body.name}, function(err, user) {
+  contacts.findOne({name: req.body.name, userId: req.body.userId}, function(err, user) {
     if(user == null)
     {
       var new_contact = new contacts({
@@ -75,6 +75,18 @@ exports.addContact = function(req, res)
 exports.getContacts = function(req, res)
 {
     contacts.find({userId: req.body.userId }, function(err, contacts)
+    {
+      res.json({
+         status: 1,
+         data: contacts,
+         error:null
+      });
+    });
+};
+
+exports.getContactByID = function(req, res)
+{
+    contacts.find({_id: req.body.contactId }, function(err, contacts)
     {
       res.json({
          status: 1,

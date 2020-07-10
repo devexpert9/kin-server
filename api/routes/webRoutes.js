@@ -38,6 +38,10 @@ var contacts = require('../controllers/contactsCtrl');
    app.route('/getContacts')
      .post(contacts.getContacts);
 
+var contacts = require('../controllers/contactsCtrl');
+   app.route('/getContactByID')
+     .post(contacts.getContactByID);
+
 //----- CALLS -------------------------------
 
 var calls = require('../controllers/callsCtrl');
@@ -47,6 +51,10 @@ var calls = require('../controllers/callsCtrl');
 var calls = require('../controllers/callsCtrl');
    app.route('/getCalls')
      .post(calls.getCalls);
+
+var calls = require('../controllers/callsCtrl');
+   app.route('/deleteCall')
+     .post(calls.deleteCall);
 
 
 };

@@ -43,11 +43,34 @@ exports.getCalls = function(req, res)
 {
     calls.find({userId: req.body.userId }, function(err, all_calls)
     {
-      res.json({
-         status: 1,
-         data: all_calls,
-         error:null
-      });
+      var counter = 0,
+          data = [],
+          dict = {};
+
+      function getUserDetails(){
+        if(counter < all_calls.length){
+          contacts.findOne({_id: all_calls[counter].contactId}, function(err, doc){
+            dict = {
+              contactId: all_calls[counter].contactId,
+              contactName: doc.name,
+              callDate: all_calls[counter].callDate,
+              callTime: all_calls[counter].callTime,
+              userId: all_calls[counter].userId,
+              created_on: all_calls[counter].created_on
+            };
+            data.push(dict);
+            counter = counter + 1;
+            getUserDetails();
+          });
+        }else{
+          res.json({
+             status: 1,
+             data: data,
+             error:null
+          });
+        }
+      };
+      getUserDetails();
     });
 };
 
@@ -88,14 +111,14 @@ exports.getCalls = function(req, res)
 //     });
 // };
 
-// exports.deleteProfile = function(req, res)
-// {
-//     profiles.remove({_id: req.body._id }, function(err, docs)
-//     {
-//       res.json({
-//          status: 1,
-//          data: null,
-//          error:"Profile deleted successfully"
-//       });
-//     });
-// };
+exports.deleteCall = function(req, res)
+{
+    calls.remove({_id: req.body._id }, function(err, docs)
+    {
+      res.json({
+         status: 1,
+         data: null,
+         error:"Call deleted successfully"
+      });
+    });
+};
