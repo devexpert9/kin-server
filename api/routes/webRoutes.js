@@ -34,5 +34,11 @@ var contacts = require('../controllers/contactsCtrl');
    app.route('/addContact')
      .post(contacts.addContact);
 
+//----- CALLS -------------------------------
+
+var calls = require('../controllers/callsCtrl');
+   app.route('/addCall')
+     .post(calls.addCall);
+
 
 };
