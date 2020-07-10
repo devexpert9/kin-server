@@ -27,4 +27,12 @@ var profiles = require('../controllers/profilesCtrl');
    app.route('/deleteProfile')
      .post(profiles.deleteProfile);
 
+
+//----- CONTACTS -------------------------------
+
+var contacts = require('../controllers/contactsCtrl');
+   app.route('/addContact')
+     .post(contacts.addContact);
+
+
 };

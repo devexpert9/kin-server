@@ -4,6 +4,7 @@ var express   = require('express'),
   mongoose    = require('mongoose'),
   users       = require('./api/models/userModel'),
   profiles    = require('./api/models/profilesModel'),
+  contacts    = require('./api/models/contactsModel'),
   multer      = require('multer'),
   bodyParser  = require('body-parser');
 
