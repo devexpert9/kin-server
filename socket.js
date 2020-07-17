@@ -1,35 +1,25 @@
-  var express = require('express'),
-  app = express();
-  // var http = require('http').Server(app);
-  var server = app.listen(3001)
-  var io = require('socket.io').listen(server);
-  // var io = require('socket.io')(http),
-  port = process.env.PORT || 3001;
-  // app.listen(port);
-  // module.exports = app;
-  // io.on('chat_message', (data) => {
-  //    console.log('a user connected');
-  //   io.emit('chat_message', {text: data.message, created: new Date()});    
-  // });
-
-  app.use( (req, res, next) => {
-   res.header("Access-Control-Allow-Origin", "*"); //The ionic server
-   res.header("Access-Control-Allow-Credentials", "true");
-   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-   next();
-  });
-
-  io.on('connection', function (socket) {
-    console.log('ping-pong started');
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-        console.log(data);
-    });
-
-    socket.on('new-message', function (data) {
-        console.log(data);
-        socket.emit('message', data);
-    });
-});
-  console.log('todo list RESTful API server started on: ' + port);
+let app = require('express')();
+let server = require('http').createServer(app);
+let io = require('socket.io')(server);
  
+io.on('connection', (socket) => {
+ console.log('ting tong connected!!!')
+  socket.on('disconnect', function(){
+    io.emit('users-changed', {user: socket.username, event: 'left'});   
+  });
+ 
+  socket.on('set-name', (name) => {
+    socket.username = name;
+    io.emit('users-changed', {user: name, event: 'joined'});    
+  });
+  
+  socket.on('send-message', (message) => {
+    io.emit('message', {msg: message.text, user: socket.username, createdAt: new Date()});    
+  });
+});
+ 
+var port = process.env.PORT || 3001;
+ 
+server.listen(port, function(){
+   console.log('listening in http://localhost:' + port);
+});
