@@ -48,7 +48,7 @@ exports.getChat = function(req, res)
 		    {$and:[{senderId: req.body.userId}, {receiverId: req.body.receiverId}] },
 		    {$and:[{senderId: req.body.receiverId}, {receiverId: req.body.userId}] },
  		]
- 	}, null, { sort: {'created_on': -1} }, function(err, all_chats)
+ 	}, null, { sort: {'created_on': 1} }, function(err, all_chats)
     {
       var counter = 0,
           data = [],
