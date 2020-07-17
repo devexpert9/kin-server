@@ -6,11 +6,18 @@
   // var io = require('socket.io')(http),
   port = process.env.PORT || 3001;
   // app.listen(port);
-  module.exports = app;
+  // module.exports = app;
   // io.on('chat_message', (data) => {
   //    console.log('a user connected');
   //   io.emit('chat_message', {text: data.message, created: new Date()});    
   // });
+
+  app.use( (req, res, next) => {
+   res.header("Access-Control-Allow-Origin", "*"); //The ionic server
+   res.header("Access-Control-Allow-Credentials", "true");
+   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   next();
+  });
 
   io.on('connection', function (socket) {
     console.log('ping-pong started');
