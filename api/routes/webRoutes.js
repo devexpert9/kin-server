@@ -61,6 +61,10 @@ var calls = require('../controllers/callsCtrl');
 var chat = require('../controllers/chatCtrl');
    app.route('/getUsersList')
      .post(chat.getUsersList);
+     
+var chat = require('../controllers/chatCtrl');
+   app.route('/getChat')
+     .post(chat.getChat);
 
 
 };
