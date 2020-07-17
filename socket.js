@@ -1,9 +1,11 @@
   var express = require('express'),
   app = express();
-  var http = require('http').Server(app);
-  var io = require('socket.io')(http),
+  // var http = require('http').Server(app);
+  var server = app.listen(3001)
+  var io = require('socket.io').listen(server);
+  // var io = require('socket.io')(http),
   port = process.env.PORT || 3001;
-  app.listen(port);
+  // app.listen(port);
   module.exports = app;
   io.on('chat_message', (data) => {
      console.log('a user connected');
