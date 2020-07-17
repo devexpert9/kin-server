@@ -66,5 +66,8 @@ var chat = require('../controllers/chatCtrl');
    app.route('/getChat')
      .post(chat.getChat);
 
+var chat = require('../controllers/chatCtrl');
+   app.route('/saveMessage')
+     .post(chat.sendMessage);
 
 };
