@@ -7,6 +7,9 @@ var contactsSchema = new Schema({
     name : {
       type: String
     },
+    phone : {
+      type: String
+    },
     userId: {
       type : String
     },
