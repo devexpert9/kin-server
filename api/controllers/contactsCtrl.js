@@ -19,11 +19,13 @@ var upload = multer({ storage: storage }).single('image');
 
 exports.addContact = function(req, res)
 {
-  contacts.findOne({name: req.body.name, userId: req.body.userId}, function(err, user) {
+  contacts.findOne({phone: req.body.phone, userId: req.body.userId}, function(err, user)
+  {
     if(user == null)
     {
       var new_contact = new contacts({
         name: req.body.name,
+        phone: req.body.phone,
         userId: req.body.userId,
         created_on: new Date()
       });
@@ -41,7 +43,7 @@ exports.addContact = function(req, res)
       res.send({
         status: 0, 
         data: null, 
-        error: 'Contact name already exist in your list'
+        error: 'Contact with this phone number is already exist'
       });
     }
   });
