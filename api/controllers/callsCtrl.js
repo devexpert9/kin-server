@@ -48,9 +48,12 @@ exports.getCalls = function(req, res)
           dict = {};
 
       function getUserDetails(){
-        if(counter < all_calls.length){
-          contacts.findOne({_id: all_calls[counter].contactId}, function(err, doc){
+        if(counter < all_calls.length)
+        {
+          contacts.findOne({_id: all_calls[counter].contactId}, function(err, doc)
+          {
             dict = {
+              id: all_calls[counter]._id,
               contactId: all_calls[counter].contactId,
               contactName: doc.name,
               callDate: all_calls[counter].callDate,
