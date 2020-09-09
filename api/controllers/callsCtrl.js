@@ -116,7 +116,7 @@ exports.getCalls = function(req, res)
 
 exports.deleteCall = function(req, res)
 {
-    calls.remove({contactId: req.body._id }, function(err, docs)
+    calls.remove({_id: req.body._id }, function(err, docs)
     {
       res.json({
          status: 1,
