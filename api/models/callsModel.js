@@ -16,6 +16,9 @@ var callsSchema = new Schema({
     userId: {
       type : String
     },
+    profileId: {
+      type : String
+    },
     created_on: {
       type: Date
     }
