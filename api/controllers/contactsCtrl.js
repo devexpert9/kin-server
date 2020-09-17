@@ -98,7 +98,7 @@ exports.getContactByID = function(req, res)
     });
 };
 
-exports.deleteCall = function(req, res)
+exports.deleteContact = function(req, res)
 {
     contacts.remove({_id: req.body._id }, function(err, docs)
     {
