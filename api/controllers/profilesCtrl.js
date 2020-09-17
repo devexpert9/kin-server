@@ -87,7 +87,7 @@ exports.getProfiles = function(req, res)
 
 exports.getProfileByID = function(req, res)
 {
-    profiles.find({profileId: req.body.profileId }, function(err, docs)
+    profiles.find({_id: req.body.profileId }, function(err, docs)
     {
       res.json({
          status: 1,
