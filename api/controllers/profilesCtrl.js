@@ -18,7 +18,7 @@ var upload = multer({ storage: storage }).single('image');
 
 exports.addProfile = function(req, res)
 {
-  profiles.findOne({name: req.body.name}, function(err, user) {
+  profiles.findOne({ $and: [ {'userId': req.body.userId, $or:[{'name': req.body.name},{'room': req.body.room }] }] }, function(err, user) {
     if(user == null)
     {
       var new_profile = new profiles({
@@ -42,7 +42,7 @@ exports.addProfile = function(req, res)
       res.send({
         status: 0,
         data: null,
-        error: 'Profile name already exist in your profiles list'
+        error: user.name == req.body.name ? 'Profile name alreafy exist.' : 'Room number already exist.'
       });
     }
   });
