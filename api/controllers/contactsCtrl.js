@@ -98,14 +98,14 @@ exports.getContactByID = function(req, res)
     });
 };
 
-// exports.deleteProfile = function(req, res)
-// {
-//     profiles.remove({_id: req.body._id }, function(err, docs)
-//     {
-//       res.json({
-//          status: 1,
-//          data: null,
-//          error:"Profile deleted successfully"
-//       });
-//     });
-// };
+exports.deleteCall = function(req, res)
+{
+    contacts.remove({_id: req.body._id }, function(err, docs)
+    {
+      res.json({
+         status: 1,
+         data: null,
+         error:"Contact deleted successfully"
+      });
+    });
+};

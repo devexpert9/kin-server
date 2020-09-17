@@ -42,6 +42,10 @@ var contacts = require('../controllers/contactsCtrl');
    app.route('/getContactByID')
      .post(contacts.getContactByID);
 
+var contacts = require('../controllers/contactsCtrl');
+   app.route('/deleteContact')
+     .post(contacts.deleteContact);
+
 //----- CALLS -------------------------------
 
 var calls = require('../controllers/callsCtrl');
