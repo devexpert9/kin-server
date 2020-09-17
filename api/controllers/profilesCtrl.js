@@ -42,7 +42,7 @@ exports.addProfile = function(req, res)
       res.send({
         status: 0,
         data: null,
-        error: user.name == req.body.name ? 'Profile name alreafy exist.' : 'Room number already exist.'
+        error: user.name == req.body.name ? 'Profile name already exist.' : 'Room number already exist.'
       });
     }
   });
