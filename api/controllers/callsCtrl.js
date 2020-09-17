@@ -53,6 +53,7 @@ exports.getCalls = function(req, res)
         {
           contacts.findOne({_id: all_calls[counter].contactId}, function(err, doc)
           {
+            console.log(doc);
             dict = {
               id: all_calls[counter]._id,
               contactId: all_calls[counter].contactId,
