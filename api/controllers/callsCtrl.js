@@ -53,18 +53,20 @@ exports.getCalls = function(req, res)
         {
           contacts.findOne({_id: all_calls[counter].contactId}, function(err, doc)
           {
-            console.log(doc);
-            dict = {
-              id: all_calls[counter]._id,
-              contactId: all_calls[counter].contactId,
-              contactName: doc.name,
-              callDate: all_calls[counter].callDate,
-              callTime: all_calls[counter].callTime,
-              userId: all_calls[counter].userId,
-              profileId: all_calls[counter].profileId,
-              created_on: all_calls[counter].created_on
-            };
-            data.push(dict);
+            if(doc){
+              dict = {
+                id: all_calls[counter]._id,
+                contactId: all_calls[counter].contactId,
+                contactName: doc.name,
+                callDate: all_calls[counter].callDate,
+                callTime: all_calls[counter].callTime,
+                userId: all_calls[counter].userId,
+                profileId: all_calls[counter].profileId,
+                created_on: all_calls[counter].created_on
+              };
+              data.push(dict);
+            }
+            
             counter = counter + 1;
             getUserDetails();
           });
