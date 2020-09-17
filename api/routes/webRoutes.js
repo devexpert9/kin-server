@@ -22,6 +22,10 @@ var profiles = require('../controllers/profilesCtrl');
 var profiles = require('../controllers/profilesCtrl');
    app.route('/getProfiles')
      .post(profiles.getProfiles);
+     
+var profiles = require('../controllers/profilesCtrl');
+   app.route('/getProfileByID')
+     .post(profiles.getProfileByID);
 
 var profiles = require('../controllers/profilesCtrl');
    app.route('/deleteProfile')

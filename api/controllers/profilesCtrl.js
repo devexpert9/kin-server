@@ -85,6 +85,18 @@ exports.getProfiles = function(req, res)
     });
 };
 
+exports.getProfileByID = function(req, res)
+{
+    profiles.find({profileId: req.body.profileId }, function(err, docs)
+    {
+      res.json({
+         status: 1,
+         data: docs,
+         error:null
+      });
+    });
+};
+
 exports.deleteProfile = function(req, res)
 {
     profiles.remove({_id: req.body._id }, function(err, docs)
