@@ -7,6 +7,9 @@ var profilesSchema = new Schema({
     name : {
       type: String
     },
+    image : {
+      type: String
+    },
     room : {
       type: String
     },

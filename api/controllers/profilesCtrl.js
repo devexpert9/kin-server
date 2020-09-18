@@ -23,6 +23,7 @@ exports.addProfile = function(req, res)
     {
       var new_profile = new profiles({
         name: req.body.name,
+        image: req.body.image,
         room: req.body.room,
         dob: req.body.dob,
         userId: req.body.userId,
