@@ -9,6 +9,10 @@ var adduser = require('../controllers/userCtrl');
 var adduser = require('../controllers/userCtrl');
    app.route('/login')
      .post(adduser.login);
+     
+var adduser = require('../controllers/userCtrl');
+   app.route('/upload_image')
+     .post(adduser.upload_image);
 
 //----- Profile Page Callings-------------------------------
 var profiles = require('../controllers/profilesCtrl');
@@ -22,7 +26,7 @@ var profiles = require('../controllers/profilesCtrl');
 var profiles = require('../controllers/profilesCtrl');
    app.route('/getProfiles')
      .post(profiles.getProfiles);
-     
+
 var profiles = require('../controllers/profilesCtrl');
    app.route('/getProfileByID')
      .post(profiles.getProfileByID);
