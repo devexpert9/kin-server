@@ -13,7 +13,7 @@ var express   = require('express'),
  
 mongoose.Promise = global.Promise;
 
-var connectionUrl = 'mongodb://root:atw9z9KD2Jql@localhost:27017/kin?authSource=admin';
+var connectionUrl = 'mongodb://root:FNNJWcCtmkY4@localhost:27017/kin?authSource=admin';
 mongoose.connect(connectionUrl); 
 
 app.use(function (req, res, next) {
