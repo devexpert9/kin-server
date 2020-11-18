@@ -2,6 +2,7 @@
 
 module.exports = function(app) {
 
+//----- Users As Organization------------------------------
 var adduser = require('../controllers/userCtrl');
    app.route('/registerUser')
      .post(adduser.registerUser);
@@ -15,18 +16,29 @@ var adduser = require('../controllers/userCtrl');
      .post(adduser.upload_image);
 
 
-//----- Organization----------------------------------------
-var organization = require('../controllers/userCtrl');
-   app.route('/registerUser')
-     .post(organization.organization_registerUser);
+//----- Patients----------------------------------------
+var patient = require('../controllers/userCtrl');
+   app.route('/patient_add')
+     .post(patient.patient_add);
 
-var organization = require('../controllers/userCtrl');
-   app.route('/login')
-     .post(organization.organization_login);
+var patient = require('../controllers/userCtrl');
+   app.route('/patient_update')
+     .post(patient.patient_update);
+
+var patient = require('../controllers/userCtrl');
+   app.route('/patient_delete')
+     .post(patient.patient_delete);
+
+var patient = require('../controllers/userCtrl');
+   app.route('/patient_login')
+     .post(patient.patient_login);
      
-var adduser = require('../controllers/userCtrl');
-   app.route('/upload_image')
-     .post(organization.organization_upload_image);
+var patient = require('../controllers/userCtrl');
+   app.route('/patient_upload_image')
+     .post(patient.patient_upload_image);
+
+
+
 
 
 //----- Profile Page Callings-------------------------------
