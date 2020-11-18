@@ -14,6 +14,21 @@ var adduser = require('../controllers/userCtrl');
    app.route('/upload_image')
      .post(adduser.upload_image);
 
+
+//----- Organization----------------------------------------
+var organization = require('../controllers/userCtrl');
+   app.route('/registerUser')
+     .post(organization.organization_registerUser);
+
+var organization = require('../controllers/userCtrl');
+   app.route('/login')
+     .post(organization.organization_login);
+     
+var adduser = require('../controllers/userCtrl');
+   app.route('/upload_image')
+     .post(organization.organization_upload_image);
+
+
 //----- Profile Page Callings-------------------------------
 var profiles = require('../controllers/profilesCtrl');
    app.route('/addProfile')
