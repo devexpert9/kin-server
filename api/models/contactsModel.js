@@ -13,6 +13,9 @@ var contactsSchema = new Schema({
     phone : {
       type: String
     },
+    email : {
+      type: String
+    },
     userId: {
       type : String
     },

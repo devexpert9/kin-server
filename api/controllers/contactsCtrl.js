@@ -19,14 +19,16 @@ var upload = multer({ storage: storage }).single('image');
 
 exports.addContact = function(req, res)
 {
-  contacts.findOne({phone: req.body.phone, userId: req.body.userId}, function(err, user)
+  contacts.findOne({phone: req.body.phone, patientId: req.body.patientId}, function(err, user)
   {
     if(user == null)
     {
       var new_contact = new contacts({
-        name: req.body.name,
-        phone: req.body.phone,
-        userId: req.body.userId,
+        name:       req.body.name,
+        phone:      req.body.phone,
+        email:      req.body.email,
+        password:      req.body.password,
+        patientId:  req.body.patientId,
         created_on: new Date()
       });
      
@@ -49,30 +51,31 @@ exports.addContact = function(req, res)
   });
 };
 
-// exports.updateProfile = function(req, res)
-// {
-//   profiles.findOne({name: req.body.name}, function(err, user) {
-//     if(user == null)
-//     {
-//       profiles.update({_id: req.body._id }, { $set: {name: req.body.name, room: req.body.room, dob: req.body.dob}}, {new: true}, function(err, save)
-//       {
-//         res.json({
-//            status: 1,
-//            data: null,
-//            error:'Profile updated successfully'
-//         });
-//       });
-//     }
-//     else
-//     {
-//       res.send({
-//         status: 0,
-//         data: null,
-//         error: 'Profile name already exist in your profiles list'
-//       });
-//     }
-//   });
-// };
+exports.updateContact = function(req, res)
+{
+  contacts.findOne({phone: req.body.phone}, function(err, user)
+  {
+    if(user == null)
+    {
+      contacts.update({_id: req.body.contactId }, { $set: {name: req.body.name, email: req.body.email, phone: req.body.phone}}, {new: true}, function(err, save)
+      {
+        res.json({
+           status: 1,
+           data: null,
+           error:'Contact updated successfully'
+        });
+      });
+    }
+    else
+    {
+      res.send({
+        status: 0,
+        data: null,
+        error: 'Contact with this phone number already exist.'
+      });
+    }
+  });
+};
 
 exports.getContacts = function(req, res)
 {

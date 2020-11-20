@@ -31,7 +31,7 @@ exports.patient_add = function(req, res)
         contact:   req.body.contact,
         password:  req.body.password,
         gender:    req.body.gender,
-        room_no:    req.body.room_no,
+        room_no:   req.body.room_no,
         image:     null
       });
 

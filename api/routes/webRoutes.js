@@ -48,6 +48,10 @@ var contacts = require('../controllers/contactsCtrl');
      .post(contacts.addContact);
 
 var contacts = require('../controllers/contactsCtrl');
+   app.route('/updateContact')
+     .post(contacts.updateContact);
+
+var contacts = require('../controllers/contactsCtrl');
    app.route('/getContacts')
      .post(contacts.getContacts);
 
