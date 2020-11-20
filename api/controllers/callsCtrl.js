@@ -25,7 +25,7 @@ exports.addCall = function(req, res)
     callDate:   req.body.date,
     callTime:   req.body.time,
     // userId:     req.body.userId,
-    // profileId:  req.body.profileId,
+    patientId:  req.body.patientId,
     created_on: new Date()
   });
  
@@ -42,7 +42,7 @@ exports.addCall = function(req, res)
 
 exports.getCalls = function(req, res)
 {
-    calls.find({contactId: req.body.contactId }, function(err, all_calls)
+    calls.find({patientId: req.body.patientId }, function(err, all_calls)
     {
       var counter = 0,
           data = [],
@@ -61,7 +61,7 @@ exports.getCalls = function(req, res)
                 callDate: all_calls[counter].callDate,
                 callTime: all_calls[counter].callTime,
                 // userId: all_calls[counter].userId,
-                // profileId: all_calls[counter].profileId,
+                patientId: all_calls[counter].patientId,
                 created_on: all_calls[counter].created_on
               };
               data.push(dict);
@@ -132,42 +132,6 @@ exports.getProfileCalls = function(req, res)
     });
 };
 
-// exports.updateProfile = function(req, res)
-// {
-//   profiles.findOne({name: req.body.name}, function(err, user) {
-//     if(user == null)
-//     {
-//       profiles.update({_id: req.body._id }, { $set: {name: req.body.name, room: req.body.room, dob: req.body.dob}}, {new: true}, function(err, save)
-//       {
-//         res.json({
-//            status: 1,
-//            data: null,
-//            error:'Profile updated successfully'
-//         });
-//       });
-//     }
-//     else
-//     {
-//       res.send({
-//         status: 0,
-//         data: null,
-//         error: 'Profile name already exist in your profiles list'
-//       });
-//     }
-//   });
-// };
-
-// exports.getProfiles = function(req, res)
-// {
-//     profiles.find({userId: req.body.userId }, function(err, docs)
-//     {
-//       res.json({
-//          status: 1,
-//          data: docs,
-//          error:null
-//       });
-//     });
-// };
 
 exports.deleteCall = function(req, res)
 {

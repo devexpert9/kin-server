@@ -16,9 +16,9 @@ var callsSchema = new Schema({
     // userId: {
     //   type : String
     // },
-    // profileId: {
-    //   type : String
-    // },
+    patientId: {
+      type : String
+    },
     created_on: {
       type: Date
     }
