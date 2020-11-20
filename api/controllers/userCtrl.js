@@ -4,6 +4,8 @@ var mongoose = require('mongoose'),
 multer = require('multer'),
 // stores   = mongoose.model('store'),
 // newsfeed = mongoose.model('newsfeed'),
+contacts  = mongoose.model('contacts'),
+patient    = mongoose.model('patient'),
 users = mongoose.model('users');
 var path = require('path');
 var storage = multer.diskStorage({
@@ -99,24 +101,75 @@ exports.registerUser = function(req, res)
 //**************** User_login_function ******************
 exports.login = function(req, res) 
 {
-  users.findOne({email:req.body.email, password:req.body.password}, function(err, user)
-  {
-    if(user == null){
-      res.send({
-        status: 0,
-        data: null,
-        error:'Invalid logged in deatils.'
-      });
-    }
-    else
+  var loginAs = req.body.login_as;
+
+  if(loginAs == 'organization'){
+    users.findOne({email:req.body.email, password:req.body.password}, function(err, user)
     {
-      res.json({
-         status: 1,
-         data: user,
-         error:'Logged In successfully!'
-      });
-    }
-  });
+      if(user == null){
+        res.send({
+          status: 0,
+          data: null,
+          error:'Invalid logged in deatils.'
+        });
+      }
+      else
+      {
+        res.json({
+           status: 1,
+           data: user,
+           type:'organization',
+           error:'Logged In successfully!'
+        });
+      }
+    });
+  }
+  else if(loginAs == 'patient')
+  {
+    patient.findOne({email:req.body.email, password:req.body.password}, function(err, user)
+    {
+      if(user == null){
+        res.send({
+          status: 0,
+          data: null,
+          error:'Invalid logged in deatils.'
+        });
+      }
+      else
+      {
+        res.json({
+           status: 1,
+           data: user,
+           type:'patient',
+           error:'Logged In successfully!'
+        });
+      }
+    });
+  }
+  else if(loginAs == 'contact')
+  {
+    contacts.findOne({email:req.body.email, password:req.body.password}, function(err, user)
+    {
+      if(user == null){
+        res.send({
+          status: 0,
+          data: null,
+          error:'Invalid logged in deatils.'
+        });
+      }
+      else
+      {
+        res.json({
+           status: 1,
+           data: user,
+           type:'contact',
+           error:'Logged In successfully!'
+        });
+      }
+    });
+  }
+
+  
 };
 
 //**************** Get User Function ******************
