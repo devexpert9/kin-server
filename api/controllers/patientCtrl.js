@@ -78,7 +78,7 @@ exports.patient_login = function(req, res)
 //***** Get organization patients*********************
 exports.patient_get = function(req, res) 
 {
-  patient.findOne({userId:req.body.userId}, function(err, user)
+  patient.find({}, function(err, user)
   {
     if(user == null){
       res.send({
