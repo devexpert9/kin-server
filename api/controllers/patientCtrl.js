@@ -114,3 +114,15 @@ exports.patient_delete = function(req, res) {
       }
     });
 };
+
+
+exports.patient_upload_image = function(req, res) {
+  upload(req,res,function(err)
+  {
+    res.json(req.file.filename);
+    if(err){
+      res.json({error_code:1,err_desc:err});
+      return;
+    }   
+  });
+};
