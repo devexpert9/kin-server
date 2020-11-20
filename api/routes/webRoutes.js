@@ -22,6 +22,10 @@ var patient = require('../controllers/patientCtrl');
      .post(patient.patient_add);
 
 var patient = require('../controllers/patientCtrl');
+   app.route('/patient_get')
+     .post(patient.patient_get);
+
+var patient = require('../controllers/patientCtrl');
    app.route('/patient_update')
      .post(patient.patient_update);
 
