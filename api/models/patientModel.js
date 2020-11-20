@@ -29,6 +29,9 @@ var patientSchema = new Schema({
     gender: {
       type: String
     },
+    room_no: {
+      type: String
+    },
     provider: {
       type: String
     },

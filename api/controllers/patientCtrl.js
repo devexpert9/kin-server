@@ -31,6 +31,7 @@ exports.patient_add = function(req, res)
         contact:   req.body.contact,
         password:  req.body.password,
         gender:    req.body.gender,
+        room_no:    req.body.room_no,
         image:     null
       });
 
@@ -77,7 +78,7 @@ exports.patient_login = function(req, res)
 //**************** Update Patient ******************
 exports.patient_update = function(req, res)
 {
-  patient.update({_id: req.body.patientId},{$set:{ 'firstname': req.body.firstname, 'lastname': req.body.lastname, 'email':req.body.email, 'contact':req.body.contact, 'image':req.body.image, 'password': req.body.password } }, {new: true}, function(err, user) {
+  patient.update({_id: req.body.patientId},{$set:{ 'firstname': req.body.firstname, 'lastname': req.body.lastname, 'email':req.body.email, 'contact':req.body.contact, 'gender':req.body.gender, 'room_no': req.body.room_no } }, {new: true}, function(err, user) {
     if(user == null){
       res.send({
         error: err,
