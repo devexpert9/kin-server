@@ -23,7 +23,7 @@ exports.patient_add = function(req, res)
 {
 	patient.findOne({email: req.body.email}, function(err, user) {
     if(user == null){
-      var new_patient = new users({
+      var new_patient = new patient({
         userId:    req.body.userId,
         firstname: req.body.firstname,
         lastname:  req.body.lastname,
