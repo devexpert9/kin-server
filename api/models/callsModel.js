@@ -13,12 +13,12 @@ var callsSchema = new Schema({
     callTime : {
       type: String
     },
-    userId: {
-      type : String
-    },
-    profileId: {
-      type : String
-    },
+    // userId: {
+    //   type : String
+    // },
+    // profileId: {
+    //   type : String
+    // },
     created_on: {
       type: Date
     }

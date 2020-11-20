@@ -21,11 +21,11 @@ var upload = multer({ storage: storage }).single('image');
 exports.addCall = function(req, res)
 {
   var new_call = new calls({
-    contactId: req.body.contact,
-    callDate: req.body.date,
-    callTime: req.body.time,
-    userId: req.body.userId,
-    profileId: req.body.profileId,
+    contactId:  req.body.contactId,
+    callDate:   req.body.date,
+    callTime:   req.body.time,
+    // userId:     req.body.userId,
+    // profileId:  req.body.profileId,
     created_on: new Date()
   });
  
@@ -42,7 +42,7 @@ exports.addCall = function(req, res)
 
 exports.getCalls = function(req, res)
 {
-    calls.find({userId: req.body.userId }, function(err, all_calls)
+    calls.find({contactId: req.body.contactId }, function(err, all_calls)
     {
       var counter = 0,
           data = [],
@@ -60,8 +60,8 @@ exports.getCalls = function(req, res)
                 contactName: doc.name,
                 callDate: all_calls[counter].callDate,
                 callTime: all_calls[counter].callTime,
-                userId: all_calls[counter].userId,
-                profileId: all_calls[counter].profileId,
+                // userId: all_calls[counter].userId,
+                // profileId: all_calls[counter].profileId,
                 created_on: all_calls[counter].created_on
               };
               data.push(dict);
