@@ -21,7 +21,7 @@ var upload = multer({ storage: storage }).single('image');
 //****************  Add Patient ****************************
 exports.patient_add = function(req, res) 
 {
-	patient.findOne({email: req.body.email}, function(err, user) {
+	patient.findOne({email: req.body.email, userId:{$eq: req.body.userId}}, function(err, user) {
     if(user == null){
       var new_patient = new patient({
         userId:    req.body.userId,
@@ -78,7 +78,7 @@ exports.patient_login = function(req, res)
 //***** Get organization patients*********************
 exports.patient_get = function(req, res) 
 {
-  patient.find({}, function(err, user)
+  patient.find({userId: req.body.userId}, function(err, user)
   {
     if(user == null){
       res.send({
