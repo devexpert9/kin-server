@@ -14,6 +14,9 @@ var userSchema = new Schema({
     email: {
       type: String,
     },
+    organization_name{
+      type: String,
+    },
     password: {
       type : String
     },

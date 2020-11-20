@@ -20,6 +20,9 @@ var patientSchema = new Schema({
     password: {
       type : String
     },
+    contact: {
+      type : String
+    },
     created_on: {
       type: Date
     },

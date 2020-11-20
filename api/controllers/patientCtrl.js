@@ -18,42 +18,43 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).single('image');
 
 
-//****************  create_user_function ****************************
+//****************  Add Patient ****************************
 exports.patient_add = function(req, res) 
 {
-  	patient.findOne({email: req.body.email}, function(err, user) {
-	    if(user == null){
-	      var new_patient = new users({
-	        userId: req.body.userId,
-          firstname: req.body.firstname,
-	        lastname: req.body.lastname,
-	        email: req.body.email,
-	        password: req.body.password,
-	        gender: req.body.gender,
-	        image: null
-	      });
+	patient.findOne({email: req.body.email}, function(err, user) {
+    if(user == null){
+      var new_patient = new users({
+        userId:    req.body.userId,
+        firstname: req.body.firstname,
+        lastname:  req.body.lastname,
+        email:     req.body.email,
+        contact:   req.body.contact,
+        password:  req.body.password,
+        gender:    req.body.gender,
+        image:     null
+      });
 
-	      new_patient.save(function(err, users) {
-	        res.send({
-	          data: users,
-	          status: 1,
-	          error: 'Patient added successfully!'
-	        });
-	      });
-	    }else{
-	      res.send({
-	        status: 0,
-	        data: null,
-	        error: 'Email already exist in our system!'
-	      });
-	    }
+      new_patient.save(function(err, users) {
+        res.send({
+          data: users,
+          status: 1,
+          error: 'Patient added successfully!'
+        });
+      });
+    }else{
+      res.send({
+        status: 0,
+        data: null,
+        error: 'Email already exist in our system!'
+      });
+    }
  	});
 };
 
-//**************** User_login_function ******************
+//**************** Login Patient ******************
 exports.patient_login = function(req, res) 
 {
-  organization.findOne({email:req.body.email, password:req.body.password}, function(err, user)
+  patient.findOne({email:req.body.email, password:req.body.password}, function(err, user)
   {
     if(user == null){
       res.send({
@@ -71,4 +72,45 @@ exports.patient_login = function(req, res)
       });
     }
   });
+};
+
+//**************** Update Patient ******************
+exports.patient_update = function(req, res)
+{
+  patient.update({_id: req.body.patientId},{$set:{ 'firstname': req.body.firstname, 'lastname': req.body.lastname, 'email':req.body.email, 'contact':req.body.contact, 'image':req.body.image, 'password': req.body.password } }, {new: true}, function(err, user) {
+    if(user == null){
+      res.send({
+        error: err,
+        status: 0,
+        msg:"Try Again"
+      });
+    }else{
+      res.json({
+        error: null,
+        status: 1,
+        data:user,
+        msg:"Patient updated successfully!"
+      });
+    }
+  });
+};
+
+//**************** Delete Patient ******************
+exports.patient_delete = function(req, res) {
+   patient.remove({_id:req.body.patientId}, function(err, user) {
+      if(user == null)
+      {
+        res.send({
+          error: err,
+          status: 0,
+          msg:"Try Again"
+        });
+      }else{
+        res.json({
+          error: null,
+          status: 1,
+          msg:"Deleted Successfully"
+        });
+      }
+    });
 };

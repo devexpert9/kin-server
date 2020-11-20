@@ -17,28 +17,43 @@ var adduser = require('../controllers/userCtrl');
 
 
 //----- Patients----------------------------------------
-var patient = require('../controllers/userCtrl');
+var patient = require('../controllers/patientCtrl');
    app.route('/patient_add')
      .post(patient.patient_add);
 
-var patient = require('../controllers/userCtrl');
+var patient = require('../controllers/patientCtrl');
    app.route('/patient_update')
      .post(patient.patient_update);
 
-var patient = require('../controllers/userCtrl');
+var patient = require('../controllers/patientCtrl');
    app.route('/patient_delete')
      .post(patient.patient_delete);
 
-var patient = require('../controllers/userCtrl');
+var patient = require('../controllers/patientCtrl');
    app.route('/patient_login')
      .post(patient.patient_login);
      
-var patient = require('../controllers/userCtrl');
+var patient = require('../controllers/patientCtrl');
    app.route('/patient_upload_image')
      .post(patient.patient_upload_image);
 
 
+//----- PATIENT CONTACTS -------------------------------
+var contacts = require('../controllers/contactsCtrl');
+   app.route('/addContact')
+     .post(contacts.addContact);
 
+var contacts = require('../controllers/contactsCtrl');
+   app.route('/getContacts')
+     .post(contacts.getContacts);
+
+var contacts = require('../controllers/contactsCtrl');
+   app.route('/getContactByID')
+     .post(contacts.getContactByID);
+
+var contacts = require('../controllers/contactsCtrl');
+   app.route('/deleteContact')
+     .post(contacts.deleteContact);
 
 
 //----- Profile Page Callings-------------------------------
@@ -63,23 +78,7 @@ var profiles = require('../controllers/profilesCtrl');
      .post(profiles.deleteProfile);
 
 
-//----- CONTACTS -------------------------------
 
-var contacts = require('../controllers/contactsCtrl');
-   app.route('/addContact')
-     .post(contacts.addContact);
-
-var contacts = require('../controllers/contactsCtrl');
-   app.route('/getContacts')
-     .post(contacts.getContacts);
-
-var contacts = require('../controllers/contactsCtrl');
-   app.route('/getContactByID')
-     .post(contacts.getContactByID);
-
-var contacts = require('../controllers/contactsCtrl');
-   app.route('/deleteContact')
-     .post(contacts.deleteContact);
 
 //----- CALLS -------------------------------
 
