@@ -76,7 +76,7 @@ exports.addContact = function(req, res)
 
 exports.getContacts = function(req, res)
 {
-    contacts.find({userId: req.body.userId }, function(err, contacts)
+    contacts.find({patientId: req.body.patientId }, function(err, contacts)
     {
       res.json({
          status: 1,
