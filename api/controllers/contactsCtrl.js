@@ -57,6 +57,7 @@ exports.addContact = function(req, res)
             var content = new helper.Content('text/html', dynamic_data);
 
             var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+            
             var sg = require('sendgrid')('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');
             
             //var sg = require('sendgrid')('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');
@@ -69,33 +70,21 @@ exports.addContact = function(req, res)
             sg.API(request, function (error, response) 
             {
               if (error) {
-                console.log(error);
-              }else{
-                console.log('Send');
-              }
-              /*res.send({
-                data: contact,
-                status: 1,
-                error: 'New contact added successfully!' 
-              });*/
-              /*if (error) {
+                // console.log(error);
                 res.json({
-                    msg: 'Something went wrong.Please try later.',
+                    msg: 'Something went wrong with sending email.',
                     status: 0
-                   
                 });
               }else{
-                res.json({
-                    msg: 'Mail has been sent successfully',
-                    status: 1,
-                    data:null
+                res.send({
+                  data: contact,
+                  status: 1,
+                  error: 'New contact added successfully!' 
                 });
-              }*/
+              }
             })
           }) 
         //-------------------------------------------
-
-        
       });
     }
     else

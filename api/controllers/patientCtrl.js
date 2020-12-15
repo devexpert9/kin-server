@@ -38,14 +38,56 @@ exports.patient_add = function(req, res)
       new_patient.save(function(err, users)
       {
         //--SEND EMAIL-------------------------------
+          var string  = 'Don'+'\''+'t worry, we all forget sometimes';
+          var fs      = require('fs'); // npm install fs
+          var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/patient.html', 'utf8');
+          let dynamic_data = '';
+          
+          readStream.on('data', function(chunk) {
+            dynamic_data += chunk;
+          }).on('end', function() 
+          {
+            var helper    = require('sendgrid').mail;
+            
+            var fromEmail = new helper.Email('101.indiit@gmail.com','KIN');
+            var toEmail   = new helper.Email(req.body.email);
+            var subject   = 'Account Created As Patient';
 
+            dynamic_data = dynamic_data.replace("#NAME#", req.body.name) ;
+            dynamic_data = dynamic_data.replace("#EMAIL#", req.body.email) ;
+            dynamic_data = dynamic_data.replace("#PASSWORD#", req.body.password) ;
+
+            var content = new helper.Content('text/html', dynamic_data);
+
+            var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+            
+            var sg = require('sendgrid')('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');
+            
+            //var sg = require('sendgrid')('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');
+            
+            var request = sg.emptyRequest({
+              method: 'POST',
+              path: '/v3/mail/send',
+              body: mail.toJSON()
+            });
+            sg.API(request, function (error, response) 
+            {
+              if (error) {
+                // console.log(error);
+                res.json({
+                    msg: 'Something went wrong with sending email.',
+                    status: 0
+                });
+              }else{
+                res.send({
+                  data: users,
+                  status: 1,
+                  error: 'Patient added successfully!'
+                });
+              }
+            })
+          }) 
         //-------------------------------------------
-        
-        res.send({
-          data: users,
-          status: 1,
-          error: 'Patient added successfully!'
-        });
       });
     }else{
       res.send({
