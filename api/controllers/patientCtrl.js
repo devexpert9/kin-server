@@ -35,7 +35,12 @@ exports.patient_add = function(req, res)
         image:     null
       });
 
-      new_patient.save(function(err, users) {
+      new_patient.save(function(err, users)
+      {
+        //--SEND EMAIL-------------------------------
+
+        //-------------------------------------------
+        
         res.send({
           data: users,
           status: 1,

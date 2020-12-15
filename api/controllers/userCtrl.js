@@ -81,7 +81,12 @@ exports.registerUser = function(req, res)
         image: null
       });
 
-      new_user.save(function(err, users) {
+      new_user.save(function(err, users)
+      {
+        //--SEND EMAIL-------------------------------
+          
+        //-------------------------------------------
+
         res.send({
           data: users,
           status: 1,
