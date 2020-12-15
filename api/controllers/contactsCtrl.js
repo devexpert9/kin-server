@@ -50,9 +50,9 @@ exports.addContact = function(req, res)
             var toEmail   = new helper.Email(req.body.email);
             var subject   = 'Account Created As Contact';
 
-            dynamic_data = dynamic_data.replace("#NAME#", user.name) ;
-            dynamic_data = dynamic_data.replace("#EMAIL#", user.email) ;
-            dynamic_data = dynamic_data.replace("#PASSWORD#", user.password) ;
+            dynamic_data = dynamic_data.replace("#NAME#", req.body.name) ;
+            dynamic_data = dynamic_data.replace("#EMAIL#", req.body.email) ;
+            dynamic_data = dynamic_data.replace("#PASSWORD#", req.body.password) ;
 
             var content = new helper.Content('text/html', dynamic_data);
 
