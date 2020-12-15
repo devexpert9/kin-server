@@ -66,12 +66,18 @@ exports.addContact = function(req, res)
               path: '/v3/mail/send',
               body: mail.toJSON()
             });
-            sg.API(request, function (error, response) {
-              res.send({
+            sg.API(request, function (error, response) 
+            {
+              if (error) {
+                console.log('NOT Send');
+              }else{
+                console.log('Send');
+              }
+              /*res.send({
                 data: contact,
                 status: 1,
                 error: 'New contact added successfully!' 
-              });
+              });*/
               /*if (error) {
                 res.json({
                     msg: 'Something went wrong.Please try later.',
