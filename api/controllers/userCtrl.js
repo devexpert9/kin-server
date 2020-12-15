@@ -98,6 +98,27 @@ exports.registerUser = function(req, res)
   });
 };
 
+exports.update_user = function(req, res) 
+{
+  users.update({_id: req.body.orgId},{$set:{ 'firstname': req.body.firstname, 'lastname': req.body.lastname, 'email':req.body.email, 'image':req.body.image, 'password': req.body.password } }, {new: true}, function(err, user) {
+    if(user == null){
+      res.send({
+        error: err,
+        status: 0,
+        msg:"Try Again"
+      });
+    }else{
+      res.json({
+        error: null,
+        status: 1,
+        data:user,
+        msg:"Profile updated successfully!"
+      });
+    }
+  });
+};
+
+
 //**************** User_login_function ******************
 exports.login = function(req, res) 
 {

@@ -8,6 +8,10 @@ var adduser = require('../controllers/userCtrl');
      .post(adduser.registerUser);
 
 var adduser = require('../controllers/userCtrl');
+   app.route('/update_user')
+     .post(adduser.update_user);
+
+var adduser = require('../controllers/userCtrl');
    app.route('/login')
      .post(adduser.login);
      
