@@ -69,7 +69,7 @@ exports.addContact = function(req, res)
             sg.API(request, function (error, response) 
             {
               if (error) {
-                console.log('NOT Send');
+                console.log(error);
               }else{
                 console.log('Send');
               }
