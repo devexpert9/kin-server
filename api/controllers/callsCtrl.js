@@ -82,6 +82,34 @@ exports.getCalls = function(req, res)
     });
 };
 
+exports.getCallsForContact = function(req, res)
+{
+    calls.find({patientId: req.body.patientId }, function(err, all_calls)
+    {
+      contacts.findOne({_id: req.body.contactId}, function(err, doc)
+      {
+        console.log(doc);
+          // if(doc)
+          // {
+          //   dict = {
+          //     id: all_calls[counter]._id,
+          //     contactId: all_calls[counter].contactId,
+          //     contactName: doc.name,
+          //     callDate: all_calls[counter].callDate,
+          //     callTime: all_calls[counter].callTime,
+          //     // userId: all_calls[counter].userId,
+          //     patientId: all_calls[counter].patientId,
+          //     created_on: all_calls[counter].created_on
+          //   };
+          //   data.push(dict);
+          // }
+          
+          // counter = counter + 1;
+          // getUserDetails();
+      });      
+    });
+};
+
 exports.getProfileCalls = function(req, res)
 {
     calls.find({userId: req.body.userId, profileId: req.body.profileId }, function(err, all_calls)

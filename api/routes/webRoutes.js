@@ -101,6 +101,10 @@ var calls = require('../controllers/callsCtrl');
 var calls = require('../controllers/callsCtrl');
    app.route('/getCalls')
      .post(calls.getCalls);
+     
+var calls = require('../controllers/callsCtrl');
+   app.route('/getCallsForContact')
+     .post(calls.getCallsForContact);
 
 var calls = require('../controllers/callsCtrl');
    app.route('/getProfileCalls')
