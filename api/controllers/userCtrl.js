@@ -173,7 +173,8 @@ exports.login = function(req, res)
 {
   var loginAs = req.body.login_as;
 
-  if(loginAs == 'organization'){
+  if(loginAs == 'organization')
+  {
     users.findOne({email:req.body.email, password:req.body.password}, function(err, user)
     {
       if(user == null){
@@ -220,7 +221,10 @@ exports.login = function(req, res)
   {
     contacts.findOne({email:req.body.email, password:req.body.password}, function(err, user)
     {
-      if(user == null){
+      console.log(req.body.email+' '+req.body.password);
+      console.log(user);
+      if(user == null)
+      {
         res.send({
           status: 0,
           data: null,
