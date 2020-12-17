@@ -100,13 +100,22 @@ exports.addContact = function(req, res)
 
 exports.updateContact = function(req, res)
 {
-  contacts.update({_id: req.body.contactId }, { $set: {name: req.body.name, email: req.body.email, phone: req.body.phone}}, {new: true}, function(err, save)
+  contacts.update({_id: req.body.contactId }, { $set: {name: req.body.name, email: req.body.email, phone: req.body.phone}}, {new: true}, function(err, user)
   {
-    res.json({
-       status: 1,
-       data: null,
-       error:'Contact updated successfully'
-    });
+    if(user == null){
+      res.send({
+        error: err,
+        status: 0,
+        msg:"Try Again"
+      });
+    }else{
+      res.json({
+        error: null,
+        status: 1,
+        data:user,
+        msg:"Patient updated successfully!"
+      });
+    }
   });
 };
 
