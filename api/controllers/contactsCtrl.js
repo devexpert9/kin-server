@@ -98,7 +98,7 @@ exports.addContact = function(req, res)
   });
 };
 
-exports.updateContact = function(req, res)
+exports.update_contact = function(req, res)
 {
   contacts.update({_id: req.body.contactId }, { $set: {name: req.body.name, email: req.body.email, phone: req.body.phone}}, {new: true}, function(err, save)
   {
