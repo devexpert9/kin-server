@@ -84,8 +84,9 @@ exports.getCalls = function(req, res)
 
 exports.getCallsForContact = function(req, res)
 {
+  contacts.findOne({'_id': req.body.patientId}, function(err, contact){
   // console.log(req.body.data._id);return false;
-    calls.find({patientId: req.body.patientId }, function(err, all_calls)
+    calls.find({'patientId': contact.patientId, 'contactId': contact._id }, function(err, all_calls)
     {
       var counter = 0,
           data = [],
@@ -94,25 +95,20 @@ exports.getCallsForContact = function(req, res)
       function getUserDetails(){
         if(counter < all_calls.length)
         {
-          contacts.findOne({_id: req.body.contactId}, function(err, doc)
-          {
-            if(doc){
-              dict = {
-                id: all_calls[counter]._id,
-                contactId: all_calls[counter].contactId,
-                contactName: doc.name,
-                callDate: all_calls[counter].callDate,
-                callTime: all_calls[counter].callTime,
-                // userId: all_calls[counter].userId,
-                patientId: all_calls[counter].patientId,
-                created_on: all_calls[counter].created_on
-              };
-              data.push(dict);
-            }
+          dict = {
+            id: all_calls[counter]._id,
+            contactId: all_calls[counter].contactId,
+            contactName: contact.name,
+            callDate: all_calls[counter].callDate,
+            callTime: all_calls[counter].callTime,
+            // userId: all_calls[counter].userId,
+            patientId: all_calls[counter].patientId,
+            created_on: all_calls[counter].created_on
+          };
+          data.push(dict);
             
-            counter = counter + 1;
-            getUserDetails();
-          });
+          counter = counter + 1;
+          getUserDetails();
         }else{
           res.json({
              status: 1,
@@ -123,6 +119,7 @@ exports.getCallsForContact = function(req, res)
       };
       getUserDetails();
     });
+   })
 };
 
 exports.getProfileCalls = function(req, res)
