@@ -84,7 +84,7 @@ exports.getCalls = function(req, res)
 
 exports.getCallsForContact = function(req, res)
 {
-  console.log(req.body);return false;
+  console.log(req.body.data._id);return false;
     calls.find({patientId: req.body.patientId }, function(err, all_calls)
     {
       contacts.findOne({_id: req.body.contactId}, function(err, doc)
