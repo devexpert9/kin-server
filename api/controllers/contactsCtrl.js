@@ -100,27 +100,13 @@ exports.addContact = function(req, res)
 
 exports.updateContact = function(req, res)
 {
-  contacts.findOne({phone: req.body.phone}, function(err, user)
+  contacts.update({_id: req.body.contactId }, { $set: {name: req.body.name, email: req.body.email, phone: req.body.phone}}, {new: true}, function(err, save)
   {
-    if(user == null)
-    {
-      contacts.update({_id: req.body.contactId }, { $set: {name: req.body.name, email: req.body.email, phone: req.body.phone}}, {new: true}, function(err, save)
-      {
-        res.json({
-           status: 1,
-           data: null,
-           error:'Contact updated successfully'
-        });
-      });
-    }
-    else
-    {
-      res.send({
-        status: 0,
-        data: null,
-        error: 'Contact with this phone number already exist.'
-      });
-    }
+    res.json({
+       status: 1,
+       data: null,
+       error:'Contact updated successfully'
+    });
   });
 };
 
