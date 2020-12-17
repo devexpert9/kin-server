@@ -64,10 +64,6 @@ var contacts = require('../controllers/contactsCtrl');
      .post(contacts.getContactByID);
 
 var contacts = require('../controllers/contactsCtrl');
-   app.route('/update_contact')
-     .post(contacts.update_contact);
-     
-var contacts = require('../controllers/contactsCtrl');
    app.route('/deleteContact')
      .post(contacts.deleteContact);
 
@@ -105,7 +101,7 @@ var calls = require('../controllers/callsCtrl');
 var calls = require('../controllers/callsCtrl');
    app.route('/getCalls')
      .post(calls.getCalls);
-
+     
 var calls = require('../controllers/callsCtrl');
    app.route('/getCallsForContact')
      .post(calls.getCallsForContact);
