@@ -7,6 +7,7 @@ profiles  = mongoose.model('profiles'),
 calls     = mongoose.model('calls'),
 contacts  = mongoose.model('contacts');
 var path  = require('path');
+var patient    = mongoose.model('patient');
 var storage = multer.diskStorage({
    destination: function(req, file, cb) {
        cb(null, '../images/')
@@ -85,41 +86,44 @@ exports.getCalls = function(req, res)
 exports.getCallsForContact = function(req, res)
 {
   contacts.findOne({'_id': req.body.patientId}, function(err, contact){
-  // console.log(req.body.data._id);return false;
-    calls.find({'patientId': contact.patientId, 'contactId': contact._id }, function(err, all_calls)
-    {
-      var counter = 0,
-          data = [],
-          dict = {};
+    patient.findOne({'_id': contact.patientId}, function(err, patientData){
+      // console.log(req.body.data._id);return false;
+      calls.find({'patientId': contact.patientId, 'contactId': contact._id }, function(err, all_calls)
+      {
+        var counter = 0,
+            data = [],
+            dict = {};
 
-      function getUserDetails(){
-        if(counter < all_calls.length)
-        {
-          dict = {
-            id: all_calls[counter]._id,
-            contactId: all_calls[counter].contactId,
-            contactName: contact.name,
-            callDate: all_calls[counter].callDate,
-            callTime: all_calls[counter].callTime,
-            // userId: all_calls[counter].userId,
-            patientId: all_calls[counter].patientId,
-            created_on: all_calls[counter].created_on
-          };
-          data.push(dict);
-            
-          counter = counter + 1;
-          getUserDetails();
-        }else{
-          res.json({
-             status: 1,
-             data: data,
-             error:null
-          });
-        }
-      };
-      getUserDetails();
-    });
-   })
+        function getUserDetails(){
+          if(counter < all_calls.length)
+          {
+            dict = {
+              id: all_calls[counter]._id,
+              contactId: all_calls[counter].contactId,
+              contactName: contact.name,
+              callDate: all_calls[counter].callDate,
+              callTime: all_calls[counter].callTime,
+              // userId: all_calls[counter].userId,
+              patientId: all_calls[counter].patientId,
+              patientData: patientData,
+              created_on: all_calls[counter].created_on
+            };
+            data.push(dict);
+              
+            counter = counter + 1;
+            getUserDetails();
+          }else{
+            res.json({
+               status: 1,
+               data: data,
+               error:null
+            });
+          }
+        };
+        getUserDetails();
+      });
+    })
+  })
 };
 
 exports.getProfileCalls = function(req, res)
