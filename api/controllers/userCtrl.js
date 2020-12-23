@@ -234,7 +234,7 @@ exports.login = function(req, res)
       else
       {
         // Update One Time Login Event----------------
-        contacts.update({_id: user._id }, { $set: {isAppUser: 1}}, {new: true}, function(err, user)
+        contacts.update({_id: user._id }, { $set: {isAppUser: 1}}, {new: true}, function(err, userUpdate)
         {
           res.json({
             status: 1,
