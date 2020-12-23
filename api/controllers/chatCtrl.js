@@ -17,67 +17,195 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage }).single('image');
 
-//--- Send Message---------------------------------------
-exports.sendMessage = function(req, res)
-{
-  var new_chat = new chat({
-    senderId: 		req.body.senderId,
-    receiverId: 	req.body.receiverId,
-    media: 			req.body.media,
-    text: 			req.body.text,
-    senderStatus: 	0,
-    receiverStatus: 0,
-    created_on: new Date()
-  });
- 
-  new_chat.save(function(err, call)
-  {
-    res.send({
-      data: call,
-      status: 1,
-      error: 'Message send successfully!' 
-    });
-  });
-};
+exports.chat_listing = function(req, res) {
+    chatlisting.find({$or: [{'senderId': req.body.userId}, {'receiverId': req.body.userId} ] }, function(err, doc){
+      var data = [],
+        counter = 0,
+        dict = {};
+      function getUserDetails(){
+        if(counter < doc.length){
+          users.findOne({'_id': doc[counter].senderId}, function(err, sender){
+          users.findOne({'_id': doc[counter].receiverId}, function(err, receiver){
+            chats.find({'chatId': doc[counter]._id}, function(err, chat){
+              dict = {
+                senderId: doc[counter].senderId,
+                receiverId: doc[counter].receiverId,
+                _id: doc[counter]._id,
+                sender: sender,
+                receiver: receiver,
+                chat: chat
+              };
 
-//--- List Messages---------------------------------------
-exports.getChat = function(req, res)
-{
-    chat.find({
-    	$or: [
-		    {$and:[{senderId: req.body.userId}, {receiverId: req.body.receiverId}] },
-		    {$and:[{senderId: req.body.receiverId}, {receiverId: req.body.userId}] },
- 		]
- 	}, null, { sort: {'created_on': 1} }, function(err, all_chats)
-    {
-      var counter = 0,
-          data = [],
-          dict = {};
-
-      	function getUserDetails()
-      	{
-	          users.findOne({_id: req.body.receiverId}, function(err, doc)
-	          {
-	            res.json({
-                 status: 1,
-                 data: {'chat': all_chats, 'receiver': doc},
-                 error:null
-              });
-	            
-	          });
-      	};
+              data.push(dict);
+              counter = counter + 1;
+              getUserDetails();
+            });
+          });
+        });
+        }else{
+          res.send({
+                data: data,
+                status: 1,
+                error: null
+            });
+        }
+      };
       getUserDetails();
+
     });
 };
 
+exports.create_chat = function(req, res)
+{
+  chatlisting.find({$or: [{'senderId': req.body.userId, 'receiverId': req.body.receiverId}, {'senderId': req.body.receiverId, 'receiverId': req.body.userId} ] }, function(err, doc){
+      if(doc.length > 0){
+          res.send({
+            status: 1,
+            data: doc[0],
+            error:'Invalid logged in deatils.'
+          });
+      }else{
+          var new_user = new chatlisting({
+            senderId: req.body.userId,
+            receiverId: req.body.receiverId,
+            created_on: new Date()
+        });
 
-exports.getUsersList = function(req, res){
-  users.find({'_id': { $ne: req.body.userId } }, function(err, doc){
-     res.json({
-         status: 1,
-         data: doc,
-         error:null
-      });
-   });
+        new_user.save(function(err, doc1) {
+            res.send({
+              data: doc1,
+              status: 1,
+              error: 'User registered successfully!'
+            });
+        });
+    }
+    });
 };
 
+exports.save_message = function(req, res){
+  var new_user = new chats({
+        senderId: req.body.senderId,
+        receiverId: req.body.receiverId,
+        seen: 0,
+        receiverStatus: 0,
+        senderStatus: 0,
+        created_on: new Date(),
+        isMedia: req.body.isMedia,
+        media: req.body.media,
+        text: req.body.text,
+        chatId: req.body.chatId
+    });
+
+    new_user.save(function(err, users) {
+        res.send({
+          data: users,
+          status: 1,
+          error: 'User registered successfully!'
+        });
+    });
+};
+
+exports.list_messages = function(req, res){
+  chats.find({'chatId': req.body.chatId}, function(err, doc){
+    if(doc.length > 0){
+      users.findOne({'_id': doc[0].senderId}, function(err, sender){
+        users.findOne({'_id': doc[0].receiverId}, function(err, receiver){
+          res.send({
+                  data: {'chat': doc, 'sender': sender, 'receiver': receiver},
+                  status: 1,
+                  error: null
+              });
+        });
+      });
+    }else{
+      users.findOne({'_id': req.body.userId}, function(err, sender){
+        users.findOne({'_id': req.body.receiverId}, function(err, receiver){
+          res.send({
+                  data: {'chat': doc, 'sender': sender, 'receiver': receiver},
+                  status: 1,
+                  error: null
+              });
+        });
+      });
+    }
+  });
+};
+
+
+exports.save_notification = function(req, res){
+  var new_user = new notification({
+        senderId: req.body.senderId,
+        receiverId: req.body.receiverId,
+        read: 0,
+        created_on: new Date(),
+        noti_type: req.body.type,
+        itemId: req.body.id
+    });
+
+    new_user.save(function(err, users) {
+        res.send({
+          data: users,
+          status: 1,
+          error: 'User registered successfully!'
+        });
+    });
+};
+
+exports.list_notification = function(req, res){
+  notification.find({'receiverId': req.body.userId}, function(err, doc){
+    var counter = 0,
+      data = [],
+      dict = {};
+    function getUserDetails(){
+      if(counter < doc.length){
+        users.findOne({'_id': doc[counter].senderId}, function(err, sender){
+          dict = {
+            senderId: doc[counter].senderId,
+            receiverId: doc[counter].receiverId,
+            noti_type: doc[counter].noti_type,
+            created_on: doc[counter].created_on,
+            sender_name: sender.name,
+            sender_image: sender.image,
+            read: doc[counter].read,
+            itemId: doc[counter].itemId,
+            _id: doc[counter]._id
+          };
+          data.push(dict);
+          counter += 1;
+          getUserDetails();
+        });
+      }else{
+        res.send({
+                data: data,
+                status: 1,
+                error: null
+            });
+      }
+    };
+
+    getUserDetails();
+
+  });
+};
+
+exports.read_notification = function(req, res)
+{
+  notification.update({'_id': req.body.id}, {'$set': { 'read' : 1 } } , {'$new': true}, function(err, doc){
+    res.send({
+          data: doc,
+            status: 1,
+            error: null
+        });
+  });
+};
+
+exports.clear_all_chat = function(req, res)
+{
+  chatlisting.remove({}, function(err, doc){
+      res.send({
+          data: doc,
+          status: 1,
+          error: null
+      });
+  });
+};
