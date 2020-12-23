@@ -131,6 +131,8 @@ var chat = require('../controllers/chatCtrl');
 var chat = require('../controllers/chatCtrl');
    app.route('/create_chat')
      .post(chat.create_chat);
-
+var chat = require('../controllers/chatCtrl');
+   app.route('/clear_all_chat')
+     .post(chat.clear_all_chat);
 
 };
