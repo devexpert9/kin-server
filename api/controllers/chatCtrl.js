@@ -2,7 +2,9 @@
 
 var mongoose = require('mongoose'),
 multer    = require('multer'),
+patient    = mongoose.model('patient'),
 users     	= mongoose.model('users'),
+contacts  = mongoose.model('contacts'),
 chatlisting = mongoose.model('chatlisting'),
 notification = mongoose.model('notification'),
 chats  		= mongoose.model('chat');
@@ -27,24 +29,45 @@ exports.chat_listing = function(req, res) {
         dict = {};
       function getUserDetails(){
         if(counter < doc.length){
-          users.findOne({'_id': doc[counter].senderId}, function(err, sender){
-          users.findOne({'_id': doc[counter].receiverId}, function(err, receiver){
-            chats.find({'chatId': doc[counter]._id}, function(err, chat){
-              dict = {
-                senderId: doc[counter].senderId,
-                receiverId: doc[counter].receiverId,
-                _id: doc[counter]._id,
-                sender: sender,
-                receiver: receiver,
-                chat: chat
-              };
+          if(doc[counter].senderType == 'patient'){
+            patient.findOne({'_id': doc[counter].senderId}, function(err, sender){
+              contacts.findOne({'_id': doc[counter].receiverId}, function(err, receiver){
+                chats.find({'chatId': doc[counter]._id}, function(err, chat){
+                  dict = {
+                    senderId: doc[counter].senderId,
+                    receiverId: doc[counter].receiverId,
+                    _id: doc[counter]._id,
+                    sender: sender,
+                    receiver: receiver,
+                    chat: chat
+                  };
 
-              data.push(dict);
-              counter = counter + 1;
-              getUserDetails();
+                  data.push(dict);
+                  counter = counter + 1;
+                  getUserDetails();
+                });
+              });
             });
-          });
-        });
+          }else if(doc[counter].senderType == 'contact'){
+            contacts.findOne({'_id': doc[counter].senderId}, function(err, sender){
+              patient.findOne({'_id': doc[counter].receiverId}, function(err, receiver){
+                chats.find({'chatId': doc[counter]._id}, function(err, chat){
+                  dict = {
+                    senderId: doc[counter].senderId,
+                    receiverId: doc[counter].receiverId,
+                    _id: doc[counter]._id,
+                    sender: sender,
+                    receiver: receiver,
+                    chat: chat
+                  };
+
+                  data.push(dict);
+                  counter = counter + 1;
+                  getUserDetails();
+                });
+              });
+            });
+          }
         }else{
           res.send({
                 data: data,
@@ -112,27 +135,23 @@ exports.save_message = function(req, res){
 
 exports.list_messages = function(req, res){
   chats.find({'chatId': req.body.chatId}, function(err, doc){
-    if(doc.length > 0){
-      users.findOne({'_id': doc[0].senderId}, function(err, sender){
-        users.findOne({'_id': doc[0].receiverId}, function(err, receiver){
-          res.send({
+    patient.findOne({'_id': doc[0].senderId}, function(err, sender){
+      if(sender == null){
+        contacts.findOne({'_id': doc[0].senderId}, function(err, sender){
+          contact.findOne({'_id': doc[0].receiverId}, function(err, receiver){
+            if(receiver == null){
+              patient.findOne({'_id': doc[0].receiverId}, function(err, receiver){
+                res.send({
                   data: {'chat': doc, 'sender': sender, 'receiver': receiver},
                   status: 1,
                   error: null
+                });
               });
+            }
+          });
         });
-      });
-    }else{
-      users.findOne({'_id': req.body.userId}, function(err, sender){
-        users.findOne({'_id': req.body.receiverId}, function(err, receiver){
-          res.send({
-                  data: {'chat': doc, 'sender': sender, 'receiver': receiver},
-                  status: 1,
-                  error: null
-              });
-        });
-      });
-    }
+      }
+    });
   });
 };
 
