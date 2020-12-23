@@ -116,9 +116,9 @@ var calls = require('../controllers/callsCtrl');
 
 //---- CHAT ----------------------------------
      
-// var chat = require('../controllers/chatCtrl');
-//    app.route('/getUsersList')
-//      .post(chat.getUsersList);
+var chat = require('../controllers/chatCtrl');
+   app.route('/list_messages')
+     .post(chat.list_messages);
      
 var chat = require('../controllers/chatCtrl');
    app.route('/getChat')

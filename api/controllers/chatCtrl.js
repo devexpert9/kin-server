@@ -5,7 +5,7 @@ multer    = require('multer'),
 users     	= mongoose.model('users'),
 chatlisting = mongoose.model('chatlisting'),
 notification = mongoose.model('notification'),
-chat  		= mongoose.model('chat');
+chats  		= mongoose.model('chat');
 
 var path  = require('path');
 var storage = multer.diskStorage({
