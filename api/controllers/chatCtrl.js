@@ -138,7 +138,7 @@ exports.list_messages = function(req, res){
     patient.findOne({'_id': doc[0].senderId}, function(err, sender){
       if(sender == null){
         contacts.findOne({'_id': doc[0].senderId}, function(err, sender){
-          contact.findOne({'_id': doc[0].receiverId}, function(err, receiver){
+          contacts.findOne({'_id': doc[0].receiverId}, function(err, receiver){
             if(receiver == null){
               patient.findOne({'_id': doc[0].receiverId}, function(err, receiver){
                 res.send({
@@ -160,7 +160,7 @@ exports.list_messages = function(req, res){
                 error: null
               });
             });
-          
+
         });
       }
     });
