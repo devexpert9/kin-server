@@ -3,6 +3,8 @@
 var mongoose = require('mongoose'),
 multer    = require('multer'),
 users     	= mongoose.model('users'),
+chatlisting = mongoose.model('chatlisting'),
+notification = mongoose.model('notification'),
 chat  		= mongoose.model('chat');
 
 var path  = require('path');
@@ -15,6 +17,7 @@ var storage = multer.diskStorage({
        cb(null, new Date().getTime() + '.' + fileExtn)
    }
 });
+
 var upload = multer({ storage: storage }).single('image');
 
 exports.chat_listing = function(req, res) {
@@ -68,7 +71,9 @@ exports.create_chat = function(req, res)
           var new_user = new chatlisting({
             senderId: req.body.userId,
             receiverId: req.body.receiverId,
-            created_on: new Date()
+            created_on: new Date(),
+            senderType: req.body.senderType,
+            receiverType: req.body.receiverType
         });
 
         new_user.save(function(err, doc1) {
