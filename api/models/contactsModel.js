@@ -22,6 +22,9 @@ var contactsSchema = new Schema({
     userId: {
       type : String
     },
+    isAppUser: {
+      type : Number
+    },
     created_on: {
       type: Date
     }

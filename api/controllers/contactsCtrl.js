@@ -29,6 +29,7 @@ exports.addContact = function(req, res)
         email:      req.body.email,
         password:   req.body.password,
         patientId:  req.body.patientId,
+        isAppUser:  0,
         created_on: new Date()
       });
      

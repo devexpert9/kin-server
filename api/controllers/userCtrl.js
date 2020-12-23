@@ -233,11 +233,15 @@ exports.login = function(req, res)
       }
       else
       {
-        res.json({
-           status: 1,
-           data: user,
-           type:'contact',
-           error:'Logged In successfully!'
+        // Update One Time Login Event----------------
+        contacts.update({_id: user._id }, { $set: {isAppUser: 1}}, {new: true}, function(err, user)
+        {
+          res.json({
+            status: 1,
+            data: user,
+            type:'contact',
+            error:'Logged In successfully!'
+          });
         });
       }
     });
