@@ -151,7 +151,7 @@ exports.list_messages = function(req, res){
           });
         });
       }else{
-        contact.findOne({'_id': doc[0].senderId}, function(err, sender){
+        contacts.findOne({'_id': doc[0].senderId}, function(err, sender){
           // if(sender == null){
             patient.findOne({'_id': doc[0].receiverId}, function(err, receiver){
               res.send({
