@@ -116,16 +116,21 @@ var calls = require('../controllers/callsCtrl');
 
 //---- CHAT ----------------------------------
      
-var chat = require('../controllers/chatCtrl');
-   app.route('/getUsersList')
-     .post(chat.getUsersList);
+// var chat = require('../controllers/chatCtrl');
+//    app.route('/getUsersList')
+//      .post(chat.getUsersList);
      
 var chat = require('../controllers/chatCtrl');
    app.route('/getChat')
-     .post(chat.getChat);
+     .post(chat.chat_listing);
 
 var chat = require('../controllers/chatCtrl');
    app.route('/saveMessage')
-     .post(chat.sendMessage);
+     .post(chat.save_message);
+
+var chat = require('../controllers/chatCtrl');
+   app.route('/create_chat')
+     .post(chat.create_chat);
+
 
 };
