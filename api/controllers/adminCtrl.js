@@ -26,7 +26,7 @@ exports.createAdmin = function(req, res)
 {
   admin.findOne({email: req.body.email}, function(err, user) {
     if(user == null){
-      var new_user = new users({
+      var new_user = new admin({
         firstname:  req.body.firstname,
         lastname:   req.body.lastname,
         email:      req.body.email,
