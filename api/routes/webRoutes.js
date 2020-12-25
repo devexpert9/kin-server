@@ -37,6 +37,10 @@ var adduser = require('../controllers/userCtrl');
      .post(adduser.update_user);
 
 var adduser = require('../controllers/userCtrl');
+   app.route('/update_orgFromAdmin')
+     .post(adduser.update_orgFromAdmin);
+
+var adduser = require('../controllers/userCtrl');
    app.route('/login')
      .post(adduser.login);
      
