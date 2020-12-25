@@ -2,6 +2,19 @@
 
 module.exports = function(app) {
 
+//----- AdminPanel------------------------------
+var adduser = require('../controllers/adminCtrl');
+   app.route('/createAdmin')
+     .post(adduser.createAdmin);
+
+var adduser = require('../controllers/adminCtrl');
+   app.route('/adminLogin')
+     .post(adduser.adminLogin);
+
+var adduser = require('../controllers/adminCtrl');
+   app.route('/adminUpdate')
+     .post(adduser.adminUpdate);
+
 //----- Users As Organization------------------------------
 var adduser = require('../controllers/userCtrl');
    app.route('/registerUser')
