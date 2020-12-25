@@ -364,7 +364,7 @@ exports.otp_verification = function(req, res) {
 };
 
 //******************** GET USERS LIST ************************
-exports.userlist = function(req, res) {
+exports.getAllOrganizations = function(req, res) {
   users.find({ },function(err, users) {
     if(users == null){
       res.send({

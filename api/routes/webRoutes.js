@@ -25,6 +25,10 @@ var adduser = require('../controllers/userCtrl');
      .post(adduser.registerUser);
 
 var adduser = require('../controllers/userCtrl');
+   app.route('/getAllOrganizations')
+     .post(adduser.getAllOrganizations);
+
+var adduser = require('../controllers/userCtrl');
    app.route('/update_user')
      .post(adduser.update_user);
 
