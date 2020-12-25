@@ -75,6 +75,7 @@ exports.registerUser = function(req, res)
       var new_user = new users({
         firstname:  req.body.firstname,
         lastname:   req.body.lastname,
+        organization_name:   req.body.organization_name,
         email:      req.body.email,
         password:   req.body.password,
         gender:     req.body.gender,
@@ -385,29 +386,21 @@ exports.getAllOrganizations = function(req, res) {
 //******************** Otp_verification_function ************************
 exports.deleteuser = function(req, res) {
    users.remove({_id:req.body.userid}, function(err, user) {
-      if(user == null){
+      if(user == null)
+      {
         res.send({
           error: err,
           status: 0,
           msg:"Try Again"
         });
-      }else{
-         newsfeed.remove({user_id:req.body.userid}, function(err, feed) {
-      if(feed == null){
-        res.send({
-          error: err,
-          status: 0,
-          msg:"Try Again"
-        });
-      }else{
+      }
+      else
+      {
         res.json({
           error: null,
           status: 1,
           msg:"Deleted Successfully"
         });
-      }
-    });
-    
       }
     });
 };
