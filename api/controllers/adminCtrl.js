@@ -34,7 +34,7 @@ exports.createAdmin = function(req, res)
         image:      null
       });
   
-      new_user.save(function(err, users)
+      new_user.save(function(error, users)
       {
         if (error) {
           res.json({
