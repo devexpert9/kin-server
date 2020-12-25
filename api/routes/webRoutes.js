@@ -40,6 +40,10 @@ var adduser = require('../controllers/userCtrl');
    app.route('/upload_image')
      .post(adduser.upload_image);
 
+var adduser = require('../controllers/userCtrl');
+   app.route('/deleteuser')
+     .post(adduser.deleteuser);
+
 
 //----- Patients----------------------------------------
 var patient = require('../controllers/patientCtrl');
