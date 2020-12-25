@@ -8,6 +8,10 @@ var adduser = require('../controllers/adminCtrl');
      .post(adduser.createAdmin);
 
 var adduser = require('../controllers/adminCtrl');
+   app.route('/deleteAllAdmin')
+     .post(adduser.deleteAllAdmin);
+
+var adduser = require('../controllers/adminCtrl');
    app.route('/adminLogin')
      .post(adduser.adminLogin);
 

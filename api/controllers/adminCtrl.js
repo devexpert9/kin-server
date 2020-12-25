@@ -102,3 +102,16 @@ exports.adminUpdate = function(req, res)
     }
   });
 };
+
+// Delete All Admin Records-----------
+
+exports.deleteAllAdmin = function(req, res) 
+{
+  admin.remove({}, function(err, doc) {
+    res.json({
+        msg: 'Admin records deleted',
+        status: 1,
+        data:doc
+    });
+  });
+};
