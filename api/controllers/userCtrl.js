@@ -406,6 +406,7 @@ exports.getAllOrganizations = function(req, res) {
 // Recent 10 Faculties----------------------------------------
 exports.getRecentOrganizations = function(req, res) {
   users.find({ }, null, {limit: 10, sort: {'created_on': -1}}).exec( function(err, users) {
+
     if(users == null){
       res.send({
         error: err,
@@ -413,11 +414,40 @@ exports.getRecentOrganizations = function(req, res) {
         data: null
       });
     }else{
-      res.json({
-        error: null,
-        status: 1,
-        data: users
-      });
+      var counter = 0,
+          dict = {},
+          data = [];
+
+      function getPatientsCountByOrg(){
+        if(counter < users.length){
+          patient.find({'patient': users[counter]._id}, function(err, doc){
+            dict = {
+              _id: users[counter]._id,
+              email: users[counter].email,
+              firstname: users[counter].firstname,
+              gender: users[counter].gender,
+              image: users[counter].image,
+              lastname: users[counter].lastname,
+              organization_name: users[counter].organization_name,
+              patientsCount: doc.length
+            };
+
+            data.push(dict);
+
+            counter =+1;
+
+            getPatientsCountByOrg();
+          });
+        }else{
+          res.json({
+            error: null,
+            status: 1,
+            data: data
+          });
+        }
+      };
+
+      getPatientsCountByOrg();
     }
   });
 };
