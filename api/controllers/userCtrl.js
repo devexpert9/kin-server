@@ -79,7 +79,8 @@ exports.registerUser = function(req, res)
         email:      req.body.email,
         password:   req.body.password,
         gender:     req.body.gender,
-        image:      null
+        image:      null,
+        created_on: new Date()
       });
   
       new_user.save(function(err, users)
