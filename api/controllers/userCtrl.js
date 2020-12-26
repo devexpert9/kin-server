@@ -420,7 +420,7 @@ exports.getRecentOrganizations = function(req, res) {
 
       function getPatientsCountByOrg(){
         if(counter < users.length){
-          patient.find({'patient': users[counter]._id}, function(err, doc){
+          patient.find({'userId': users[counter]._id}, function(err, doc){
             dict = {
               _id: users[counter]._id,
               email: users[counter].email,
@@ -434,7 +434,7 @@ exports.getRecentOrganizations = function(req, res) {
 
             data.push(dict);
 
-            counter =+1;
+            counter = counter + 1;
 
             getPatientsCountByOrg();
           });
