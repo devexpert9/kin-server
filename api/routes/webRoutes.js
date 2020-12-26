@@ -27,7 +27,7 @@ var adduser = require('../controllers/userCtrl');
 var adduser = require('../controllers/userCtrl');
    app.route('/getAllOrganizations')
      .post(adduser.getAllOrganizations);
-     
+
 var adduser = require('../controllers/userCtrl');
    app.route('/getRecentOrganizations')
      .post(adduser.getRecentOrganizations);
@@ -71,6 +71,10 @@ var patient = require('../controllers/patientCtrl');
      .post(patient.patient_update);
 
 var patient = require('../controllers/patientCtrl');
+   app.route('/patient_all')
+     .post(patient.patient_all);
+
+var patient = require('../controllers/patientCtrl');
    app.route('/patient_delete')
      .post(patient.patient_delete);
 
@@ -95,6 +99,10 @@ var contacts = require('../controllers/contactsCtrl');
 var contacts = require('../controllers/contactsCtrl');
    app.route('/getContacts')
      .post(contacts.getContacts);
+
+var contacts = require('../controllers/contactsCtrl');
+   app.route('/contacts_all')
+     .post(contacts.contacts_all);
 
 var contacts = require('../controllers/contactsCtrl');
    app.route('/getContactByID')

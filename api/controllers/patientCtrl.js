@@ -145,6 +145,28 @@ exports.patient_get = function(req, res)
   });
 };
 
+exports.patient_all = function(req, res) 
+{
+  patient.find({}, function(err, user)
+  {
+    if(user == null){
+      res.send({
+        status: 0,
+        data: null,
+        error:'Invalid logged in deatils.'
+      });
+    }
+    else
+    {
+      res.json({
+         status: 1,
+         data: user,
+         error:'Patients fetched successfully'
+      });
+    }
+  });
+};
+
 //**************** Update Patient ******************
 exports.patient_update = function(req, res)
 {

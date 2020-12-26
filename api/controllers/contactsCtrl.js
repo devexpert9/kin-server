@@ -124,11 +124,45 @@ exports.getContacts = function(req, res)
 {
     contacts.find({patientId: req.body.patientId }, function(err, contacts)
     {
-      res.json({
-         status: 1,
-         data: contacts,
-         error:null
-      });
+      if(contacts == null)
+      {
+        res.send({
+          status: 0,
+          data: null,
+          error:'Invalid logged in deatils.'
+        });
+      }
+      else
+      {
+        res.json({
+           status: 1,
+           data: contacts,
+           error:null
+        });
+      }
+    });
+};
+
+exports.contacts_all = function(req, res)
+{
+    contacts.find({ }, function(err, contacts)
+    {
+      if(contacts == null)
+      {
+        res.send({
+          status: 0,
+          data: null,
+          error:'Invalid logged in deatils.'
+        });
+      }
+      else
+      {
+        res.json({
+           status: 1,
+           data: contacts,
+           error:null
+        });
+      }
     });
 };
 
