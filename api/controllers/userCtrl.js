@@ -403,6 +403,25 @@ exports.getAllOrganizations = function(req, res) {
   });
 };
 
+// Recent 10 Faculties----------------------------------------
+exports.getRecentOrganizations = function(req, res) {
+  users.find({ }, null, {limit: 10, sort: {'created_on': -1}}).exec( function(err, users) {
+    if(users == null){
+      res.send({
+        error: err,
+        status: 0,
+        data: null
+      });
+    }else{
+      res.json({
+        error: null,
+        status: 1,
+        data: users
+      });
+    }
+  });
+};
+
 //******************** Otp_verification_function ************************
 exports.deleteuser = function(req, res) {
    users.remove({_id:req.body.userid}, function(err, user) {

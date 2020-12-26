@@ -27,6 +27,10 @@ var adduser = require('../controllers/userCtrl');
 var adduser = require('../controllers/userCtrl');
    app.route('/getAllOrganizations')
      .post(adduser.getAllOrganizations);
+     
+var adduser = require('../controllers/userCtrl');
+   app.route('/getRecentOrganizations')
+     .post(adduser.getRecentOrganizations);
 
 var adduser = require('../controllers/userCtrl');
    app.route('/getOrganizationDetails')
