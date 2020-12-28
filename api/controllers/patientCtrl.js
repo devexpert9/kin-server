@@ -209,6 +209,26 @@ exports.patient_update = function(req, res)
   });
 };
 
+exports.patient_update_Admin = function(req, res)
+{
+  patient.update({_id: req.body.patientId},{$set:{ 'firstname': req.body.firstname, 'lastname': req.body.lastname, 'email':req.body.email, 'contact':req.body.contact, 'room_no':req.body.room_no} }, {new: true}, function(err, user) {
+    if(user == null){
+      res.send({
+        error: err,
+        status: 0,
+        msg:"Try Again"
+      });
+    }else{
+      res.json({
+        error: null,
+        status: 1,
+        data:user,
+        msg:"Patient updated successfully!"
+      });
+    }
+  });
+};
+
 //**************** Delete Patient ******************
 exports.patient_delete = function(req, res) {
    patient.remove({_id:req.body.patientId}, function(err, user) {
