@@ -73,7 +73,7 @@ var adduser = require('../controllers/patientCtrl');
 var patient = require('../controllers/patientCtrl');
    app.route('/patient_update')
      .post(patient.patient_update);
-     
+
 var patient = require('../controllers/patientCtrl');
    app.route('/patient_update_Admin')
      .post(patient.patient_update_Admin);
@@ -99,6 +99,10 @@ var patient = require('../controllers/patientCtrl');
 var contacts = require('../controllers/contactsCtrl');
    app.route('/addContact')
      .post(contacts.addContact);
+
+var adduser = require('../controllers/contactsCtrl');
+   app.route('/getContactDetails')
+     .post(adduser.getContactDetails);
 
 var contacts = require('../controllers/contactsCtrl');
    app.route('/updateContact')

@@ -143,6 +143,28 @@ exports.getContacts = function(req, res)
     });
 };
 
+
+exports.getContactDetails = function(req, res)
+{
+  contacts.findOne({_id:req.body._id}, function(err, contact)
+  {
+    if(contact == null)
+    {
+      res.send({
+        status: 0,
+        data: null,
+        error:'Invalid patient.'
+      });
+    }else{
+      res.json({
+         status: 1,
+         data: contact,
+         error:'Contact fetched successfully!'
+      });
+    }
+  });
+};
+
 exports.contacts_all = function(req, res)
 {
     contacts.find({ }, function(err, contacts)
