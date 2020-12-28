@@ -66,6 +66,10 @@ var patient = require('../controllers/patientCtrl');
    app.route('/patient_get')
      .post(patient.patient_get);
 
+var adduser = require('../controllers/patientCtrl');
+   app.route('/getPatientDetails')
+     .post(adduser.getPatientDetails);
+
 var patient = require('../controllers/patientCtrl');
    app.route('/patient_update')
      .post(patient.patient_update);

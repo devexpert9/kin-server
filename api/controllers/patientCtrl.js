@@ -145,6 +145,27 @@ exports.patient_get = function(req, res)
   });
 };
 
+exports.getPatientDetails = function(req, res)
+{
+  patient.findOne({_id:req.body._id}, function(err, patient)
+  {
+    if(patient == null)
+    {
+      res.send({
+        status: 0,
+        data: null,
+        error:'Invalid patient.'
+      });
+    }else{
+      res.json({
+         status: 1,
+         data: patient,
+         error:'Patient fetched successfully!'
+      });
+    }
+  });
+};
+
 exports.patient_all = function(req, res) 
 {
   patient.find({}, function(err, user)
