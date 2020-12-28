@@ -107,6 +107,10 @@ var adduser = require('../controllers/contactsCtrl');
 var contacts = require('../controllers/contactsCtrl');
    app.route('/updateContact')
      .post(contacts.updateContact);
+     
+var contacts = require('../controllers/contactsCtrl');
+   app.route('/contact_update_Admin')
+     .post(contacts.contact_update_Admin);
 
 var contacts = require('../controllers/contactsCtrl');
    app.route('/getContacts')

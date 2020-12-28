@@ -120,6 +120,27 @@ exports.updateContact = function(req, res)
   });
 };
 
+exports.contact_update_Admin = function(req, res)
+{
+  contacts.update({_id: req.body.contactId }, { $set: {name: req.body.name, email: req.body.email, phone: req.body.phone}}, {new: true}, function(err, user)
+  {
+    if(user == null){
+      res.send({
+        error: err,
+        status: 0,
+        msg:"Try Again"
+      });
+    }else{
+      res.json({
+        error: null,
+        status: 1,
+        data:user,
+        msg:"Contact updated successfully!"
+      });
+    }
+  });
+};
+
 exports.getContacts = function(req, res)
 {
     contacts.find({patientId: req.body.patientId }, function(err, contacts)
