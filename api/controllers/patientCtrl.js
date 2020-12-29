@@ -213,6 +213,7 @@ exports.patient_all_with_faculty = function(req, res) {
               firstname: mem[counter].firstname,
               gender: mem[counter].gender,
               lastname: mem[counter].lastname,
+              contact: mem[counter].contact,
               room_no: mem[counter].room_no,
               faculty: doc
             };
