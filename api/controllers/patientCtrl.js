@@ -189,7 +189,7 @@ exports.patient_all = function(req, res)
 };
 
 exports.patient_all_with_faculty = function(req, res) {
-  patient.find({}, function(err, user)
+  patient.find({}, function(err, users)
   {
     if(users == null){
       res.send({
@@ -206,7 +206,6 @@ exports.patient_all_with_faculty = function(req, res) {
       {
         if(counter < users.length)
         {
-          console.log(users[counter]);
           users.find({'_id': users[counter].userId}, function(err, doc){
             dict = {
               _id: users[counter]._id,
