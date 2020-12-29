@@ -206,6 +206,7 @@ exports.patient_all_with_faculty = function(req, res) {
       {
         if(counter < users.length)
         {
+          console.log(users[counter]);
           users.find({'_id': users[counter].userId}, function(err, doc){
             dict = {
               _id: users[counter]._id,
