@@ -221,7 +221,7 @@ exports.patient_all_with_faculty = function(req, res) {
 
             counter = counter + 1;
 
-            getPatientsCountByOrg();
+            getPatientsfaculty();
           });
         }else{
           res.json({
@@ -232,7 +232,7 @@ exports.patient_all_with_faculty = function(req, res) {
         }
       };
 
-      getPatientsCountByOrg();
+      getPatientsfaculty();
     }
   });
 };
