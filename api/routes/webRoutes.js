@@ -8,6 +8,10 @@ var adduser = require('../controllers/adminCtrl');
      .post(adduser.createAdmin);
 
 var adduser = require('../controllers/adminCtrl');
+   app.route('/getAdminByID')
+     .post(adduser.getAdminByID);
+
+var adduser = require('../controllers/adminCtrl');
    app.route('/deleteAllAdmin')
      .post(adduser.deleteAllAdmin);
 
@@ -81,7 +85,7 @@ var patient = require('../controllers/patientCtrl');
 var patient = require('../controllers/patientCtrl');
    app.route('/patient_all')
      .post(patient.patient_all);
-     
+
 var patient = require('../controllers/patientCtrl');
    app.route('/patient_all_with_faculty')
      .post(patient.patient_all_with_faculty);

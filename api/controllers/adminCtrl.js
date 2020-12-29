@@ -82,6 +82,28 @@ exports.adminLogin = function(req, res)
   });
 };
 
+exports.getAdminByID = function(req, res) 
+{
+  admin.findOne({_id:req.body.user_id}, function(err, user)
+  {
+    if(user == null){
+      res.send({
+        status: 0,
+        data: null,
+        error:'Invalid logged in deatils.'
+      });
+    }
+    else
+    {
+      res.json({
+         status: 1,
+         data: user,
+         error:'Admin data fetched!'
+      });
+    }
+  });
+};
+
 // ADMIN UPDATE *****************
 exports.adminUpdate = function(req, res)
 {
