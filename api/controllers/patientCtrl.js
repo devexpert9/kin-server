@@ -188,6 +188,55 @@ exports.patient_all = function(req, res)
   });
 };
 
+exports.patient_all_with_faculty = function(req, res) {
+  patient.find({}, function(err, user)
+  {
+    if(users == null){
+      res.send({
+        error: err,
+        status: 0,
+        data: null
+      });
+    }else{
+      var counter = 0,
+          dict = {},
+          data = [];
+
+      function getPatientsfaculty()
+      {
+        if(counter < users.length)
+        {
+          users.find({'_id': users[counter].userId}, function(err, doc){
+            dict = {
+              _id: users[counter]._id,
+              email: users[counter].email,
+              firstname: users[counter].firstname,
+              gender: users[counter].gender,
+              lastname: users[counter].lastname,
+              room_no: users[counter].room_no,
+              faculty: doc
+            };
+
+            data.push(dict);
+
+            counter = counter + 1;
+
+            getPatientsCountByOrg();
+          });
+        }else{
+          res.json({
+            error: null,
+            status: 1,
+            data: data
+          });
+        }
+      };
+
+      getPatientsCountByOrg();
+    }
+  });
+};
+
 //**************** Update Patient ******************
 exports.patient_update = function(req, res)
 {
