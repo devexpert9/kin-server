@@ -189,9 +189,9 @@ exports.patient_all = function(req, res)
 };
 
 exports.patient_all_with_faculty = function(req, res) {
-  patient.find({}, function(err, users)
+  patient.find({}, function(err, mem)
   {
-    if(users == null){
+    if(mem == null){
       res.send({
         error: err,
         status: 0,
@@ -204,16 +204,16 @@ exports.patient_all_with_faculty = function(req, res) {
 
       function getPatientsfaculty()
       {
-        if(counter < users.length)
+        if(counter < mem.length)
         {
-          users.find({'_id': users[counter].userId}, function(err, doc){
+          users.find({'_id': mem[counter].userId}, function(err, doc){
             dict = {
-              _id: users[counter]._id,
-              email: users[counter].email,
-              firstname: users[counter].firstname,
-              gender: users[counter].gender,
-              lastname: users[counter].lastname,
-              room_no: users[counter].room_no,
+              _id: mem[counter]._id,
+              email: mem[counter].email,
+              firstname: mem[counter].firstname,
+              gender: mem[counter].gender,
+              lastname: mem[counter].lastname,
+              room_no: mem[counter].room_no,
               faculty: doc
             };
 
