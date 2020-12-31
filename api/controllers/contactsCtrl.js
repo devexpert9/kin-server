@@ -168,8 +168,9 @@ exports.findReports = function(req, res)
 {
   if(req.body.option == 'faculty')
   {
-      users.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, doc)
+      users.find({ 'created_on' : { '$gte' : req.body.start_date , '$e' : req.body.end_date }}).exec(function(err, doc)
       {
+        data = [];
         res.json({
            status: 1,
            data: doc,
