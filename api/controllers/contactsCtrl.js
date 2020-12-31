@@ -184,7 +184,7 @@ exports.findReports = function(req, res)
               facName:  doc[counter].organization_name,
               email:    doc[counter].email,
               contact:  doc[counter].contact,
-              patientName: null,
+              patientName: '',
             };
 
             data.push(dict);
