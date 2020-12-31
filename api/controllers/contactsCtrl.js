@@ -258,6 +258,7 @@ exports.findReports = function(req, res)
             patient.find({'_id': mem[counter].patientId}, function(err, doc)
             {
               users.findOne({'patientId':doc[0]._id},function(err,user1){
+                console.log(user1)
                 dict = {
                   name: mem[counter].name,
                   email: mem[counter].email,
