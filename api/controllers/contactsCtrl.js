@@ -164,6 +164,43 @@ exports.getContacts = function(req, res)
     });
 };
 
+exports.findReports = function(req, res)
+{
+  if(req.body.option == 'faculty')
+  {
+      users.find({"created_on":{ $gte:ISODate(req.body.start_date), $lt:ISODate(req.body.end_date) }},function(err,record)
+      {
+        res.json({
+           status: 1,
+           data: record,
+           error:null
+        });
+      });
+  }
+  else if(req.body.option == 'patient')
+  {
+      users.find({"created_on":{ $gte:ISODate(req.body.start_date), $lt:ISODate(req.body.end_date) }},function(err,record)
+      {
+        res.json({
+           status: 1,
+           data: record,
+           error:null
+        });
+      });
+  }
+  else if(req.body.option == 'contact')
+  {
+      users.find({"created_on":{ $gte:ISODate(req.body.start_date), $lt:ISODate(req.body.end_date) }},function(err,record)
+      {
+        res.json({
+           status: 1,
+           data: record,
+           error:null
+        });
+      });
+  }
+};
+
 
 exports.getContactDetails = function(req, res)
 {

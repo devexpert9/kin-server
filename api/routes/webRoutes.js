@@ -136,6 +136,10 @@ var contacts = require('../controllers/contactsCtrl');
    app.route('/deleteContact')
      .post(contacts.deleteContact);
 
+var contacts = require('../controllers/contactsCtrl');
+   app.route('/findReports')
+     .post(contacts.findReports);
+
 
 //----- Profile Page Callings-------------------------------
 var profiles = require('../controllers/profilesCtrl');
@@ -157,9 +161,6 @@ var profiles = require('../controllers/profilesCtrl');
 var profiles = require('../controllers/profilesCtrl');
    app.route('/deleteProfile')
      .post(profiles.deleteProfile);
-
-
-
 
 //----- CALLS -------------------------------
 
