@@ -227,7 +227,7 @@ exports.findReports = function(req, res)
 
               counter = counter + 1;
 
-              getPatientsfaculty();
+              loopOfRecords();
             });
           }else{
             res.json({
@@ -265,7 +265,7 @@ exports.findReports = function(req, res)
 
               counter = counter + 1;
 
-              getPatientsfaculty();
+              loopOfRecords();
             });
           }else{
             res.json({
