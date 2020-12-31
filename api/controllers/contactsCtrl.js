@@ -168,7 +168,7 @@ exports.findReports = function(req, res)
 {
   if(req.body.option == 'faculty')
   {
-      users.find({ 'created_on' : { '$gte' : req.body.end_date , '$lte' : req.body.start_date }}).exec(function(err, doc)
+      users.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, doc)
       {
         res.json({
            status: 1,
@@ -179,7 +179,7 @@ exports.findReports = function(req, res)
   }
   else if(req.body.option == 'patient')
   {
-      patient.find({ 'created_on' : { '$gte' : req.body.end_date , '$lte' : req.body.start_date }}).exec(function(err, doc)
+      patient.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, doc)
       {
         res.json({
            status: 1,
@@ -190,7 +190,7 @@ exports.findReports = function(req, res)
   }
   else if(req.body.option == 'contact')
   {
-      contacts.find({ 'created_on' : { '$gte' : req.body.end_date , '$lte' : req.body.start_date }}).exec(function(err, doc)
+      contacts.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, doc)
       {
         res.json({
            status: 1,
