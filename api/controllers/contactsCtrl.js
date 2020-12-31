@@ -183,7 +183,7 @@ exports.findReports = function(req, res)
               name:     doc[counter].firstname+' '+doc[counter].lastname,
               facName:  doc[counter].organization_name,
               email:    doc[counter].email,
-              contact:  doc[counter].contact,
+              contact:  '',
               patientName: '',
             };
 
