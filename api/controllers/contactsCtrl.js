@@ -204,24 +204,79 @@ exports.findReports = function(req, res)
   }
   else if(req.body.option == 'patient')
   {
-      patient.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, doc)
+      patient.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, mem)
       {
-        res.json({
-           status: 1,
-           data: doc,
-           error:null
-        });
+        var counter = 0,
+          dict = {},
+          data = [];
+
+        function loopOfRecords()
+        {
+          if(counter < mem.length)
+          {
+            users.find({'_id': mem[counter].userId}, function(err, doc){
+              dict = {
+                name: mem[counter].firstname+' '+mem[counter].lastname,
+                email: mem[counter].email,
+                contact: mem[counter].contact,
+                room_no: mem[counter].room_no,
+                facName: doc
+              };
+
+              data.push(dict);
+
+              counter = counter + 1;
+
+              getPatientsfaculty();
+            });
+          }else{
+            res.json({
+              error: null,
+              status: 1,
+              data: data
+            });
+          }
+        };
+
+        loopOfRecords();
       });
   }
   else if(req.body.option == 'contact')
   {
-      contacts.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, doc)
+      contacts.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, mem)
       {
-        res.json({
-           status: 1,
-           data: doc,
-           error:null
-        });
+        var counter = 0,
+          dict = {},
+          data = [];
+
+        function loopOfRecords()
+        {
+          if(counter < mem.length)
+          {
+            patient.find({'_id': mem[counter].patientId}, function(err, doc){
+              dict = {
+                name: mem[counter].name,
+                email: mem[counter].email,
+                contact: mem[counter].phone,
+                patientName: doc
+              };
+
+              data.push(dict);
+
+              counter = counter + 1;
+
+              getPatientsfaculty();
+            });
+          }else{
+            res.json({
+              error: null,
+              status: 1,
+              data: data
+            });
+          }
+        };
+
+        loopOfRecords();
       });
   }
 };
