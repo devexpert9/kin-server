@@ -171,11 +171,37 @@ exports.findReports = function(req, res)
   {
       users.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, doc)
       {
-        res.json({
-           status: 1,
-           data: doc,
-           error:null
-        });
+        var counter = 0,
+          dict = {},
+          data = [];
+
+        function getPatientsCountByOrg()
+        {
+          if(counter < users.length)
+          {
+            dict = {
+              name:     users[counter].firstname+' '+users[counter].lastname,
+              facName:  users[counter].organization_name,
+              lastname: users[counter].lastname,
+            };
+
+            data.push(dict);
+
+            counter = counter + 1;
+
+            getPatientsCountByOrg();
+          }
+          else
+          {
+            res.json({
+              error: null,
+              status: 1,
+              data: data
+            });
+          }
+        };
+
+        getPatientsCountByOrg();
       });
   }
   else if(req.body.option == 'patient')
