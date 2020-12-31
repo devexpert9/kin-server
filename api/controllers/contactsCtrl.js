@@ -181,7 +181,7 @@ exports.findReports = function(req, res)
           {
             dict = {
               name:     doc[counter].firstname+' '+doc[counter].lastname,
-              facName:  doc[counter].organization_name,
+              facName:  doc,
               email:    doc[counter].email,
             };
 
