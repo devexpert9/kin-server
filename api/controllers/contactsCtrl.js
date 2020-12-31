@@ -269,3 +269,15 @@ exports.deleteContact = function(req, res)
       });
     });
 };
+
+exports.deleteAllContact = function(req, res)
+{
+    contacts.remove({}, function(err, docs)
+    {
+      res.json({
+         status: 1,
+         data: null,
+         error:"Contact deleted successfully"
+      });
+    });
+};

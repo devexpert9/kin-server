@@ -137,6 +137,10 @@ var contacts = require('../controllers/contactsCtrl');
      .post(contacts.deleteContact);
 
 var contacts = require('../controllers/contactsCtrl');
+   app.route('/deleteAllContact')
+     .post(contacts.deleteAllContact);
+
+var contacts = require('../controllers/contactsCtrl');
    app.route('/findReports')
      .post(contacts.findReports);
 
