@@ -183,6 +183,8 @@ exports.findReports = function(req, res)
               name:     doc[counter].firstname+' '+doc[counter].lastname,
               facName:  doc,
               email:    doc[counter].email,
+              contact:  doc[counter].contact,
+              patientName: null,
             };
 
             data.push(dict);
@@ -219,8 +221,8 @@ exports.findReports = function(req, res)
                 name: mem[counter].firstname+' '+mem[counter].lastname,
                 email: mem[counter].email,
                 contact: mem[counter].contact,
-                room_no: mem[counter].room_no,
-                facName: doc
+                facName: doc,
+                patientName: null,
               };
 
               data.push(dict);
@@ -258,6 +260,7 @@ exports.findReports = function(req, res)
                 name: mem[counter].name,
                 email: mem[counter].email,
                 contact: mem[counter].phone,
+                facName:null,
                 patientName: doc
               };
 
