@@ -172,7 +172,7 @@ exports.findReports = function(req, res)
       {
         res.json({
            status: 1,
-           data: record,
+           data: doc,
            error:null
         });
       });
@@ -183,7 +183,7 @@ exports.findReports = function(req, res)
       {
         res.json({
            status: 1,
-           data: record,
+           data: doc,
            error:null
         });
       });
@@ -194,7 +194,7 @@ exports.findReports = function(req, res)
       {
         res.json({
            status: 1,
-           data: record,
+           data: doc,
            error:null
         });
       });
