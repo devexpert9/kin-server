@@ -177,12 +177,12 @@ exports.findReports = function(req, res)
 
         function getPatientsCountByOrg()
         {
-          if(counter < users.length)
+          if(counter < doc.length)
           {
             dict = {
-              name:     users[counter].firstname+' '+users[counter].lastname,
-              facName:  users[counter].organization_name,
-              lastname: users[counter].lastname,
+              name:     doc[counter].firstname+' '+doc[counter].lastname,
+              facName:  doc[counter].organization_name,
+              lastname: doc[counter].lastname,
             };
 
             data.push(dict);
