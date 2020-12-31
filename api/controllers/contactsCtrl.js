@@ -175,21 +175,19 @@ exports.findReports = function(req, res)
           dict = {},
           data = [];
 
-        function getPatientsCountByOrg()
+        function loopOfRecords()
         {
           if(counter < doc.length)
           {
             dict = {
               name:     doc[counter].firstname+' '+doc[counter].lastname,
               facName:  doc[counter].organization_name,
-              lastname: doc[counter].lastname,
+              email:    doc[counter].email,
             };
 
             data.push(dict);
-
             counter = counter + 1;
-
-            getPatientsCountByOrg();
+            loopOfRecords();
           }
           else
           {
@@ -201,7 +199,7 @@ exports.findReports = function(req, res)
           }
         };
 
-        getPatientsCountByOrg();
+        loopOfRecords();
       });
   }
   else if(req.body.option == 'patient')
