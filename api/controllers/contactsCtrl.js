@@ -181,7 +181,7 @@ exports.findReports = function(req, res)
           {
             dict = {
               name:     doc[counter].firstname+' '+doc[counter].lastname,
-              facName:  doc,
+              facName:  doc[counter].organization_name,
               email:    doc[counter].email,
               contact:  doc[counter].contact,
               patientName: null,
@@ -221,8 +221,8 @@ exports.findReports = function(req, res)
                 name: mem[counter].firstname+' '+mem[counter].lastname,
                 email: mem[counter].email,
                 contact: mem[counter].contact,
-                facName: doc,
-                patientName: null,
+                facName: doc[0].organization_name,
+                patientName: '',
               };
 
               data.push(dict);
@@ -255,20 +255,23 @@ exports.findReports = function(req, res)
         {
           if(counter < mem.length)
           {
-            patient.find({'_id': mem[counter].patientId}, function(err, doc){
-              dict = {
-                name: mem[counter].name,
-                email: mem[counter].email,
-                contact: mem[counter].phone,
-                facName:null,
-                patientName: doc
-              };
+            patient.find({'_id': mem[counter].patientId}, function(err, doc)
+            {
+              users.findOne({'patientId':doc[0]._id},function(err,user1){
+                dict = {
+                  name: mem[counter].name,
+                  email: mem[counter].email,
+                  contact: mem[counter].phone,
+                  facName:user1.organization_name,
+                  patientName: doc[0].firstname+' '+doc[0].lastname
+                };
 
-              data.push(dict);
+                data.push(dict);
 
-              counter = counter + 1;
+                counter = counter + 1;
 
-              loopOfRecords();
+                loopOfRecords();
+              })
             });
           }else{
             res.json({
