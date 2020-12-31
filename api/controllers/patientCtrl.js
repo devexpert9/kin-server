@@ -32,7 +32,8 @@ exports.patient_add = function(req, res)
         password:  req.body.password,
         gender:    req.body.gender,
         room_no:   req.body.room_no,
-        image:     null
+        image:     null,
+        created_on: new Date()
       });
 
       new_patient.save(function(err, users)
