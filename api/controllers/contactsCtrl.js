@@ -168,7 +168,7 @@ exports.findReports = function(req, res)
 {
   if(req.body.option == 'faculty')
   {
-      users.find({"created_on":{ $gte:ISODate(req.body.start_date), $lt:ISODate(req.body.end_date) }},function(err,record)
+      users.find({"created_on":{ $gte:Date(req.body.start_date), $lt:Date(req.body.end_date) }},function(err,record)
       {
         res.json({
            status: 1,
