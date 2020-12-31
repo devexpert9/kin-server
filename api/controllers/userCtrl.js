@@ -466,26 +466,11 @@ exports.deleteuser = function(req, res) {
       }
       else
       {
-        patient.remove({userId:req.body.userId}, function(err, user) {
-          if(user == null)
-          {
-            res.json({
-              error: err,
-              status: 1,
-              msg:"Try Again" 
-            });
-          }
-          else
-          {
-            res.json({
-              error: null,
-              status: 1,
-              msg:"Deleted Successfully"
-            });
-          }
+        res.json({
+          error: null,
+          status: 1,
+          msg:"Deleted Successfully"
         });
-
-        
       }
     });
 };
