@@ -5,6 +5,7 @@ multer    = require('multer'),
 users     = mongoose.model('users'),
 profiles  = mongoose.model('profiles'),
 patient    = mongoose.model('patient'),
+calls     = mongoose.model('calls'),
 contacts  = mongoose.model('contacts');
 var path  = require('path');
 var storage = multer.diskStorage({
@@ -284,6 +285,47 @@ exports.findReports = function(req, res)
         };
 
         loopOfRecords();
+      });
+  }
+  else if(req.body.option == 'calls')
+  {
+      calls.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, doc)
+      {
+        var counter = 0,
+            data = [],
+            dict = {};
+
+        function getUserDetails(){
+          if(counter < all_calls.length)
+          {
+            contacts.findOne({_id: all_calls[counter].contactId}, function(err, doc)
+            {
+              if(doc){
+                dict = {
+                  id: all_calls[counter]._id,
+                  contactId: all_calls[counter].contactId,
+                  contactName: doc.name,
+                  callDate: all_calls[counter].callDate,
+                  callTime: all_calls[counter].callTime,
+                  // userId: all_calls[counter].userId,
+                  patientId: all_calls[counter].patientId,
+                  created_on: all_calls[counter].created_on
+                };
+                data.push(dict);
+              }
+              
+              counter = counter + 1;
+              getUserDetails();
+            });
+          }else{
+            res.json({
+               status: 1,
+               data: data,
+               error:null
+            });
+          }
+        };
+        getUserDetails();
       });
   }
 };
