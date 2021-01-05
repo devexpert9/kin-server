@@ -79,6 +79,10 @@ var patient = require('../controllers/patientCtrl');
      .post(patient.patient_update);
 
 var patient = require('../controllers/patientCtrl');
+   app.route('/patient_profile_update')
+     .post(patient.patient_profile_update);
+
+var patient = require('../controllers/patientCtrl');
    app.route('/patient_update_Admin')
      .post(patient.patient_update_Admin);
 
