@@ -150,7 +150,7 @@ exports.registerUser = function(req, res)
 //****************  SOCIAL LOGIN ****************************
 exports.socialLogin = function(req, res) 
 {
-  console.log(req.data);
+  console.log(req);
 };
 
 exports.update_user = function(req, res) 
