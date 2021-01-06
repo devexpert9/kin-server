@@ -29,6 +29,10 @@ var adduser = require('../controllers/userCtrl');
      .post(adduser.registerUser);
 
 var adduser = require('../controllers/userCtrl');
+   app.route('/socialLogin')
+     .post(adduser.socialLogin);
+
+var adduser = require('../controllers/userCtrl');
    app.route('/getAllOrganizations')
      .post(adduser.getAllOrganizations);
 
