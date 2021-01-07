@@ -31,40 +31,62 @@ exports.chat_listing = function(req, res) {
         if(counter < doc.length){
           if(doc[counter].senderType == 'patient'){
             patient.findOne({'_id': doc[counter].senderId}, function(err, sender){
-              contacts.findOne({'_id': doc[counter].receiverId}, function(err, receiver){
-                chats.find({'chatId': doc[counter]._id}, function(err, chat){
-                  dict = {
-                    senderId: doc[counter].senderId,
-                    receiverId: doc[counter].receiverId,
-                    _id: doc[counter]._id,
-                    sender: sender,
-                    receiver: receiver,
-                    chat: chat
-                  };
+              contacts.findOne({'_id': doc[counter].receiverId}, function(err, receiver)
+              {
+                if(receiver == null){
+                  dict = {};
 
                   data.push(dict);
                   counter = counter + 1;
                   getUserDetails();
-                });
+                }
+                else{
+                  chats.find({'chatId': doc[counter]._id}, function(err, chat){
+                    dict = {
+                      senderId: doc[counter].senderId,
+                      receiverId: doc[counter].receiverId,
+                      _id: doc[counter]._id,
+                      sender: sender,
+                      receiver: receiver,
+                      chat: chat
+                    };
+
+                    data.push(dict);
+                    counter = counter + 1;
+                    getUserDetails();
+                  });  
+                }
+                
               });
             });
           }else if(doc[counter].senderType == 'contact'){
             contacts.findOne({'_id': doc[counter].senderId}, function(err, sender){
-              patient.findOne({'_id': doc[counter].receiverId}, function(err, receiver){
-                chats.find({'chatId': doc[counter]._id}, function(err, chat){
-                  dict = {
-                    senderId: doc[counter].senderId,
-                    receiverId: doc[counter].receiverId,
-                    _id: doc[counter]._id,
-                    sender: sender,
-                    receiver: receiver,
-                    chat: chat
-                  };
+              patient.findOne({'_id': doc[counter].receiverId}, function(err, receiver)
+              {
+                if(receiver == null){
+                  dict = {};
 
-                  data.push(dict);
-                  counter = counter + 1;
-                  getUserDetails();
-                });
+                    data.push(dict);
+                    counter = counter + 1;
+                    getUserDetails();
+                }
+                else{
+                  chats.find({'chatId': doc[counter]._id}, function(err, chat){
+                    dict = {
+                      senderId: doc[counter].senderId,
+                      receiverId: doc[counter].receiverId,
+                      _id: doc[counter]._id,
+                      sender: sender,
+                      receiver: receiver,
+                      chat: chat
+                    };
+
+                    data.push(dict);
+                    counter = counter + 1;
+                    getUserDetails();
+                  });  
+                }
+                
               });
             });
           }
