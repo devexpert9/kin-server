@@ -26,7 +26,7 @@ exports.chat_listing = function(req, res)
 {
     chatlisting.find({$or: [{'senderId': req.body.userId}, {'receiverId': req.body.userId} ] }, function(err, doc)
     {
-      if()
+
       var data = [],
         counter = 0,
         dict = {};
