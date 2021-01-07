@@ -40,14 +40,15 @@ exports.chat_listing = function(req, res)
                   dict = {};
                 }else{
                   chats.find({'chatId': doc[counter]._id}, function(err, chat){
-                  dict = {
-                    senderId: doc[counter].senderId,
-                    receiverId: doc[counter].receiverId,
-                    _id: doc[counter]._id,
-                    sender: sender,
-                    receiver: receiver,
-                    chat: chat
-                  };
+                      dict = {
+                        senderId: doc[counter].senderId,
+                        receiverId: doc[counter].receiverId,
+                        _id: doc[counter]._id,
+                        sender: sender,
+                        receiver: receiver,
+                        chat: chat
+                      };
+                    });
                 }
                 
 
@@ -65,14 +66,15 @@ exports.chat_listing = function(req, res)
                   dict = {};
                 }else{
                   chats.find({'chatId': doc[counter]._id}, function(err, chat){
-                  dict = {
-                    senderId: doc[counter].senderId,
-                    receiverId: doc[counter].receiverId,
-                    _id: doc[counter]._id,
-                    sender: sender,
-                    receiver: receiver,
-                    chat: chat
-                  };
+                    dict = {
+                      senderId: doc[counter].senderId,
+                      receiverId: doc[counter].receiverId,
+                      _id: doc[counter]._id,
+                      sender: sender,
+                      receiver: receiver,
+                      chat: chat
+                    };
+                  });
                 }
 
                   data.push(dict);
