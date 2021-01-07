@@ -22,8 +22,11 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).single('image');
 
-exports.chat_listing = function(req, res) {
-    chatlisting.find({$or: [{'senderId': req.body.userId}, {'receiverId': req.body.userId} ] }, function(err, doc){
+exports.chat_listing = function(req, res)
+{
+    chatlisting.find({$or: [{'senderId': req.body.userId}, {'receiverId': req.body.userId} ] }, function(err, doc)
+    {
+      if()
       var data = [],
         counter = 0,
         dict = {};
@@ -31,8 +34,12 @@ exports.chat_listing = function(req, res) {
         if(counter < doc.length){
           if(doc[counter].senderType == 'patient'){
             patient.findOne({'_id': doc[counter].senderId}, function(err, sender){
-              contacts.findOne({'_id': doc[counter].receiverId}, function(err, receiver){
-                chats.find({'chatId': doc[counter]._id}, function(err, chat){
+              contacts.findOne({'_id': doc[counter].receiverId}, function(err, receiver)
+              {
+                if(receiver == null){
+                  dict = {};
+                }else{
+                  chats.find({'chatId': doc[counter]._id}, function(err, chat){
                   dict = {
                     senderId: doc[counter].senderId,
                     receiverId: doc[counter].receiverId,
@@ -41,6 +48,8 @@ exports.chat_listing = function(req, res) {
                     receiver: receiver,
                     chat: chat
                   };
+                }
+                
 
                   data.push(dict);
                   counter = counter + 1;
@@ -50,8 +59,12 @@ exports.chat_listing = function(req, res) {
             });
           }else if(doc[counter].senderType == 'contact'){
             contacts.findOne({'_id': doc[counter].senderId}, function(err, sender){
-              patient.findOne({'_id': doc[counter].receiverId}, function(err, receiver){
-                chats.find({'chatId': doc[counter]._id}, function(err, chat){
+              patient.findOne({'_id': doc[counter].receiverId}, function(err, receiver)
+              {
+                if(receiver == null){
+                  dict = {};
+                }else{
+                  chats.find({'chatId': doc[counter]._id}, function(err, chat){
                   dict = {
                     senderId: doc[counter].senderId,
                     receiverId: doc[counter].receiverId,
@@ -60,6 +73,7 @@ exports.chat_listing = function(req, res) {
                     receiver: receiver,
                     chat: chat
                   };
+                }
 
                   data.push(dict);
                   counter = counter + 1;
