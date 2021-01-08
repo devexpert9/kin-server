@@ -60,6 +60,7 @@ exports.getCalls = function(req, res)
                 contactId: all_calls[counter].contactId,
                 contactName: doc.name,
                 contactEmail: doc.email,
+                contactUserId: doc._id,
                 isAppUser: doc.isAppUser,
                 callDate: all_calls[counter].callDate,
                 callTime: all_calls[counter].callTime,
