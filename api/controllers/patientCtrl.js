@@ -39,7 +39,7 @@ exports.patient_add = function(req, res)
       new_patient.save(function(err, users)
       {
         var fullname = req.body.firstname+' '+req.body.lastname;
-        
+
         //--SEND EMAIL-------------------------------
           var string  = 'Don'+'\''+'t worry, we all forget sometimes';
           var fs      = require('fs'); // npm install fs
@@ -54,7 +54,7 @@ exports.patient_add = function(req, res)
             
             var fromEmail = new helper.Email('25userdemo@gmail.com','KIN');
             var toEmail   = new helper.Email(req.body.email);
-            var subject   = 'Account Created As Organization';
+            var subject   = 'Account Created As Patient';
 
             dynamic_data = dynamic_data.replace("#NAME#", fullname) ;
             dynamic_data = dynamic_data.replace("#EMAIL#", req.body.email) ;
