@@ -177,13 +177,16 @@ exports.update_user_otp = function(req, res)
 {
   users.update({_id: req.body.orgId},{$set:{ 'otpApproved':1 } }, {new: true}, function(err, user)
   {
-    if(user == null){
+    if(user == null)
+    {
       res.send({
         error: err,
         status: 0,
         msg:"Try Again"
       });
-    }else{
+    }
+    else
+    {
       res.json({
         error: null,
         status: 1,
