@@ -80,6 +80,7 @@ exports.registerUser = function(req, res)
         password:   req.body.password,
         gender:     req.body.gender,
         image:      null,
+        otpApproved: req.body.otpApproved,
         created_on: new Date()
       });
   
