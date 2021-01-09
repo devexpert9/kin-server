@@ -245,7 +245,7 @@ exports.verifyOtp = function(req, res)
     // console.log(user); 
     // console.log(user.otp);
     // return false;
-    if(req.body.opt == user.otp)
+    if(req.body.otp == user.otp)
     {
       users.update({_id: req.body.userId},{$set:{ 'otpApproved':1 } }, {new: true}, function(err, dom)
       {
