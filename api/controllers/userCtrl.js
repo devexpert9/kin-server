@@ -242,16 +242,16 @@ exports.verifyOtp = function(req, res)
 {
   users.findOne({_id: req.body.userId}, function(err, user)
   {
-    console.log(user); 
-    console.log(user.otp);
-    return false;
-    if(req.body.opt == user[0].otp)
+    // console.log(user); 
+    // console.log(user.otp);
+    // return false;
+    if(req.body.opt == user.otp)
     {
       users.update({_id: req.body.userId},{$set:{ 'otpApproved':1 } }, {new: true}, function(err, dom)
       {
         if(dom == null)
         {
-          var fullname = user[0].firstname+' '+user[0].lastname;
+          var fullname = user.firstname+' '+user.lastname;
 
           //--SEND EMAIL-------------------------------
               var string  = 'Don'+'\''+'t worry, we all forget sometimes';
@@ -266,12 +266,12 @@ exports.verifyOtp = function(req, res)
                 var helper    = require('sendgrid').mail;
                 
                 var fromEmail = new helper.Email('25userdemo@gmail.com','KIN');
-                var toEmail   = new helper.Email(user[0].firstname);
+                var toEmail   = new helper.Email(user.email);
                 var subject   = 'Account Created As Facility';
 
                 dynamic_data = dynamic_data.replace("#NAME#", fullname) ;
-                dynamic_data = dynamic_data.replace("#EMAIL#", user[0].email) ;
-                dynamic_data = dynamic_data.replace("#PASSWORD#", user[0].password) ;
+                dynamic_data = dynamic_data.replace("#EMAIL#", user.email) ;
+                dynamic_data = dynamic_data.replace("#PASSWORD#", user.password) ;
 
                 var content = new helper.Content('text/html', dynamic_data);
 
