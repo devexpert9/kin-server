@@ -29,9 +29,6 @@ var userSchema = new Schema({
     provider: {
       type: String
     },
-    otpApproved: {
-      type: Number
-    },
     image: {
       type: String
     }
