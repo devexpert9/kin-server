@@ -99,7 +99,7 @@ exports.registerUser = function(req, res)
           {
             var helper    = require('sendgrid').mail;
             
-            var fromEmail = new helper.Email('101.indiit@gmail.com','KIN');
+            var fromEmail = new helper.Email('25userdemo@gmail.com','KIN');
             var toEmail   = new helper.Email(req.body.email);
             var subject   = 'Account Created As Organization';
 
@@ -111,7 +111,8 @@ exports.registerUser = function(req, res)
 
             var mail = new helper.Mail(fromEmail, subject, toEmail, content);
             
-            var sg = require('sendgrid')('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');
+            //var sg = require('sendgrid')('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');
+            var sg = require('sendgrid')('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');
             
             var request = sg.emptyRequest({
               method: 'POST',
