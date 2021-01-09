@@ -71,16 +71,19 @@ exports.update_admin_password = function(req, res) {
 exports.registerUser = function(req, res) 
 {
   users.findOne({email: req.body.email}, function(err, user) {
-    if(user == null){
+    if(user == null)
+    {
       var new_user = new users({
-        firstname:  req.body.firstname,
-        lastname:   req.body.lastname,
-        organization_name:   req.body.organization_name,
-        email:      req.body.email,
-        password:   req.body.password,
-        gender:     req.body.gender,
-        image:      null,
-        created_on: new Date()
+        firstname:          req.body.firstname,
+        lastname:           req.body.lastname,
+        organization_name:  req.body.organization_name,
+        email:              req.body.email,
+        password:           req.body.password,
+        gender:             req.body.gender,
+        image:              null,
+        provider:           req.body.provider,
+        otpApproved:        req.body.otpApproved,
+        created_on:         new Date()
       });
   
       new_user.save(function(err, users)
@@ -99,7 +102,7 @@ exports.registerUser = function(req, res)
           {
             var helper    = require('sendgrid').mail;
             
-            var fromEmail = new helper.Email('101.indiit@gmail.com','KIN');
+            var fromEmail = new helper.Email('manmohitindiit@gmail.com','KIN');
             var toEmail   = new helper.Email(req.body.email);
             var subject   = 'Account Created As Organization';
 
@@ -121,10 +124,11 @@ exports.registerUser = function(req, res)
             sg.API(request, function (error, response) 
             {
               if (error) {
-                // console.log(error);
+                console.log(error);
                 res.json({
                     msg: 'Something went wrong with sending email.',
-                    status: 0
+                    status: 0,
+                    error: error
                 });
               }else{
                 res.send({
@@ -137,7 +141,9 @@ exports.registerUser = function(req, res)
           }) 
         //-------------------------------------------
       });
-    }else{
+    }
+    else
+    {
       res.send({
         status: 0,
         data: null,
