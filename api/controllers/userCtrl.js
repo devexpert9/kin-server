@@ -149,74 +149,7 @@ exports.registerUser = function(req, res)
   });
 };
 
-exports.verifyOtp = function(req, res) 
-{
-  users.findOne({_id: req.body.userId}, function(err, user)
-  {
-    if(req.body.opt == user[0].otp)
-    {
-      var fullname = user[0].firstname+' '+user[0].lastname;
-
-      //--SEND EMAIL-------------------------------
-          var string  = 'Don'+'\''+'t worry, we all forget sometimes';
-          var fs      = require('fs'); // npm install fs
-          var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/organization.html', 'utf8');
-          let dynamic_data = '';
-          
-          readStream.on('data', function(chunk) {
-            dynamic_data += chunk;
-          }).on('end', function() 
-          {
-            var helper    = require('sendgrid').mail;
-            
-            var fromEmail = new helper.Email('25userdemo@gmail.com','KIN');
-            var toEmail   = new helper.Email(user[0].firstname);
-            var subject   = 'Account Created As Facility';
-
-            dynamic_data = dynamic_data.replace("#NAME#", fullname) ;
-            dynamic_data = dynamic_data.replace("#EMAIL#", user[0].email) ;
-            dynamic_data = dynamic_data.replace("#PASSWORD#", user[0].password) ;
-
-            var content = new helper.Content('text/html', dynamic_data);
-
-            var mail = new helper.Mail(fromEmail, subject, toEmail, content);
-            
-            var sg = require('sendgrid')('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');
-            
-            var request = sg.emptyRequest({
-              method: 'POST',
-              path: '/v3/mail/send',
-              body: mail.toJSON()
-            });
-            sg.API(request, function (error, response) 
-            {
-              if (error) {
-                // console.log(error);
-                res.json({
-                    msg: 'Something went wrong with sending email.',
-                    status: 0
-                });
-              }else{
-                res.send({
-                  data: users,
-                  status: 1,
-                  error: 'Patient added successfully!'
-                });
-              }
-            })
-          }) 
-        //-------------------------------------------
-    }
-    else{
-      res.send({
-        status: 0,
-        data: null,
-        error: 'You have entered wrong OTP'
-      });
-    }
-  });
-};
-
+// Register user from APP----------------------------------
 exports.registerUserFromApp = function(req, res) 
 {
   users.findOne({email: req.body.email}, function(err, user) {
@@ -299,6 +232,91 @@ exports.registerUserFromApp = function(req, res)
         status: 0,
         data: null,
         error: 'Email already exist in our system!'
+      });
+    }
+  });
+};
+
+// VERIFY OTP-------------------------------------------
+exports.verifyOtp = function(req, res) 
+{
+  users.findOne({_id: req.body.userId}, function(err, user)
+  {
+    if(req.body.opt == user[0].otp)
+    {
+      users.update({_id: req.body.userId},{$set:{ 'otpApproved':1 } }, {new: true}, function(err, dom)
+      {
+        if(dom == null)
+        {
+          var fullname = user[0].firstname+' '+user[0].lastname;
+
+          //--SEND EMAIL-------------------------------
+              var string  = 'Don'+'\''+'t worry, we all forget sometimes';
+              var fs      = require('fs'); // npm install fs
+              var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/organization.html', 'utf8');
+              let dynamic_data = '';
+              
+              readStream.on('data', function(chunk) {
+                dynamic_data += chunk;
+              }).on('end', function() 
+              {
+                var helper    = require('sendgrid').mail;
+                
+                var fromEmail = new helper.Email('25userdemo@gmail.com','KIN');
+                var toEmail   = new helper.Email(user[0].firstname);
+                var subject   = 'Account Created As Facility';
+
+                dynamic_data = dynamic_data.replace("#NAME#", fullname) ;
+                dynamic_data = dynamic_data.replace("#EMAIL#", user[0].email) ;
+                dynamic_data = dynamic_data.replace("#PASSWORD#", user[0].password) ;
+
+                var content = new helper.Content('text/html', dynamic_data);
+
+                var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+                
+                var sg = require('sendgrid')('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');
+                
+                var request = sg.emptyRequest({
+                  method: 'POST',
+                  path: '/v3/mail/send',
+                  body: mail.toJSON()
+                });
+                sg.API(request, function (error, response) 
+                {
+                  if (error) {
+                    // console.log(error);
+                    res.json({
+                        msg: 'Something went wrong with sending email.',
+                        status: 0
+                    });
+                  }else{
+                    res.send({
+                      data: users,
+                      status: 1,
+                      error: 'Patient added successfully!'
+                    });
+                  }
+                })
+              }) 
+          //-------------------------------------------
+        }
+        else
+        {
+          res.json({
+            error: null,
+            status: 1,
+            data:dom,
+            msg:"Profile updated successfully!"
+          });
+        }
+      });
+      
+    }
+    else{
+      res.send({
+        status: 0,
+        data: null,
+        error: 'You have entered wrong OTP'
       });
     }
   });
