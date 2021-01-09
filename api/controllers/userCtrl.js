@@ -252,6 +252,7 @@ exports.verifyOtp = function(req, res)
         if(dom == null)
         {
           var fullname = user.firstname+' '+user.lastname;
+          console.log(user.email);
 
           //--SEND EMAIL-------------------------------
               var string  = 'Don'+'\''+'t worry, we all forget sometimes';
@@ -294,7 +295,7 @@ exports.verifyOtp = function(req, res)
                     });
                   }else{
                     res.send({
-                      data: users,
+                      data: user,
                       status: 1,
                       error: 'Patient added successfully!'
                     });
