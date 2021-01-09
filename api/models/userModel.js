@@ -29,7 +29,7 @@ var userSchema = new Schema({
     provider: {
       type: String
     },
-    otp:{
+    otp: {
       type: String
     }.
     otpApproved: {
