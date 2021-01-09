@@ -242,7 +242,9 @@ exports.verifyOtp = function(req, res)
 {
   users.findOne({_id: req.body.userId}, function(err, user)
   {
-    console.log(user); return false;
+    console.log(user); 
+    console.log(user.otp);
+    return false;
     if(req.body.opt == user[0].otp)
     {
       users.update({_id: req.body.userId},{$set:{ 'otpApproved':1 } }, {new: true}, function(err, dom)
