@@ -249,8 +249,7 @@ exports.verifyOtp = function(req, res)
     {
       users.update({_id: req.body.userId},{$set:{ 'otpApproved':1 } }, {new: true}, function(err, dom)
       {
-        if(dom == null)
-        {
+        
           var fullname = user.firstname+' '+user.lastname;
           console.log(user.email);
 
@@ -303,16 +302,7 @@ exports.verifyOtp = function(req, res)
                 })
               }) 
           //-------------------------------------------
-        }
-        else
-        {
-          res.json({
-            error: null,
-            status: 1,
-            data:dom,
-            msg:"Profile updated successfully!"
-          });
-        }
+        
       });
       
     }
