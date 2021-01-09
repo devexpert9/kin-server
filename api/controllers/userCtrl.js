@@ -173,6 +173,27 @@ exports.update_user = function(req, res)
   });
 };
 
+exports.update_user_otp = function(req, res) 
+{
+  users.update({_id: req.body.orgId},{$set:{ 'otpApproved':1 } }, {new: true}, function(err, user)
+  {
+    if(user == null){
+      res.send({
+        error: err,
+        status: 0,
+        msg:"Try Again"
+      });
+    }else{
+      res.json({
+        error: null,
+        status: 1,
+        data:user,
+        msg:"Profile updated successfully!"
+      });
+    }
+  });
+};
+
 exports.update_orgFromAdmin = function(req, res) 
 {
   users.update({_id: req.body.orgId},{$set:{ 'firstname': req.body.firstname, 'lastname': req.body.lastname, 'email':req.body.email, 'organization_name':req.body.organization_name } }, {new: true}, function(err, user) {

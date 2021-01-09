@@ -49,6 +49,10 @@ var adduser = require('../controllers/userCtrl');
      .post(adduser.update_user);
 
 var adduser = require('../controllers/userCtrl');
+   app.route('/update_user_otp')
+     .post(adduser.update_user_otp);
+
+var adduser = require('../controllers/userCtrl');
    app.route('/update_orgFromAdmin')
      .post(adduser.update_orgFromAdmin);
 
