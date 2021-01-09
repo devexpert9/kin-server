@@ -124,11 +124,10 @@ exports.registerUser = function(req, res)
             sg.API(request, function (error, response) 
             {
               if (error) {
-                console.log(error);
+                // console.log(error);
                 res.json({
                     msg: 'Something went wrong with sending email.',
-                    status: 0,
-                    error: error
+                    status: 0
                 });
               }else{
                 res.send({
