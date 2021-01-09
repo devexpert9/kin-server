@@ -38,6 +38,8 @@ exports.patient_add = function(req, res)
 
       new_patient.save(function(err, users)
       {
+        var fullname = req.body.firstname+' '+req.body.lastname;
+        
         //--SEND EMAIL-------------------------------
           var string  = 'Don'+'\''+'t worry, we all forget sometimes';
           var fs      = require('fs'); // npm install fs

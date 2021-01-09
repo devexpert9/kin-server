@@ -57,7 +57,7 @@ exports.addContact = function(req, res)
                 var toEmail   = new helper.Email(req.body.email);
                 var subject   = 'Account Created As Organization';
 
-                dynamic_data = dynamic_data.replace("#NAME#", fullname) ;
+                dynamic_data = dynamic_data.replace("#NAME#", req.body.name) ;
                 dynamic_data = dynamic_data.replace("#EMAIL#", req.body.email) ;
                 dynamic_data = dynamic_data.replace("#PASSWORD#", req.body.password) ;
 
