@@ -102,7 +102,7 @@ exports.registerUser = function(req, res)
           {
             var helper    = require('sendgrid').mail;
             
-            var fromEmail = new helper.Email('manmohitindiit@gmail.com','KIN');
+            var fromEmail = new helper.Email('01userdemo@gmail.com','KIN');
             var toEmail   = new helper.Email(req.body.email);
             var subject   = 'Account Created As Organization';
 
