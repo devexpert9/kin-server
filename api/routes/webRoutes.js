@@ -196,9 +196,9 @@ var calls = require('../controllers/callsCtrl');
    app.route('/deleteCall')
      .post(calls.deleteCall);
 
-var calls = require('../controllers/callsCtrl');
-   app.route('/updateCall')
-     .post(calls.updateCall);
+// var calls = require('../controllers/callsCtrl');
+//    app.route('/updateCall')
+//      .post(calls.updateCall);
 
 //---- CHAT ----------------------------------
      
