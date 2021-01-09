@@ -29,6 +29,9 @@ var userSchema = new Schema({
     provider: {
       type: String
     },
+    otp:{
+      type: String
+    }.
     otpApproved: {
       type:  Number
     },

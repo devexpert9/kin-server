@@ -29,6 +29,14 @@ var adduser = require('../controllers/userCtrl');
      .post(adduser.registerUser);
 
 var adduser = require('../controllers/userCtrl');
+   app.route('/registerUserFromApp')
+     .post(adduser.registerUserFromApp);
+     
+var adduser = require('../controllers/userCtrl');
+   app.route('/verifyOtp')
+     .post(adduser.verifyOtp);
+
+var adduser = require('../controllers/userCtrl');
    app.route('/socialLogin')
      .post(adduser.socialLogin);
 
