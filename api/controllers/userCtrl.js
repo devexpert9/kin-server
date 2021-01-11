@@ -71,7 +71,16 @@ exports.update_admin_password = function(req, res) {
 exports.registerUser = function(req, res) 
 {
   users.findOne({email: req.body.email}, function(err, user) {
-    if(user == null){
+    if(user == null)
+    {
+      var digits = '0123456789'; 
+      let OTP = ''; 
+      for (let i = 0; i < 6; i++ ) { 
+        OTP += digits[Math.floor(Math.random() * 10)]; 
+      } 
+
+      var myOTP = OTP;
+      
       var new_user = new users({
         firstname:    req.body.firstname,
         lastname:     req.body.lastname,
@@ -80,8 +89,8 @@ exports.registerUser = function(req, res)
         password:     req.body.password,
         gender:       req.body.gender,
         image:        null,
-        otp:          Math.random(),
-        otpApproved:  req.body.otpApproved,
+        otp:          myOTP,
+        otpApproved:  1,
         created_on:   new Date()
       });
   
