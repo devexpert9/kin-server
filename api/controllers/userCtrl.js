@@ -665,6 +665,76 @@ exports.forgot_password = function(req, res)
   }
 };
 
+//**************** CHANGE PWD FROM APP FORGOT ******************
+
+exports.forgotChangePassword = function(req, res)
+{
+  var loginAs  = req.body.type;
+  var loginId  = req.body.id;
+  var password = req.body.password;
+
+  if(loginAs == 'facility')
+  {
+    users.update({_id: loginId},{$set:{ 'password': req.body.password } }, {new: true}, function(err, user) 
+    {
+      if(user == null){
+        res.send({
+          error: err,
+          status: 0,
+          msg:"Try Again"
+        });
+      }else{
+        res.json({
+          error: null,
+          status: 1,
+          data:user,
+          msg:"Password updated successfully!"
+        });
+      }
+    });
+  }
+  else if(loginAs == 'patient')
+  {
+    patient.update({_id: loginId},{$set:{ 'password': req.body.password } }, {new: true}, function(err, user) 
+    {
+      if(user == null){
+        res.send({
+          error: err,
+          status: 0,
+          msg:"Try Again"
+        });
+      }else{
+        res.json({
+          error: null,
+          status: 1,
+          data:user,
+          msg:"Password updated successfully!"
+        });
+      }
+    });
+  }else if(loginAs == 'contact')
+  {
+    contacts.update({_id: loginId},{$set:{ 'password': req.body.password } }, {new: true}, function(err, user) 
+    {
+      if(user == null){
+        res.send({
+          error: err,
+          status: 0,
+          msg:"Try Again"
+        });
+      }else{
+        res.json({
+          error: null,
+          status: 1,
+          data:user,
+          msg:"Password updated successfully!"
+        });
+      }
+    });
+  }
+}
+
+
 //**************** Get User Function ******************
 exports.getUserdata = function(req, res)
 {
