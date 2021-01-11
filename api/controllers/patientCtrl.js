@@ -32,6 +32,7 @@ exports.patient_add = function(req, res)
         password:  req.body.password,
         gender:    req.body.gender,
         room_no:   req.body.room_no,
+        otp:       '123456',
         image:     null,
         created_on: new Date()
       });

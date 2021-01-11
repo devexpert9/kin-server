@@ -32,6 +32,9 @@ var patientSchema = new Schema({
     room_no: {
       type: String
     },
+    otp: {
+      type: String
+    },
     provider: {
       type: String
     },

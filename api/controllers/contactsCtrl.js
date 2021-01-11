@@ -35,6 +35,7 @@ exports.addContact = function(req, res)
             email:      req.body.email,
             password:   req.body.password,
             patientId:  req.body.patientId,
+            otp:       '123456',
             isAppUser:  0,
             created_on: new Date()
           });

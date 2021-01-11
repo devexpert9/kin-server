@@ -22,6 +22,9 @@ var contactsSchema = new Schema({
     userId: {
       type : String
     },
+    otp: {
+      type: String
+    },
     isAppUser: {
       type : Number
     },
