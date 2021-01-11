@@ -479,7 +479,7 @@ exports.forgot_password = function(req, res)
   } 
 
   var myOTP = OTP;
-  
+
   if(loginAs == 'organization')
   {
     users.findOne({email:req.body.email}, function(err, user)
@@ -532,7 +532,7 @@ exports.forgot_password = function(req, res)
                 });
               }else{
                 res.send({
-                  data: users,
+                  data: user,
                   status: 1,
                   type:'facility',
                   error: 'OTP SENT'
@@ -595,7 +595,7 @@ exports.forgot_password = function(req, res)
                 });
               }else{
                 res.send({
-                  data: users,
+                  data: user,
                   status: 1,
                   type:'patient',
                   error: 'OTP SENT'
@@ -659,7 +659,7 @@ exports.forgot_password = function(req, res)
                 });
               }else{
                 res.send({
-                  data: users,
+                  data: user,
                   status: 1,
                   type:'contact',
                   error: 'OTP SENT'
