@@ -472,6 +472,14 @@ exports.forgot_password = function(req, res)
 {
   var loginAs = req.body.login_as;
 
+  var digits = '0123456789'; 
+  let OTP = ''; 
+  for (let i = 0; i < 6; i++ ) { 
+    OTP += digits[Math.floor(Math.random() * 10)]; 
+  } 
+
+  var myOTP = OTP;
+  
   if(loginAs == 'organization')
   {
     users.findOne({email:req.body.email}, function(err, user)
