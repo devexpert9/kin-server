@@ -31,7 +31,7 @@ var adduser = require('../controllers/userCtrl');
 var adduser = require('../controllers/userCtrl');
    app.route('/registerUserFromApp')
      .post(adduser.registerUserFromApp);
-     
+
 var adduser = require('../controllers/userCtrl');
    app.route('/verifyOtp')
      .post(adduser.verifyOtp);
@@ -75,6 +75,10 @@ var adduser = require('../controllers/userCtrl');
 var adduser = require('../controllers/userCtrl');
    app.route('/deleteuser')
      .post(adduser.deleteuser);
+
+var adduser = require('../controllers/userCtrl');
+   app.route('/forgot_password')
+     .post(adduser.forgot_password);
 
 
 //----- Patients----------------------------------------
