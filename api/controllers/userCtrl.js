@@ -686,6 +686,79 @@ exports.forgot_password = function(req, res)
   }
 };
 
+//**************** VERIFY OTP Forgot Password ******************
+exports.verifyOtpForgotPwd = function(req, res) 
+{
+  var loginAs = req.body.userType;
+
+  if(loginAs == 'facility')
+  {
+    users.findOne({_id:req.body.userId, otp: req.body.otp}, function(err, user)
+    {
+      if(user == null)
+      {
+        res.send({
+          status: 0,
+          data: null,
+          error:'Invalid OTP.'
+        });
+      }
+      else
+      {
+        res.send({
+          status: 1,
+          data: null,
+          error:'Valid OTP.'
+        });
+      }
+    });
+  }
+  else if(loginAs == 'patient')
+  {
+    patient.findOne({_id:req.body.userId, otp: req.body.otp}, function(err, user)
+    {
+      if(user == null)
+      {
+        res.send({
+          status: 0,
+          data: null,
+          error:'Invalid OTP.'
+        });
+      }
+      else
+      {
+        res.send({
+          status: 1,
+          data: null,
+          error:'Valid OTP.'
+        });
+      }
+    });
+  }
+  else if(loginAs == 'contact')
+  {
+    contacts.findOne({_id:req.body.userId, otp: req.body.otp}, function(err, user)
+    {
+      if(user == null)
+      {
+        res.send({
+          status: 0,
+          data: null,
+          error:'Invalid OTP.'
+        });
+      }
+      else
+      {
+        res.send({
+          status: 1,
+          data: null,
+          error:'Valid OTP.'
+        });
+      }
+    });
+  }
+};
+
 //**************** CHANGE PWD FROM APP FORGOT ******************
 
 exports.forgotChangePassword = function(req, res)

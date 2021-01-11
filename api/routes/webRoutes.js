@@ -85,6 +85,11 @@ var adduser = require('../controllers/userCtrl');
      .post(adduser.forgotChangePassword);
 
 
+var adduser = require('../controllers/userCtrl');
+   app.route('/verifyOtpForgotPwd')
+     .post(adduser.verifyOtpForgotPwd);
+
+
 //----- Patients----------------------------------------
 var patient = require('../controllers/patientCtrl');
    app.route('/patient_add')
