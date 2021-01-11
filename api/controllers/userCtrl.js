@@ -526,6 +526,7 @@ exports.forgot_password = function(req, res)
                 res.send({
                   data: users,
                   status: 1,
+                  type:'facility'
                   error: 'OTP SENT'
                 });
               }
@@ -548,12 +549,53 @@ exports.forgot_password = function(req, res)
       }
       else
       {
-        res.json({
-           status: 1,
-           data: user,
-           type:'patient',
-           error:'Logged In successfully!'
-        });
+        //--SEND EMAIL-------------------------------
+          var string  = 'Don'+'\''+'t worry, we all forget sometimes';
+          var fs      = require('fs'); // npm install fs
+          var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/otp.html', 'utf8');
+          let dynamic_data = '';
+          
+          readStream.on('data', function(chunk) {
+            dynamic_data += chunk;
+          }).on('end', function() 
+          {
+            var helper    = require('sendgrid').mail;
+            
+            var fromEmail = new helper.Email('25userdemo@gmail.com','KIN');
+            var toEmail   = new helper.Email(req.body.email);
+            var subject   = 'OTP for change your password as patient';
+
+            dynamic_data = dynamic_data.replace("#OTP#", myOTP);
+
+            var content = new helper.Content('text/html', dynamic_data);
+            var mail    = new helper.Mail(fromEmail, subject, toEmail, content);
+            
+            var sg = require('sendgrid')('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');
+            
+            var request = sg.emptyRequest({
+              method: 'POST',
+              path: '/v3/mail/send',
+              body: mail.toJSON()
+            });
+            sg.API(request, function (error, response) 
+            {
+              if (error) {
+                // console.log(error);
+                res.json({
+                    msg: 'Something went wrong with sending email.',
+                    status: 0
+                });
+              }else{
+                res.send({
+                  data: users,
+                  status: 1,
+                  type:'patient'
+                  error: 'OTP SENT'
+                });
+              }
+            })
+          }) 
+        //-------------------------------------------
       }
     });
   }
@@ -561,8 +603,6 @@ exports.forgot_password = function(req, res)
   {
     contacts.findOne({email:req.body.email}, function(err, user)
     {
-      console.log(req.body.email+' '+req.body.password);
-      console.log(user);
       if(user == null)
       {
         res.send({
@@ -573,16 +613,53 @@ exports.forgot_password = function(req, res)
       }
       else
       {
-        // Update One Time Login Event----------------
-        contacts.update({_id: user._id }, { $set: {isAppUser: 1}}, {new: true}, function(err, userUpdate)
-        {
-          res.json({
-            status: 1,
-            data: user,
-            type:'contact',
-            error:'Logged In successfully!'
-          });
-        });
+        //--SEND EMAIL-------------------------------
+          var string  = 'Don'+'\''+'t worry, we all forget sometimes';
+          var fs      = require('fs'); // npm install fs
+          var readStream = fs.createReadStream(path.join(__dirname, '../templates') + '/otp.html', 'utf8');
+          let dynamic_data = '';
+          
+          readStream.on('data', function(chunk) {
+            dynamic_data += chunk;
+          }).on('end', function() 
+          {
+            var helper    = require('sendgrid').mail;
+            
+            var fromEmail = new helper.Email('25userdemo@gmail.com','KIN');
+            var toEmail   = new helper.Email(req.body.email);
+            var subject   = 'OTP for change your password as contact';
+
+            dynamic_data = dynamic_data.replace("#OTP#", myOTP);
+
+            var content = new helper.Content('text/html', dynamic_data);
+            var mail    = new helper.Mail(fromEmail, subject, toEmail, content);
+            
+            var sg = require('sendgrid')('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');
+            
+            var request = sg.emptyRequest({
+              method: 'POST',
+              path: '/v3/mail/send',
+              body: mail.toJSON()
+            });
+            sg.API(request, function (error, response) 
+            {
+              if (error) {
+                // console.log(error);
+                res.json({
+                    msg: 'Something went wrong with sending email.',
+                    status: 0
+                });
+              }else{
+                res.send({
+                  data: users,
+                  status: 1,
+                  type:'contact'
+                  error: 'OTP SENT'
+                });
+              }
+            })
+          }) 
+        //-------------------------------------------
       }
     });
   }

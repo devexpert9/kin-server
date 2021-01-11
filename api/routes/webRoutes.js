@@ -80,6 +80,10 @@ var adduser = require('../controllers/userCtrl');
    app.route('/forgot_password')
      .post(adduser.forgot_password);
 
+var adduser = require('../controllers/userCtrl');
+   app.route('/forgotChangePassword')
+     .post(adduser.forgotChangePassword);
+
 
 //----- Patients----------------------------------------
 var patient = require('../controllers/patientCtrl');
