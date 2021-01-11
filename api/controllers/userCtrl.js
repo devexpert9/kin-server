@@ -526,7 +526,7 @@ exports.forgot_password = function(req, res)
                 res.send({
                   data: users,
                   status: 1,
-                  type:'facility'
+                  type:'facility',
                   error: 'OTP SENT'
                 });
               }
@@ -589,7 +589,7 @@ exports.forgot_password = function(req, res)
                 res.send({
                   data: users,
                   status: 1,
-                  type:'patient'
+                  type:'patient',
                   error: 'OTP SENT'
                 });
               }
@@ -653,7 +653,7 @@ exports.forgot_password = function(req, res)
                 res.send({
                   data: users,
                   status: 1,
-                  type:'contact'
+                  type:'contact',
                   error: 'OTP SENT'
                 });
               }
