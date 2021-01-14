@@ -328,12 +328,10 @@ exports.findReports = function(req, res)
                   if(docPat)
                   {
                     dict = {
-                      id: all_calls[counter]._id,
                       contactId: all_calls[counter].contactId,
                       contactName: doc.name,
                       callDate: all_calls[counter].callDate,
                       callTime: all_calls[counter].callTime,
-                      // userId: all_calls[counter].userId,
                       patientId: all_calls[counter].patientId,
                       patientName: docPat.firstname+' '+docPat.lastname,
                       created_on: all_calls[counter].created_on
