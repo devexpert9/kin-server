@@ -241,6 +241,7 @@ exports.findReports = function(req, res)
               dict = {
                 name:     mem[counter].firstname+' '+mem[counter].lastname,
                 email:    mem[counter].email,
+                patID:    mem[counter]._id,
                 contact:  mem[counter].contact,
                 facName:  docz != null ? docz.organization_name : "-NA-",
                 patientName: '',
