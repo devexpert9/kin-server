@@ -310,7 +310,7 @@ exports.findReports = function(req, res)
   {
       calls.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, all_calls)
       {
-
+        console.log(all_calls); return false;
         var counter = 0,
             data = [],
             dict = {};
