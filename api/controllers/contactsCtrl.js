@@ -335,7 +335,7 @@ exports.findReports = function(req, res)
                       callTime: all_calls[counter].callTime,
                       // userId: all_calls[counter].userId,
                       patientId: all_calls[counter].patientId,
-                      patientName: docPat.firstname,
+                      patientName: docPat.firstname+' '+docPat.lastname,
                       created_on: all_calls[counter].created_on
                     };
                     data.push(dict);
