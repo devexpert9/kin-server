@@ -233,13 +233,13 @@ exports.findReports = function(req, res)
         {
           if(counter < mem.length)
           {
-            users.findOne({'_id': mem[counter].userId}, function(err, doc){
-              // console.log(doc.email);
+            users.findOne({'_id': mem[counter].userId}, function(err, docz){
+              console.log(docz);
               dict = {
                 name:     mem[counter].firstname+' '+mem[counter].lastname,
                 email:    mem[counter].email,
                 contact:  mem[counter].contact,
-                facName:  doc.organization_name,
+                facName:  docz.organization_name,
                 patientName: '',
               };
 
