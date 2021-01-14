@@ -339,13 +339,14 @@ exports.findReports = function(req, res)
                       created_on: all_calls[counter].created_on
                     };
                     data.push(dict);
+                    counter = counter + 1;
+                    getUserDetails();
                   }
                 });
                 
               }
               
-              counter = counter + 1;
-              getUserDetails();
+              
             });
           }else{
             res.json({
