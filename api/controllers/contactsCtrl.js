@@ -234,15 +234,15 @@ exports.findReports = function(req, res)
           if(counter < mem.length)
           {
             users.findOne({'_id': mem[counter].userId}, function(err, docz){
-              console.log("DDDDDDDDDDDDDDDDDDDDDDD");
-              console.log(docz);
-              console.log(docz.organization_name);
-              return false;
+              // console.log("DDDDDDDDDDDDDDDDDDDDDDD");
+              // console.log(docz);
+              // console.log(docz.organization_name);
+              // return false;
               dict = {
                 name:     mem[counter].firstname+' '+mem[counter].lastname,
                 email:    mem[counter].email,
                 contact:  mem[counter].contact,
-                facName:  docz.organization_name,
+                facName:  docz != null ? docz.organization_name : "-NA-",
                 patientName: '',
               };
 
