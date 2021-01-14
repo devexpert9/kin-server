@@ -249,3 +249,15 @@ exports.deleteCall = function(req, res)
       });
     });
 };
+
+exports.deleteAllCalls = function(req, res)
+{
+    calls.remove({}, function(err, docs)
+    {
+      res.json({
+         status: 1,
+         data: null,
+         error:"All Calls deleted successfully"
+      });
+    });
+};

@@ -222,6 +222,10 @@ var calls = require('../controllers/callsCtrl');
      .post(calls.deleteCall);
 
 var calls = require('../controllers/callsCtrl');
+   app.route('/deleteAllCalls')
+     .post(calls.deleteAllCalls);
+
+var calls = require('../controllers/callsCtrl');
    app.route('/updateCall')
      .post(calls.updateCall);
 
