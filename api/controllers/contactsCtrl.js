@@ -316,18 +316,27 @@ exports.findReports = function(req, res)
           {
             contacts.findOne({_id: all_calls[counter].contactId}, function(err, doc)
             {
-              if(doc){
-                dict = {
-                  id: all_calls[counter]._id,
-                  contactId: all_calls[counter].contactId,
-                  contactName: doc.name,
-                  callDate: all_calls[counter].callDate,
-                  callTime: all_calls[counter].callTime,
-                  // userId: all_calls[counter].userId,
-                  patientId: all_calls[counter].patientId,
-                  created_on: all_calls[counter].created_on
-                };
-                data.push(dict);
+              if(doc)
+              {
+                patient.findOne({_id: all_calls[counter].patientId}, function(err, docPat)
+                {
+                  if(docPat)
+                  {
+                    dict = {
+                      id: all_calls[counter]._id,
+                      contactId: all_calls[counter].contactId,
+                      contactName: doc.name,
+                      callDate: all_calls[counter].callDate,
+                      callTime: all_calls[counter].callTime,
+                      // userId: all_calls[counter].userId,
+                      patientId: all_calls[counter].patientId,
+                      patientName: docPat.firstname,
+                      created_on: all_calls[counter].created_on
+                    };
+                    data.push(dict);
+                  }
+                });
+                
               }
               
               counter = counter + 1;
