@@ -42,9 +42,9 @@ exports.addCall = function(req, res)
 
 exports.updateCall = function(req, res)
 {
-  calls.update({_id: req.body.id},{$set:{ 'callDate': req.body.date, 'callTime': req.body.time } }, {new: true}, function(err, calls) 
+  calls.update({_id: req.body.id},{$set:{ 'callDate': req.body.date, 'callTime': req.body.time } }, {new: true}, function(err, callData) 
     {
-      if(calls)
+      if(callData)
       {
         calls.find({_id: req.body.id }, function(err, all_calls)
         {
