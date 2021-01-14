@@ -40,6 +40,64 @@ exports.addCall = function(req, res)
   });
 };
 
+exports.updateCall = function(req, res)
+{
+  calls.update({_id: req.body.id},{$set:{ 'callDate': req.body.date, 'callTime': req.body.time } }, {new: true}, function(err, calls) 
+    {
+      if(calls)
+      {
+        calls.find({_id: req.body.id }, function(err, all_calls)
+        {
+          var counter = 0,
+              data = [],
+              dict = {};
+
+          function getUserDetails(){
+            if(counter < all_calls.length)
+            {
+              contacts.findOne({_id: all_calls[counter].contactId}, function(err, doc)
+              {
+                if(doc){
+                  dict = {
+                    id: all_calls[counter]._id,
+                    contactId: all_calls[counter].contactId,
+                    contactName: doc.name,
+                    contactEmail: doc.email,
+                    contactUserId: doc._id,
+                    isAppUser: doc.isAppUser,
+                    callDate: all_calls[counter].callDate,
+                    callTime: all_calls[counter].callTime,
+                    // userId: all_calls[counter].userId,
+                    patientId: all_calls[counter].patientId,
+                    created_on: all_calls[counter].created_on
+                  };
+                  data.push(dict);
+                }
+                
+                counter = counter + 1;
+                getUserDetails();
+              });
+            }else{
+              res.json({
+                 status: 1,
+                 data: data,
+                 error:null
+              });
+            }
+          };
+          getUserDetails();
+        });
+      }
+      else{
+        res.send({
+          data: null,
+          status: 0,
+          error: 'Something went wrong' 
+        });
+      }
+    });
+};
+
 
 exports.getCalls = function(req, res)
 {
