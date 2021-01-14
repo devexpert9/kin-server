@@ -155,19 +155,13 @@ exports.save_message = function(req, res){
     });
 };
 
-exports.list_messages = function(req, res)
-{
-  chats.find({'chatId': req.body.chatId}, function(err, doc)
-  {
-    console.log(doc); return false;
-    patient.findOne({'_id': doc[0].senderId}, function(err, sender)
-    {
+exports.list_messages = function(req, res){
+  chats.find({'chatId': req.body.chatId}, function(err, doc){
+    patient.findOne({'_id': doc[0].senderId}, function(err, sender){
       if(sender == null){
-        contacts.findOne({'_id': doc[0].senderId}, function(err, sender)
-        {
+        contacts.findOne({'_id': doc[0].senderId}, function(err, sender){
           contacts.findOne({'_id': doc[0].receiverId}, function(err, receiver){
-            if(receiver == null)
-            {
+            if(receiver == null){
               patient.findOne({'_id': doc[0].receiverId}, function(err, receiver){
                 res.send({
                   data: {'chat': doc, 'sender': sender, 'receiver': receiver},
