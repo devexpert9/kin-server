@@ -194,17 +194,19 @@ exports.findReports = function(req, res)
         {
           if(counter < doc.length)
           {
-            dict = {
-              name:     doc[counter].firstname+' '+doc[counter].lastname,
-              facName:  doc[counter].organization_name,
-              email:    doc[counter].email,
-              contact:  '',
-              patientName: '',
-            };
+            patient.find({'userId': doc[counter]._id}, function(err, docPat){
+              dict = {
+                name:     doc[counter].firstname+' '+doc[counter].lastname,
+                facName:  doc[counter].organization_name,
+                email:    doc[counter].email,
+                contact:  '',
+                patientName: docPat.length,
+              };
 
-            data.push(dict);
-            counter = counter + 1;
-            loopOfRecords();
+              data.push(dict);
+              counter = counter + 1;
+              loopOfRecords();
+            });
           }
           else
           {
@@ -354,6 +356,8 @@ exports.findReports = function(req, res)
       });
   }
 };
+
+
 
 
 exports.getContactDetails = function(req, res)
