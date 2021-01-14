@@ -303,8 +303,9 @@ exports.findReports = function(req, res)
   }
   else if(req.body.option == 'calls')
   {
-      /*calls.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, doc)
+      calls.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, doc)
       {
+        console.log(doc); return false;
         var counter = 0,
             data = [],
             dict = {};
@@ -340,49 +341,7 @@ exports.findReports = function(req, res)
           }
         };
         getUserDetails();
-      });*/
-
-    calls.find({patientId: '5fed6c24c93a844d08c38b8f' }, function(err, all_calls)
-    {
-      var counter = 0,
-          data = [],
-          dict = {};
-
-      function getUserDetails(){
-        if(counter < all_calls.length)
-        {
-          contacts.findOne({_id: all_calls[counter].contactId}, function(err, doc)
-          {
-            if(doc){
-              dict = {
-                id: all_calls[counter]._id,
-                contactId: all_calls[counter].contactId,
-                contactName: doc.name,
-                contactEmail: doc.email,
-                contactUserId: doc._id,
-                isAppUser: doc.isAppUser,
-                callDate: all_calls[counter].callDate,
-                callTime: all_calls[counter].callTime,
-                // userId: all_calls[counter].userId,
-                patientId: all_calls[counter].patientId,
-                created_on: all_calls[counter].created_on
-              };
-              data.push(dict);
-            }
-            
-            counter = counter + 1;
-            getUserDetails();
-          });
-        }else{
-          res.json({
-             status: 1,
-             data: data,
-             error:null
-          });
-        }
-      };
-      getUserDetails();
-    });
+      });
   }
 };
 
