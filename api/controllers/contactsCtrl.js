@@ -234,7 +234,9 @@ exports.findReports = function(req, res)
           if(counter < mem.length)
           {
             users.findOne({'_id': mem[counter].userId}, function(err, docz){
+              console.log("DDDDDDDDDDDDDDDDDDDDDDD");
               console.log(docz);
+              return false;
               dict = {
                 name:     mem[counter].firstname+' '+mem[counter].lastname,
                 email:    mem[counter].email,
@@ -244,9 +246,7 @@ exports.findReports = function(req, res)
               };
 
               data.push(dict);
-
               counter = counter + 1;
-
               loopOfRecords();
             });
           }else{
