@@ -303,14 +303,15 @@ exports.findReports = function(req, res)
   }
   else if(req.body.option == 'calls')
   {
-      calls.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, doc)
+      calls.find({ 'created_on' : { '$gte' : req.body.start_date , '$lte' : req.body.end_date }}).exec(function(err, all_calls)
       {
-        console.log(doc); return false;
+
         var counter = 0,
             data = [],
             dict = {};
 
-        function getUserDetails(){
+        function getUserDetails()
+        {
           if(counter < all_calls.length)
           {
             contacts.findOne({_id: all_calls[counter].contactId}, function(err, doc)
