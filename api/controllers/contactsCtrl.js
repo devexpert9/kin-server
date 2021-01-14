@@ -234,12 +234,12 @@ exports.findReports = function(req, res)
           if(counter < mem.length)
           {
             users.find({'_id': mem[counter].userId}, function(err, doc){
-              console.log(doc);
+              // console.log(doc);
               dict = {
                 name: mem[counter].firstname+' '+mem[counter].lastname,
                 email: mem[counter].email,
                 contact: mem[counter].contact,
-                facName: doc[0].organization_name,
+                facName: doc.organization_name,
                 patientName: '',
               };
 
