@@ -236,6 +236,7 @@ exports.findReports = function(req, res)
             users.findOne({'_id': mem[counter].userId}, function(err, docz){
               console.log("DDDDDDDDDDDDDDDDDDDDDDD");
               console.log(docz);
+              console.log(docz.organization_name);
               return false;
               dict = {
                 name:     mem[counter].firstname+' '+mem[counter].lastname,
