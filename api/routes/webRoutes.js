@@ -216,6 +216,10 @@ var calls = require('../controllers/callsCtrl');
 var calls = require('../controllers/callsCtrl');
    app.route('/getProfileCalls')
      .post(calls.getProfileCalls);
+     
+var calls = require('../controllers/callsCtrl');
+   app.route('/getCallsForFacility')
+     .post(calls.getCallsForFacility);
 
 var calls = require('../controllers/callsCtrl');
    app.route('/deleteCall')
