@@ -200,7 +200,7 @@ exports.getCallsForFacility = function(req, res)
       {
         patient.findOne({'_id': all_calls[counter].patientId}, function(err, patData)
         {
-          contacts.findOne({'_id': doc[counter].contactId}, function(err, contData)
+          contacts.findOne({'_id': all_calls[counter].contactId}, function(err, contData)
           {
             dict = {
               id: all_calls[counter]._id,
