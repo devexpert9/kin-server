@@ -198,20 +198,29 @@ exports.getCallsForFacility = function(req, res)
     function getUserDetails(){
       if(counter < all_calls.length)
       {
-        dict = {
-          id: all_calls[counter]._id,
-          contactId: all_calls[counter].contactId,
-          contactName: "",
-          callDate: all_calls[counter].callDate,
-          callTime: all_calls[counter].callTime,
-          patientId: all_calls[counter].patientId,
-          patientData: "",
-          created_on: all_calls[counter].created_on
-        };
-        data.push(dict);
+        patient.findOne({'_id': all_calls[counter].patientId}, function(err, patData)
+        {
+          contacts.findOne({'_id': doc[counter].contactId}, function(err, contData)
+          {
+            dict = {
+              id: all_calls[counter]._id,
+              contactId: all_calls[counter].contactId,
+              contactName: contData,
+              callDate: all_calls[counter].callDate,
+              callTime: all_calls[counter].callTime,
+              patientId: all_calls[counter].patientId,
+              patientData: patData,
+              created_on: all_calls[counter].created_on
+            };
+            data.push(dict);
+              
+            counter = counter + 1;
+            getUserDetails();
+          });
+
           
-        counter = counter + 1;
-        getUserDetails();
+        });
+        
       }else{
         res.json({
            status: 1,
