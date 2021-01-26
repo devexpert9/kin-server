@@ -455,7 +455,7 @@ exports.update_orgFromAdmin = function(req, res)
 
 
 //**************** User_login_function ******************
-exports.login = function(req, res) 
+/*exports.login = function(req, res) 
 {
   var loginAs = req.body.login_as;
 
@@ -532,6 +532,68 @@ exports.login = function(req, res)
       }
     });
   }
+};*/
+
+exports.login = function(req, res) 
+{
+  var loginAs = req.body.login_as;
+
+  users.findOne({email:req.body.email, password:req.body.password}, function(err, user)
+  {
+    if(user == null)
+    {
+      patient.findOne({email:req.body.email, password:req.body.password}, function(err, patLogin)
+      {
+        if(patLogin == null)
+        {
+          contacts.findOne({email:req.body.email, password:req.body.password}, function(err, contLogin)
+          {
+            if(contLogin == null)
+            {
+              res.send({
+                status: 0,
+                data: null,
+                error:'Invalid logged in deatils.'
+              });
+            }
+            else
+            {
+              // Update One Time Login Event----------------
+              contacts.update({_id: contLogin._id }, { $set: {isAppUser: 1}}, {new: true}, function(err, userUpdate)
+              {
+                res.json({
+                  status: 1,
+                  data: contLogin,
+                  type:'contact',
+                  error:'Logged In successfully!'
+                });
+              });
+            }
+          });
+        }
+        else
+        {
+          res.json({
+             status: 1,
+             data: patLogin,
+             type:'patient',
+             error:'Logged In successfully!'
+          });
+        }
+      });
+    }
+    else
+    {
+      res.json({
+         status: 1,
+         data: user,
+         type:'organization',
+         error:'Logged In successfully!'
+      });
+    }
+  });
+
+    
 };
 
 //**************** Forgot Password ******************
