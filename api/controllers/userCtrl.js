@@ -909,7 +909,7 @@ exports.otp_verification = function(req, res) {
 
 //******************** GET USERS LIST ************************
 exports.getAllOrganizations = function(req, res) {
-  users.find({ },function(err, users) {
+  users.find({otpApproved:1},function(err, users) {
     if(users == null){
       res.send({
         error: err,
@@ -928,7 +928,7 @@ exports.getAllOrganizations = function(req, res) {
 
 // Recent 10 Faculties----------------------------------------
 exports.getRecentOrganizations = function(req, res) {
-  users.find({ }, null, {limit: 10, sort: {'created_on': -1}}).exec( function(err, users) {
+  users.find({otpApproved:1}, null, {limit: 10, sort: {'created_on': -1}}).exec( function(err, users) {
 
     if(users == null){
       res.send({
