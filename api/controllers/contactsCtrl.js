@@ -21,11 +21,11 @@ var upload = multer({ storage: storage }).single('image');
 
 exports.addContact = function(req, res)
 {
-  contacts.findOne({phone: req.body.phone, patientId: req.body.patientId}, function(err, user)
+  contacts.findOne({phone: req.body.phone}, function(err, user)
   {
     if(user == null)
     {
-      contacts.findOne({email: req.body.email, patientId: req.body.patientId}, function(err, doct)
+      contacts.findOne({email: req.body.email}, function(err, doct)
       {
         if(doct == null)
         {
