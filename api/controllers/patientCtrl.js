@@ -23,7 +23,7 @@ var upload = multer({ storage: storage }).single('image');
 exports.patient_add = function(req, res) 
 {
 	// patient.findOne({email: req.body.email, userId:{$eq: req.body.userId}}, function(err, user)
-  patient.findOne({email: req.body.email}}, function(err, user)
+  patient.findOne({email: req.body.email}, function(err, user)
   {
     if(user == null)
     {
