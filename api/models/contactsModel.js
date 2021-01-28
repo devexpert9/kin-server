@@ -22,6 +22,9 @@ var contactsSchema = new Schema({
     userId: {
       type : String
     },
+    token: {
+      type: String
+    },
     otp: {
       type: String
     },

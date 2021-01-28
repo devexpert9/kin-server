@@ -64,6 +64,29 @@ exports.update_admin_password = function(req, res) {
    })
 
 };
+
+exports.facility_token_save = function(req, res)
+{
+  users.update({_id: req.body.userId }, { $set: { token: req.body.token}}, {new: true}, function(err, change) 
+  {
+    if (change == null)
+    {
+      res.send({
+        error: err,
+        status: 0,
+        data: null,
+        msg:'Try again !!'
+      });
+    }else{
+      res.json({
+        error: null,
+        status: 1,
+        data: change,
+        msg:'Facility token updated successfully!'
+      });
+    }
+  });
+};
 // const bcrypt = require('bcrypt');
 
 //****************  create_user_function ****************************

@@ -134,6 +134,29 @@ exports.patient_add = function(req, res)
  	});
 };
 
+exports.patient_token_save = function(req, res)
+{
+  patient.update({_id: req.body.userId }, { $set: { token: req.body.token}}, {new: true}, function(err, change) 
+  {
+    if (change == null)
+    {
+      res.send({
+        error: err,
+        status: 0,
+        data: null,
+        msg:'Try again !!'
+      });
+    }else{
+      res.json({
+        error: null,
+        status: 1,
+        data: change,
+        msg:'Patient token updated successfully!'
+      });
+    }
+  });
+};
+
 //**************** Login Patient ******************
 exports.patient_login = function(req, res) 
 {

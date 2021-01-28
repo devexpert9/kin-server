@@ -89,6 +89,10 @@ var adduser = require('../controllers/userCtrl');
    app.route('/verifyOtpForgotPwd')
      .post(adduser.verifyOtpForgotPwd);
 
+var adduser = require('../controllers/userCtrl');
+   app.route('/facility_token_save')
+     .post(adduser.facility_token_save);
+
 
 //----- Patients----------------------------------------
 var patient = require('../controllers/patientCtrl');
@@ -135,6 +139,9 @@ var patient = require('../controllers/patientCtrl');
    app.route('/patient_upload_image')
      .post(patient.patient_upload_image);
 
+var patient = require('../controllers/patientCtrl');
+   app.route('/patient_token_save')
+     .post(patient.patient_token_save);
 
 //----- PATIENT CONTACTS -------------------------------
 var contacts = require('../controllers/contactsCtrl');
@@ -176,6 +183,10 @@ var contacts = require('../controllers/contactsCtrl');
 var contacts = require('../controllers/contactsCtrl');
    app.route('/findReports')
      .post(contacts.findReports);
+     
+var contacts = require('../controllers/contactsCtrl');
+   app.route('/contact_token_save')
+     .post(contacts.contact_token_save);
 
 
 //----- Profile Page Callings-------------------------------

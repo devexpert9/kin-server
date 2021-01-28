@@ -144,6 +144,29 @@ exports.addContact = function(req, res)
   });
 };
 
+exports.contact_token_save = function(req, res)
+{
+  contacts.update({_id: req.body.userId }, { $set: { token: req.body.token}}, {new: true}, function(err, change) 
+  {
+    if (change == null)
+    {
+      res.send({
+        error: err,
+        status: 0,
+        data: null,
+        msg:'Try again !!'
+      });
+    }else{
+      res.json({
+        error: null,
+        status: 1,
+        data: change,
+        msg:'Contact token updated successfully!'
+      });
+    }
+  });
+};
+
 exports.updateContact = function(req, res)
 {
   contacts.update({_id: req.body.contactId }, { $set: {name: req.body.name, email: req.body.email, phone: req.body.phone,password: req.body.password, patientId: req.body.patientId}}, {new: true}, function(err, user)
