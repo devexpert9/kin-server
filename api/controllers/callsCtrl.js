@@ -32,6 +32,34 @@ exports.addCall = function(req, res)
  
   new_call.save(function(err, call)
   {
+    // SEND PUSH NOTIFICATION TO CONTACT-------------------------
+      var FCM = require('fcm-node');
+      var serverKey ='AAAADQwcac0:APA91bGJSpLcH__1rlYHeJMxMiBo4lXO-TOX71nFEZULH9v_dNll5gQ5i7KAETQhAiCHQFm6dkQHVqMFEqgANrn6p7D8JODfRS1cB96G8F9Lz8EojclIhyZT3iuKS7J366VoK9V9ozSF';
+      var fcm = new FCM(serverKey);
+
+      var message = {
+        "to": req.body.contactId,
+        "notification": {
+          "title": 'Call Scheduled',
+          "body": 'New Call Has Been Scheduled on' + req.body.date+' '+req.body.time,
+        },
+        "data": {
+          "title": 'Call Scheduled',
+          "body": 'New Call Has Been Scheduled on' + req.body.date+' '+req.body.time,
+        }
+      };
+
+      fcm.send(message, function (err, response)
+      {
+        if(err)
+        {
+          console.log("Something has gone wrong!");
+          console.log(err)
+        } else {
+          console.log("Successfully sent with response: ", response);
+        }
+      });
+    //-----------------------------------------------------------
     res.send({
       data: call,
       status: 1,
