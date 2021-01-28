@@ -32,11 +32,11 @@ exports.addCall = function(req, res)
  
   new_call.save(function(err, call)
   {
-    //--GET CONTACT PERSON DEVICE TOKEN--------------------------
-    contacts.findOne({_id:req.body.contactId}, function(err, contact)
-    {
-      console.log("contactToken = "+contact.token);
-      // SEND PUSH NOTIFICATION TO CONTACT-------------------------
+    // SEND PUSH NOTIFICATION TO CONTACT--------------------------------------
+      contacts.findOne({_id:req.body.contactId}, function(err, contact)
+      {
+        console.log("contactToken = "+contact.token);
+      
         var FCM = require('fcm-node');
         var serverKey ='AAAADQwcac0:APA91bGJSpLcH__1rlYHeJMxMiBo4lXO-TOX71nFEZULH9v_dNll5gQ5i7KAETQhAiCHQFm6dkQHVqMFEqgANrn6p7D8JODfRS1cB96G8F9Lz8EojclIhyZT3iuKS7J366VoK9V9ozSF';
         var fcm = new FCM(serverKey);
@@ -59,18 +59,20 @@ exports.addCall = function(req, res)
           {
             console.log("Something has gone wrong!");
             console.log(err)
-          } else {
+          }
+          else
+          {
             console.log("Successfully sent with response: ", response);
+            res.send({
+              data: call,
+              status: 1,
+              error: 'New call scheduled successfully!' 
+            });
           }
         });
-      //-----------------------------------------------------------
-    });
+      });
+    //-----------------------------------------------------------
     
-    res.send({
-      data: call,
-      status: 1,
-      error: 'New call scheduled successfully!' 
-    });
   });
 };
 
