@@ -559,6 +559,8 @@ exports.update_orgFromAdmin = function(req, res)
 
 exports.login = function(req, res) 
 {
+  console.log(req.body.token); return false;
+
   var loginAs = req.body.login_as;
 
   users.findOne({email:req.body.email, password:req.body.password}, function(err, user)
