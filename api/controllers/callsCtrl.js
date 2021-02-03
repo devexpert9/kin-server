@@ -148,7 +148,7 @@ exports.acceptCallStatus = function(req, res)
       {
         res.json({
           status: 1,
-          data: data,
+          data: callData,
           error:null
         });
       }
@@ -170,7 +170,7 @@ exports.declineCallStatus = function(req, res)
       {
         res.json({
           status: 1,
-          data: data,
+          data: callData,
           error:null
         });
       }
