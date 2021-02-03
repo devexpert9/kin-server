@@ -477,91 +477,9 @@ exports.update_orgFromAdmin = function(req, res)
 };
 
 
-//**************** User_login_function ******************
-/*exports.login = function(req, res) 
-{
-  var loginAs = req.body.login_as;
-
-  if(loginAs == 'organization')
-  {
-    users.findOne({email:req.body.email, password:req.body.password}, function(err, user)
-    {
-      if(user == null){
-        res.send({
-          status: 0,
-          data: null,
-          error:'Invalid logged in deatils.'
-        });
-      }
-      else
-      {
-        res.json({
-           status: 1,
-           data: user,
-           type:'organization',
-           error:'Logged In successfully!'
-        });
-      }
-    });
-  }
-  else if(loginAs == 'patient')
-  {
-    patient.findOne({email:req.body.email, password:req.body.password}, function(err, user)
-    {
-      if(user == null){
-        res.send({
-          status: 0,
-          data: null,
-          error:'Invalid logged in deatils.'
-        });
-      }
-      else
-      {
-        res.json({
-           status: 1,
-           data: user,
-           type:'patient',
-           error:'Logged In successfully!'
-        });
-      }
-    });
-  }
-  else if(loginAs == 'contact')
-  {
-    contacts.findOne({email:req.body.email, password:req.body.password}, function(err, user)
-    {
-      console.log(req.body.email+' '+req.body.password);
-      console.log(user);
-      if(user == null)
-      {
-        res.send({
-          status: 0,
-          data: null,
-          error:'Invalid logged in deatils.'
-        });
-      }
-      else
-      {
-        // Update One Time Login Event----------------
-        contacts.update({_id: user._id }, { $set: {isAppUser: 1}}, {new: true}, function(err, userUpdate)
-        {
-          res.json({
-            status: 1,
-            data: user,
-            type:'contact',
-            error:'Logged In successfully!'
-          });
-        });
-      }
-    });
-  }
-};*/
-
 exports.login = function(req, res) 
 {
-  console.log(req.body.token); return false;
-
-  var loginAs = req.body.login_as;
+  // console.log(req.body.token); return false;
 
   users.findOne({email:req.body.email, password:req.body.password}, function(err, user)
   {
