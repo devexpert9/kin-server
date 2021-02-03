@@ -298,6 +298,7 @@ exports.getCallsForFacility = function(req, res)
               callTime: all_calls[counter].callTime,
               patientId: all_calls[counter].patientId,
               patientData: patData,
+              callStatus: all_calls[counter].status,
               created_on: all_calls[counter].created_on
             };
             data.push(dict);
@@ -345,6 +346,7 @@ exports.getProfileCalls = function(req, res)
                 callTime: all_calls[counter].callTime,
                 userId: all_calls[counter].userId,
                 profileId: all_calls[counter].profileId,
+                callStatus: all_calls[counter].status,
                 created_on: all_calls[counter].created_on
               };
               data.push(dict);
