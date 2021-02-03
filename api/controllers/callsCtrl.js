@@ -166,6 +166,7 @@ exports.getCalls = function(req, res)
                 callTime: all_calls[counter].callTime,
                 // userId: all_calls[counter].userId,
                 patientId: all_calls[counter].patientId,
+                callData: all_calls[counter],
                 created_on: all_calls[counter].created_on
               };
               data.push(dict);
