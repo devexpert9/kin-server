@@ -32,8 +32,13 @@ exports.addCall = function(req, res)
  
   new_call.save(function(err, call)
   {
+    res.send({
+      data: call,
+      status: 1,
+      error: 'New call scheduled successfully!' 
+    });
     // SEND PUSH NOTIFICATION TO CONTACT--------------------------------------
-      contacts.findOne({_id:req.body.contactId}, function(err, contact)
+      /*contacts.findOne({_id:req.body.contactId}, function(err, contact)
       {
         console.log("contactToken = "+contact.token);
       
@@ -70,7 +75,7 @@ exports.addCall = function(req, res)
             });
           }
         });
-      });
+      });*/
     //-----------------------------------------------------------
     
   });
