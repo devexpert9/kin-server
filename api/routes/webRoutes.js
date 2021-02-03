@@ -243,6 +243,10 @@ var calls = require('../controllers/callsCtrl');
 var calls = require('../controllers/callsCtrl');
    app.route('/updateCall')
      .post(calls.updateCall);
+     
+var calls = require('../controllers/callsCtrl');
+   app.route('/acceptCallStatus')
+     .post(calls.acceptCallStatus);
 
 //---- CHAT ----------------------------------
      

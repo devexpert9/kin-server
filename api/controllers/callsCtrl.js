@@ -140,6 +140,50 @@ exports.updateCall = function(req, res)
     });
 };
 
+exports.acceptCallStatus = function(req, res)
+{
+  calls.update({_id: req.body.callID},{$set:{ 'status': 1 } }, {new: true}, function(err, callData) 
+    {
+      if(callData)
+      {
+        res.json({
+          status: 1,
+          data: data,
+          error:null
+        });
+      }
+      else{
+        res.send({
+          data: null,
+          status: 0,
+          error: 'Something went wrong' 
+        });
+      }
+    });
+};
+
+exports.declineCallStatus = function(req, res)
+{
+  calls.update({_id: req.body.callID},{$set:{ 'status': 2 } }, {new: true}, function(err, callData) 
+    {
+      if(callData)
+      {
+        res.json({
+          status: 1,
+          data: data,
+          error:null
+        });
+      }
+      else{
+        res.send({
+          data: null,
+          status: 0,
+          error: 'Something went wrong' 
+        });
+      }
+    });
+};
+
 
 exports.getCalls = function(req, res)
 {
