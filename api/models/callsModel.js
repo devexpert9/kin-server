@@ -13,11 +13,11 @@ var callsSchema = new Schema({
     callTime : {
       type: String
     },
-    // userId: {
-    //   type : String
-    // },
     patientId: {
       type : String
+    },
+    status: {
+      type : Number
     },
     created_on: {
       type: Date

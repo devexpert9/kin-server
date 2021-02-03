@@ -27,6 +27,7 @@ exports.addCall = function(req, res)
     callTime:   req.body.time,
     // userId:     req.body.userId,
     patientId:  req.body.patientId,
+    status:     0,
     created_on: new Date()
   });
  
