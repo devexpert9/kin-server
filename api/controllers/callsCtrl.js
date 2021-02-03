@@ -210,6 +210,7 @@ exports.getCallsForContact = function(req, res)
               // userId: all_calls[counter].userId,
               patientId: all_calls[counter].patientId,
               patientData: patientData,
+              call_status: all_calls[counter].status,
               created_on: all_calls[counter].created_on
             };
             data.push(dict);
