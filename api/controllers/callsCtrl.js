@@ -28,6 +28,71 @@ exports.addCall = function(req, res)
     // userId:     req.body.userId,
     patientId:  req.body.patientId,
     status:     0,
+    added_by:   'patient',
+    created_on: new Date()
+  });
+ 
+  new_call.save(function(err, call)
+  {
+    res.send({
+      data: call,
+      status: 1,
+      error: 'New call scheduled successfully!' 
+    });
+    // SEND PUSH NOTIFICATION TO CONTACT--------------------------------------
+      /*contacts.findOne({_id:req.body.contactId}, function(err, contact)
+      {
+        console.log("contactToken = "+contact.token);
+      
+        var FCM = require('fcm-node');
+        var serverKey ='AAAADQwcac0:APA91bGJSpLcH__1rlYHeJMxMiBo4lXO-TOX71nFEZULH9v_dNll5gQ5i7KAETQhAiCHQFm6dkQHVqMFEqgANrn6p7D8JODfRS1cB96G8F9Lz8EojclIhyZT3iuKS7J366VoK9V9ozSF';
+        var fcm = new FCM(serverKey);
+
+        var message = {
+          "to": contact.token,
+          "notification": {
+            "title": 'Call Scheduled',
+            "body": 'New Call Has Been Scheduled on' + req.body.date+' '+req.body.time,
+          },
+          "data": {
+            "title": 'Call Scheduled',
+            "body": 'New Call Has Been Scheduled on' + req.body.date+' '+req.body.time,
+          }
+        };
+
+        fcm.send(message, function (err, response)
+        {
+          if(err)
+          {
+            console.log("Something has gone wrong!");
+            console.log(err)
+          }
+          else
+          {
+            console.log("Successfully sent with response: ", response);
+            res.send({
+              data: call,
+              status: 1,
+              error: 'New call scheduled successfully!' 
+            });
+          }
+        });
+      });*/
+    //-----------------------------------------------------------
+    
+  });
+};
+
+exports.addCallRequest = function(req, res)
+{
+  var new_call = new calls({
+    contactId:  req.body.contactId,
+    callDate:   req.body.date,
+    callTime:   req.body.time,
+    // userId:     req.body.userId,
+    patientId:  req.body.patientId,
+    status:     0,
+    added_by:   'contact',
     created_on: new Date()
   });
  
