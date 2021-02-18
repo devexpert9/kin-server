@@ -301,7 +301,7 @@ exports.getCallsForContact = function(req, res)
   contacts.findOne({'_id': req.body.patientId}, function(err, contact){
     patient.findOne({'_id': contact.patientId}, function(err, patientData){
       // console.log(req.body.data._id);return false;
-      calls.find({'patientId': contact.patientId, 'contactId': contact._id', added_by': 'patient' }, function(err, all_calls)
+      calls.find({'patientId': contact.patientId, 'contactId': contact._id, 'added_by': 'patient' }, function(err, all_calls)
       {
         var counter = 0,
             data = [],
