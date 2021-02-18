@@ -347,6 +347,50 @@ exports.getCallsForContact = function(req, res)
   contacts.findOne({'_id': req.body.patientId}, function(err, contact){
     patient.findOne({'_id': contact.patientId}, function(err, patientData){
       // console.log(req.body.data._id);return false;
+      calls.find({'patientId': contact.patientId, 'contactId': contact._id }, function(err, all_calls)
+      {
+        var counter = 0,
+            data = [],
+            dict = {};
+
+        function getUserDetails(){
+          if(counter < all_calls.length)
+          {
+            dict = {
+              id: all_calls[counter]._id,
+              contactId: all_calls[counter].contactId,
+              contactName: contact.name,
+              callDate: all_calls[counter].callDate,
+              callTime: all_calls[counter].callTime,
+              // userId: all_calls[counter].userId,
+              patientId: all_calls[counter].patientId,
+              patientData: patientData,
+              call_status: all_calls[counter].status,
+              created_on: all_calls[counter].created_on
+            };
+            data.push(dict);
+              
+            counter = counter + 1;
+            getUserDetails();
+          }else{
+            res.json({
+               status: 1,
+               data: data,
+               error:null
+            });
+          }
+        };
+        getUserDetails();
+      });
+    })
+  })
+};
+
+exports.getCallsForContactRequests = function(req, res)
+{
+  contacts.findOne({'_id': req.body.patientId}, function(err, contact){
+    patient.findOne({'_id': contact.patientId}, function(err, patientData){
+      // console.log(req.body.data._id);return false;
       calls.find({'patientId': contact.patientId, 'contactId': contact._id, 'added_by': 'patient' }, function(err, all_calls)
       {
         var counter = 0,

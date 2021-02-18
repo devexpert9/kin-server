@@ -227,6 +227,10 @@ var calls = require('../controllers/callsCtrl');
 var calls = require('../controllers/callsCtrl');
    app.route('/getCallsForContact')
      .post(calls.getCallsForContact);
+     
+var calls = require('../controllers/callsCtrl');
+   app.route('/getCallsForContactRequests')
+     .post(calls.getCallsForContactRequests);
 
 var calls = require('../controllers/callsCtrl');
    app.route('/getCallsForPatient')
