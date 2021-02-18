@@ -19,6 +19,9 @@ var callsSchema = new Schema({
     status: {
       type : Number
     },
+    added_by: {
+      type : String
+    },
     created_on: {
       type: Date
     }
