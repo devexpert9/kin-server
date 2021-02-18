@@ -252,6 +252,52 @@ exports.declineCallStatus = function(req, res)
 
 exports.getCalls = function(req, res)
 {
+    calls.find({patientId: req.body.patientId }, function(err, all_calls)
+    {
+      var counter = 0,
+          data = [],
+          dict = {};
+
+      function getUserDetails(){
+        if(counter < all_calls.length)
+        {
+          contacts.findOne({_id: all_calls[counter].contactId}, function(err, doc)
+          {
+            if(doc){
+              dict = {
+                id: all_calls[counter]._id,
+                contactId: all_calls[counter].contactId,
+                contactName: doc.name,
+                contactEmail: doc.email,
+                contactUserId: doc._id,
+                isAppUser: doc.isAppUser,
+                callDate: all_calls[counter].callDate,
+                callTime: all_calls[counter].callTime,
+                // userId: all_calls[counter].userId,
+                patientId: all_calls[counter].patientId,
+                call_status: all_calls[counter].status,
+                created_on: all_calls[counter].created_on
+              };
+              data.push(dict);
+            }
+            
+            counter = counter + 1;
+            getUserDetails();
+          });
+        }else{
+          res.json({
+             status: 1,
+             data: data,
+             error:null
+          });
+        }
+      };
+      getUserDetails();
+    });
+};
+
+exports.getCallsForPatient = function(req, res)
+{
     calls.find({patientId: req.body.patientId, added_by:'contact' }, function(err, all_calls)
     {
       var counter = 0,
