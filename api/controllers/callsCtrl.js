@@ -430,7 +430,7 @@ exports.getCallsForContactRequests = function(req, res)
   })
 };
 
-exports.getCallsForFacility = function(req, res)
+/*exports.getCallsForFacility = function(req, res)
 {
   calls.find({}, function(err, all_calls)
   {
@@ -474,6 +474,28 @@ exports.getCallsForFacility = function(req, res)
       }
     };
     getUserDetails();
+  });
+};*/
+
+exports.getCallsForFacility = function(req, res)
+{
+  patient.find({userId: req.body.patientId}, function(err, user)
+  {
+    if(user == null){
+      res.send({
+        status: 0,
+        data: null,
+        error:'Invalid logged in deatils.'
+      });
+    }
+    else
+    {
+      res.json({
+         status: 1,
+         data: user,
+         error:'Patients fetched successfully'
+      });
+    }
   });
 };
 
@@ -527,7 +549,6 @@ exports.getProfileCalls = function(req, res)
       }
     });
 };
-
 
 exports.deleteCall = function(req, res)
 {
