@@ -161,13 +161,29 @@ exports.list_messages = function(req, res)
   {
     if(doc != null)
     {
-      patient.findOne({'_id': doc[0].senderId}, function(err, sender)
+      console.log(doc);
+      if(doc[0].senderId)
       {
-        if(sender == null)
+        patient.findOne({'_id': doc[0].senderId}, function(err, sender)
         {
-          contacts.findOne({'_id': doc[0].senderId}, function(err, sender){
-            contacts.findOne({'_id': doc[0].receiverId}, function(err, receiver){
-              if(receiver == null){
+          if(sender == null)
+          {
+            contacts.findOne({'_id': doc[0].senderId}, function(err, sender){
+              contacts.findOne({'_id': doc[0].receiverId}, function(err, receiver){
+                if(receiver == null){
+                  patient.findOne({'_id': doc[0].receiverId}, function(err, receiver){
+                    res.send({
+                      data: {'chat': doc, 'sender': sender, 'receiver': receiver},
+                      status: 1,
+                      error: null
+                    });
+                  });
+                }
+              });
+            });
+          }else{
+            contacts.findOne({'_id': doc[0].senderId}, function(err, sender){
+              // if(sender == null){
                 patient.findOne({'_id': doc[0].receiverId}, function(err, receiver){
                   res.send({
                     data: {'chat': doc, 'sender': sender, 'receiver': receiver},
@@ -175,23 +191,16 @@ exports.list_messages = function(req, res)
                     error: null
                   });
                 });
-              }
-            });
-          });
-        }else{
-          contacts.findOne({'_id': doc[0].senderId}, function(err, sender){
-            // if(sender == null){
-              patient.findOne({'_id': doc[0].receiverId}, function(err, receiver){
-                res.send({
-                  data: {'chat': doc, 'sender': sender, 'receiver': receiver},
-                  status: 1,
-                  error: null
-                });
-              });
 
-          });
-        }
-      });
+            });
+          }
+        });
+      }
+      else
+      {
+
+      }
+      
     }
     else{
       res.send({
