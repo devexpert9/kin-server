@@ -479,9 +479,10 @@ exports.getCallsForContactRequests = function(req, res)
 
 exports.getCallsForFacility = function(req, res)
 {
-  patient.find({userId: req.body.patientId}, function(err, user)
+  patient.find({userId: req.body.patientId}, function(err, pat)
   {
-    if(user == null){
+    if(user == null)
+    {
       res.send({
         status: 0,
         data: null,
@@ -490,6 +491,30 @@ exports.getCallsForFacility = function(req, res)
     }
     else
     {
+      var counter = 0,
+          data = [],
+          dict = {};
+
+      function getPatientsDetails()
+      {
+        if(counter < pat.length)
+        {
+            dict = {
+              id: pat[counter]._id
+            };
+            data.push(dict);
+            counter = counter + 1;
+            getUserDetails();
+        }else{
+          res.json({
+             status: 1,
+             data: data,
+             error:null
+          });
+        }
+      };
+      getPatientsDetails();
+
       res.json({
          status: 1,
          data: user,
