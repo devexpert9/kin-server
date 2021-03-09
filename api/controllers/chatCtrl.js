@@ -159,7 +159,7 @@ exports.list_messages = function(req, res)
 {
   chats.find({'chatId': req.body.chatId}, function(err, doc)
   {
-    if(doc)
+    if(doc.length != 0)
     {
       patient.findOne({'_id': doc[0].senderId}, function(err, sender)
       {
