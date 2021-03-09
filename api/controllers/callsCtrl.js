@@ -481,7 +481,7 @@ exports.getCallsForFacility = function(req, res)
 {
   patient.find({userId: req.body.patientId}, function(err, pat)
   {
-    if(user == null)
+    if(pat == null)
     {
       res.send({
         status: 0,
@@ -514,12 +514,6 @@ exports.getCallsForFacility = function(req, res)
         }
       };
       getPatientsDetails();
-
-      res.json({
-         status: 1,
-         data: user,
-         error:'Patients fetched successfully'
-      });
     }
   });
 };
