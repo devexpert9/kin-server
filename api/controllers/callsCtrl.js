@@ -434,7 +434,6 @@ exports.getCallsForFacility = function(req, res)
 {
   calls.find({}, function(err, all_calls)
   {
-    console.log(all_calls); return false;
     var counter = 0,
         data = [],
         dict = {};
@@ -444,27 +443,27 @@ exports.getCallsForFacility = function(req, res)
       {
         patient.findOne({'_id': all_calls[counter].patientId}, function(err, patData)
         {
-          console.log()
           contacts.findOne({'_id': all_calls[counter].contactId}, function(err, contData)
           {
-            dict = {
-              id: all_calls[counter]._id,
-              contactId: all_calls[counter].contactId,
-              contactName: contData,
-              callDate: all_calls[counter].callDate,
-              callTime: all_calls[counter].callTime,
-              patientId: all_calls[counter].patientId,
-              patientData: patData,
-              call_status: all_calls[counter].status,
-              created_on: all_calls[counter].created_on
-            };
-            data.push(dict);
-              
-            counter = counter + 1;
-            getUserDetails();
+            calls.find({'patientId':all_calls[counter].patientId}, function(err, all_callsAgain)
+            {
+                dict = {
+                  id:           all_callsAgain._id,
+                  contactId:    all_callsAgain.contactId,
+                  contactName:  contData,
+                  callDate:     all_callsAgain.callDate,
+                  callTime:     all_callsAgain.callTime,
+                  patientId:    all_callsAgain.patientId,
+                  patientData:  patData,
+                  call_status:  all_callsAgain.status,
+                  created_on:   all_callsAgain.created_on
+                };
+                data.push(dict);
+                  
+                counter = counter + 1;
+                getUserDetails();
+            });
           });
-
-          
         });
         
       }else{
