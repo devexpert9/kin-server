@@ -509,17 +509,15 @@ exports.getCallsForFacility = function(req, res)
         }
         else
         {
-          res.json({
-             status: 1,
-             data: data,
-             error:"HERE IS ARRAY"
+          calls.find({'patientId': {$all : data} }, function(err, doc){
+            console.log(doc)
+            res.json({
+               status: 1,
+               data: data,
+               data1: doc,
+               error:"HERE IS ARRAY"
+            });
           });
-
-          //console.log(data)
-          // calls.find({'patientId': {$all : data} }, function(err, doc){
-          //   console.log(doc)
-            
-          // });
         }
       };
       getPatientsDetails();
