@@ -509,7 +509,7 @@ exports.getCallsForFacility = function(req, res)
         }
         else
         {
-          calls.find({'patientId': {$all : data} }, function(err, doc){
+          calls.find({'patientId': {$in : data} }, function(err, doc){
             console.log(doc)
             res.json({
                status: 1,
