@@ -504,7 +504,7 @@ exports.getCallsForFacility = function(req, res)
             };
             data.push(dict);
             counter = counter + 1;
-            getUserDetails();
+            getPatientsDetails();
         }else{
           res.json({
              status: 1,
