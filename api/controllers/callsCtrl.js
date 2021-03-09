@@ -508,14 +508,16 @@ exports.getCallsForFacility = function(req, res)
         }
         else
         {
+          console.log(data)
           calls.find({'patientId': {$all : data} }, function(err, doc){
+            console.log(doc)
             res.json({
                status: 1,
                data: doc,
                error:null
             });
           });
-          //dekhio resart krk 
+          //dekhio resart krk ae purana error hai hun da nahi
         }
       };
       getPatientsDetails();
