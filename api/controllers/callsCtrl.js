@@ -481,7 +481,8 @@ exports.getCallsForFacility = function(req, res)
 {
   patient.find({userId: req.body.patientId}, function(err, pat)
   {
-    if(pat == null)
+    console.log(pat);
+    if(pat.length == 0)
     {
       res.send({
         status: 0,
@@ -502,22 +503,23 @@ exports.getCallsForFacility = function(req, res)
             dict = {
               id: pat[counter]._id
             };
-            data.push(pat[counter]._id);
+            data.push(pat[counter]._id);// mainu ikali id chaidia  array ch 
             counter = counter + 1;
             getPatientsDetails();
         }
         else
         {
-          console.log(data)
-          calls.find({'patientId': {$all : data} }, function(err, doc){
-            console.log(doc)
-            res.json({
-               status: 1,
-               data: doc,
-               error:null
-            });
+          res.json({
+             status: 1,
+             data: data,
+             error:"HERE IS ARRAY"
           });
-          //now
+
+          //console.log(data)
+          // calls.find({'patientId': {$all : data} }, function(err, doc){
+          //   console.log(doc)
+            
+          // });
         }
       };
       getPatientsDetails();
