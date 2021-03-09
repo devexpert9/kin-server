@@ -505,12 +505,17 @@ exports.getCallsForFacility = function(req, res)
             data.push(dict);
             counter = counter + 1;
             getPatientsDetails();
-        }else{
-          res.json({
-             status: 1,
-             data: data,
-             error:null
+        }
+        else
+        {
+          calls.find({'patientId': {$all : data} }, function(err, doc){
+            res.json({
+               status: 1,
+               data: doc,
+               error:null
+            });
           });
+          //dekhio resart krk 
         }
       };
       getPatientsDetails();
