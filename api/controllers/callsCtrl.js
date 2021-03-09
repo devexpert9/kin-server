@@ -502,7 +502,7 @@ exports.getCallsForFacility = function(req, res)
             dict = {
               id: pat[counter]._id
             };
-            data.push(dict);
+            data.push(pat[counter]._id);
             counter = counter + 1;
             getPatientsDetails();
         }
@@ -517,7 +517,7 @@ exports.getCallsForFacility = function(req, res)
                error:null
             });
           });
-          //dekhio resart krk ae purana error hai hun da nahi
+          //now
         }
       };
       getPatientsDetails();
