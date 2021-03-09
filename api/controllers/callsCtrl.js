@@ -430,11 +430,10 @@ exports.getCallsForContactRequests = function(req, res)
   })
 };
 
-exports.getCallsForFacility = function(req, res)
+/*exports.getCallsForFacility = function(req, res)
 {
-  /*calls.find({}, function(err, all_calls)
+  calls.find({}, function(err, all_calls)
   {
-    // console.log(all_calls); return false;
     var counter = 0,
         data = [],
         dict = {};
@@ -444,7 +443,77 @@ exports.getCallsForFacility = function(req, res)
       {
         patient.findOne({'_id': all_calls[counter].patientId}, function(err, patData)
         {
-          console.log()
+          contacts.findOne({'_id': all_calls[counter].contactId}, function(err, contData)
+          {
+            dict = {
+              id: all_calls[counter]._id,
+              contactId: all_calls[counter].contactId,
+              contactName: contData,
+              callDate: all_calls[counter].callDate,
+              callTime: all_calls[counter].callTime,
+              patientId: all_calls[counter].patientId,
+              patientData: patData,
+              call_status: all_calls[counter].status,
+              created_on: all_calls[counter].created_on
+            };
+            data.push(dict);
+              
+            counter = counter + 1;
+            getUserDetails();
+          });
+
+          
+        });
+        
+      }else{
+        res.json({
+           status: 1,
+           data: data,
+           error:null
+        });
+      }
+    };
+    getUserDetails();
+  });
+};*/
+
+exports.getCallsForFacility = function(req, res)
+{
+  patient.find({userId: req.body.userId}, function(err, user)
+  {
+    if(user == null)
+    {
+      var counter = 0;
+      function getPatients()
+      {
+        if(counter < user.length)
+        {
+          console.log(user[counter].patientId)''
+        }
+      }
+      getPatients();
+    }
+    else
+    {
+      res.json({
+         status: 1,
+         data: user,
+         error:'Patients fetched successfully'
+      });
+    }
+  });
+
+  /*calls.find({}, function(err, all_calls)
+  {
+    var counter = 0,
+        data = [],
+        dict = {};
+
+    function getUserDetails(){
+      if(counter < all_calls.length)
+      {
+        patient.findOne({'_id': all_calls[counter].patientId}, function(err, patData)
+        {
           contacts.findOne({'_id': all_calls[counter].contactId}, function(err, contData)
           {
             dict = {
@@ -477,69 +546,6 @@ exports.getCallsForFacility = function(req, res)
     };
     getUserDetails();
   });*/
-
-  calls.find({}, function(err, all_calls1)
-  {
-    var counter1 = 0,
-        data = [],
-        dict = {};
-
-    function getUserDetails(){
-      if(counter1 < all_calls1.length)
-      {
-        calls.find({patientId: all_calls1[counter1].patientId }, function(err, all_calls)
-        {
-          var counter = 0,
-              data    = [],
-              dict    = {};
-
-          function getUserDetails(){
-            if(counter < all_calls.length)
-            {
-              contacts.findOne({_id: all_calls[counter].contactId}, function(err, doc)
-              {
-                if(doc){
-                  dict = {
-                    id: all_calls[counter]._id,
-                    contactId: all_calls[counter].contactId,
-                    contactName: doc.name,
-                    contactEmail: doc.email,
-                    contactUserId: doc._id,
-                    isAppUser: doc.isAppUser,
-                    callDate: all_calls[counter].callDate,
-                    callTime: all_calls[counter].callTime,
-                    // userId: all_calls[counter].userId,
-                    patientId: all_calls[counter].patientId,
-                    call_status: all_calls[counter].status,
-                    created_on: all_calls[counter].created_on
-                  };
-                  data.push(dict);
-                }
-                
-                counter = counter + 1;
-                getUserDetails();
-              });
-            }else{
-              res.json({
-                 status: 1,
-                 data: data,
-                 error:null
-              });
-            }
-          };
-          getUserDetails();
-        });
-        
-      }else{
-        res.json({
-           status: 1,
-           data: data,
-           error:null
-        });
-      }
-    };
-    getUserDetails();
-  });
 };
 
 exports.getProfileCalls = function(req, res)
