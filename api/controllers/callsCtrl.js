@@ -488,7 +488,7 @@ exports.getCallsForFacility = function(req, res)
       {
         if(counter < user.length)
         {
-          console.log(user[counter].patientId)''
+          console.log(user[counter]._id+'----'+user[counter].email);
         }
       }
       getPatients();
