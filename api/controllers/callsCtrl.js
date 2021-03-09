@@ -432,7 +432,7 @@ exports.getCallsForContactRequests = function(req, res)
 
 exports.getCallsForFacility = function(req, res)
 {
-  calls.find({}, function(err, all_calls)
+  calls.find({'_id': req.body.patientId}, function(err, all_calls)
   {
     var counter = 0,
         data = [],
