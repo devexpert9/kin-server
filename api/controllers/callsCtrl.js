@@ -487,7 +487,7 @@ exports.getCallsForFacility = function(req, res)
     function getUserDetails(){
       if(counter1 < all_calls1.length)
       {
-        calls.find({patientId: all_calls1[counter].patientId }, function(err, all_calls)
+        calls.find({patientId: all_calls1[counter1].patientId }, function(err, all_calls)
         {
           var counter = 0,
               data    = [],
