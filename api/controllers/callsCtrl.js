@@ -481,7 +481,7 @@ exports.getCallsForFacility = function(req, res)
 {
   patient.find({userId: req.body.userId}, function(err, user)
   {
-    if(user == null)
+    if(user != null)
     {
       var counter = 0;
       function getPatients()
@@ -497,7 +497,7 @@ exports.getCallsForFacility = function(req, res)
     {
       res.json({
          status: 1,
-         data: user,
+         data: null,
          error:'Patients fetched successfully'
       });
     }
