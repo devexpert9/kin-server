@@ -434,6 +434,7 @@ exports.getCallsForFacility = function(req, res)
 {
   calls.find({'_id': req.body.patientId}, function(err, all_calls)
   {
+    console.log(all_calls); return false;
     var counter = 0,
         data = [],
         dict = {};
@@ -443,6 +444,7 @@ exports.getCallsForFacility = function(req, res)
       {
         patient.findOne({'_id': all_calls[counter].patientId}, function(err, patData)
         {
+          console.log()
           contacts.findOne({'_id': all_calls[counter].contactId}, function(err, contData)
           {
             dict = {
