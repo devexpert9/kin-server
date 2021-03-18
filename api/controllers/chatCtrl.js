@@ -132,27 +132,29 @@ exports.create_chat = function(req, res)
     });
 };
 
-exports.save_message = function(req, res){
+exports.save_message = function(req, res)
+{
   var new_user = new chats({
-        senderId: req.body.senderId,
-        receiverId: req.body.receiverId,
-        seen: 0,
-        receiverStatus: 0,
-        senderStatus: 0,
-        created_on: new Date(),
-        isMedia: req.body.isMedia,
-        media: req.body.media,
-        text: req.body.text,
-        chatId: req.body.chatId
-    });
+    senderId: req.body.senderId,
+    receiverId: req.body.receiverId,
+    seen: 0,
+    receiverStatus: 0,
+    senderStatus: 0,
+    created_on: new Date(),
+    isMedia: req.body.isMedia,
+    media: req.body.media,
+    text: req.body.text,
+    chatId: req.body.chatId
+  });
 
-    new_user.save(function(err, users) {
-        res.send({
-          data: users,
-          status: 1,
-          error: 'User registered successfully!'
-        });
+  new_user.save(function(err, users)
+  {
+    res.send({
+      data: users,
+      status: 1,
+      error: 'User registered successfully!'
     });
+  });
 };
 
 exports.list_messages = function(req, res)
