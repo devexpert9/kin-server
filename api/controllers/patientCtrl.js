@@ -228,7 +228,7 @@ exports.getPatientDataByContact = function(req, res)
 {
   contacts.findOne({_id:req.body.contactId}, function(err, patientget)
   {
-    console.log(patientget);
+    console.log(patientget.patientId);
   });
 };
 
