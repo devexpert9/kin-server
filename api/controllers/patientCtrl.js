@@ -224,6 +224,14 @@ exports.getPatientDetails = function(req, res)
   });
 };
 
+exports.getPatientDataByContact = function(req, res)
+{
+  contacts.findOne({_id:req.body.contactId}, function(err, patientget)
+  {
+    console.log(patientget);
+  });
+};
+
 exports.patient_all = function(req, res) 
 {
   patient.find({}, function(err, user)

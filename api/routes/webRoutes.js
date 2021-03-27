@@ -107,6 +107,10 @@ var adduser = require('../controllers/patientCtrl');
    app.route('/getPatientDetails')
      .post(adduser.getPatientDetails);
 
+var adduser = require('../controllers/patientCtrl');
+   app.route('/getPatientDataByContact')
+     .post(adduser.getPatientDataByContact);
+
 var patient = require('../controllers/patientCtrl');
    app.route('/patient_update')
      .post(patient.patient_update);
