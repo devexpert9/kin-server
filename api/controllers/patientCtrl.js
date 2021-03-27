@@ -228,7 +228,23 @@ exports.getPatientDataByContact = function(req, res)
 {
   contacts.findOne({_id:req.body.contactId}, function(err, patientget)
   {
-    console.log(patientget.patientId);
+    patient.findOne({_id:patientget.patientId}, function(err, patient)
+    {
+      if(patient == null)
+      {
+        res.send({
+          status: 0,
+          data: null,
+          error:'Invalid patient.'
+        });
+      }else{
+        res.json({
+           status: 1,
+           data: patient,
+           error:'Patient fetched successfully!'
+        });
+      }
+    });
   });
 };
 
