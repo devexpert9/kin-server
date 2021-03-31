@@ -414,6 +414,7 @@ exports.socialLogin = function(req, res)
 
 exports.update_user = function(req, res) 
 {
+  console.log("Address"+req.body.address);
   users.update({_id: req.body.orgId},{$set:{ 'firstname': req.body.firstname, 'lastname': req.body.lastname, 'email':req.body.email, 'image':req.body.image, 'password': req.body.password, 'address': req.body.address } }, {new: true}, function(err, user) {
     if(user == null){
       res.send({
