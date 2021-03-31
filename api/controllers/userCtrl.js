@@ -1033,7 +1033,7 @@ exports.deleteuser = function(req, res) {
 };
 
 exports.update_user = function(req, res) {
-  users.update({_id: req.body._id},{$set:{ 'firstname': req.body.firstname, 'lastname': req.body.lastname, 'email':req.body.email,'organization_name':req.body.organization_name, 'contact':req.body.contact, 'image':req.body.image, 'password': req.body.password, , 'address': req.body.address } }, {new: true}, function(err, user) {
+  users.update({_id: req.body._id},{$set:{ 'firstname': req.body.firstname, 'lastname': req.body.lastname, 'email':req.body.email,'organization_name':req.body.organization_name, 'contact':req.body.contact, 'image':req.body.image, 'password': req.body.password, 'address': req.body.address } }, {new: true}, function(err, user) {
     if(user == null){
       res.send({
         error: err,
